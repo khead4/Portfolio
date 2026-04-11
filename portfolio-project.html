@@ -1,3 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Making of the Portfolio · Head®</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050507;--bg1:#08080b;--bg2:#0d0d12;
+  --gold:#b8965a;--gold2:#d4b078;
+  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.56);--muted:rgba(240,236,228,.28);
+  --border:rgba(184,150,90,.10);--border2:rgba(184,150,90,.22);
+  --serif:'Playfair Display',serif;--sans:'Jost',sans-serif;
+  --sw:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.04;
+  mix-blend-mode:overlay;
+  pointer-events:none;
+  z-index:9998;
+}
+
+/* sidebar */
+.sidenav{
+  position:fixed;left:0;top:0;bottom:0;width:var(--sw);z-index:200;
+  display:flex;flex-direction:column;align-items:center;padding:32px 0;
+  background:rgba(5,5,7,.72);backdrop-filter:blur(24px);
+  border-right:1px solid var(--border)
+}
+.sn-logo{
+  font-family:var(--serif);font-size:11px;font-weight:400;letter-spacing:.12em;
+  color:var(--cream);writing-mode:vertical-rl;transform:rotate(180deg);
+  margin-bottom:auto
+}
+.sn-logo sup{font-size:7px;opacity:.4}
+.sn-links{display:flex;flex-direction:column;align-items:center;gap:4px;list-style:none;margin:auto 0}
+.sn-links li{position:relative}
+.sn-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:8px;color:var(--muted);font-size:14px;
+  transition:.25s ease;border:1px solid transparent;background:transparent;cursor:pointer;padding:0
+}
+.sn-btn:hover,.sn-btn.open{
+  background:rgba(184,150,90,.07);color:var(--gold);border-color:rgba(184,150,90,.15)
+}
+.sn-flyout{
+  position:absolute;left:calc(100% + 12px);top:50%;
+  transform:translateY(-50%) translateX(-6px);
+  background:rgba(5,5,7,.96);border:1px solid var(--border2);border-radius:6px;
+  padding:6px 0;min-width:170px;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;white-space:nowrap;z-index:300
+}
+.sn-flyout::before{
+  content:'';position:absolute;right:100%;top:50%;transform:translateY(-50%);
+  border:5px solid transparent;border-right-color:var(--border2)
+}
+.sn-btn.open + .sn-flyout{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+.sn-flyout-label{
+  display:block;font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;padding:4px 16px 6px
+}
+.sn-flyout a{
+  display:block;font-size:10px;font-weight:300;letter-spacing:.10em;text-transform:uppercase;
+  color:var(--dim);padding:6px 16px;transition:color .18s,background .18s
+}
+.sn-flyout a:hover{color:var(--cream);background:rgba(184,150,90,.07)}
+.sn-rule{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(184,150,90,.3),transparent);margin-top:auto}
+.sn-back{
+  display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--muted);
+  font-size:7px;letter-spacing:.18em;text-transform:uppercase;margin-top:16px;
+  transition:color .2s;padding:8px 0
+}
+.sn-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
+.sn-back:hover{color:var(--gold)}
+
+/* floating nav */
+.top-nav{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%);
+  z-index:100;background:rgba(8,8,11,.82);backdrop-filter:blur(24px);
+  border:1px solid rgba(184,150,90,.14);border-radius:40px;padding:0 6px;
+  display:flex;align-items:center;box-shadow:0 8px 32px rgba(0,0,0,.45);white-space:nowrap
+}
+.tn-steps{display:flex;align-items:center}
+.tn-btn{
+  padding:9px 18px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-family:var(--sans);font-weight:400;background:none;border:none;
+  cursor:pointer;border-radius:32px;transition:.2s ease;white-space:nowrap
+}
+.tn-btn:hover{color:var(--cream)}
+.tn-btn.active{color:rgba(5,5,7,.95);background:var(--gold);font-weight:500}
+.tn-arr{font-size:8px;color:rgba(184,150,90,.22);padding:0 1px}
+
+/* main */
+.main{margin-left:var(--sw);padding:0 64px 160px;max-width:1320px}
+
+/* hero */
+.pg-hero{
+  display:grid;grid-template-columns:1fr 420px;gap:42px;align-items:start;
+  padding:110px 0 80px;border-bottom:1px solid var(--border);
+  position:relative;overflow:visible
+}
+.pg-hero::before{
+  content:'';position:absolute;right:-60px;top:-60px;width:480px;height:480px;
+  background:radial-gradient(ellipse at 62% 38%,rgba(184,150,90,.07) 0%,transparent 62%);
+  pointer-events:none;z-index:0
+}
+.hero-text{position:relative;z-index:1}
+.pg-eyebrow{font-size:8px;letter-spacing:.30em;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:18px}
+.pg-h1{
+  font-family:var(--serif);font-size:clamp(42px,5vw,72px);line-height:1.02;font-weight:400;
+  margin-bottom:26px;max-width:900px
+}
+.pg-h1 em{font-style:italic;color:var(--gold2)}
+.pg-intro{font-size:13px;color:var(--dim);line-height:1.9;max-width:620px;margin-bottom:18px}
+
+.hero-board{
+  background:linear-gradient(180deg,var(--bg1),var(--bg));
+  border:1px solid var(--border2);min-height:360px;padding:20px;position:relative;overflow:hidden
+}
+.hero-board::before{
+  content:'';position:absolute;right:-30px;top:-30px;width:200px;height:200px;
+  background:radial-gradient(circle at center,rgba(184,150,90,.09),transparent 62%)
+}
+.hero-board-label{
+  font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
+  opacity:.62;margin-bottom:14px
+}
+.hero-board-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini-frame{
+  border:1px solid rgba(184,150,90,.16);background:rgba(255,255,255,.015);
+  min-height:145px;padding:14px
+}
+.mini-frame h4{
+  font-family:var(--serif);font-size:.98rem;font-weight:400;color:var(--cream);margin-bottom:8px
+}
+.mini-frame p{font-size:10.5px;line-height:1.72;color:var(--dim)}
+.line-stack{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.line{height:1px;background:rgba(184,150,90,.15);width:100%}
+.line.mid{width:78%}
+.line.short{width:60%}
+
+/* marquee */
+.marquee-band{
+  width:100%;overflow:hidden;padding:16px 0;border-top:1px solid rgba(184,150,90,.1);
+  border-bottom:1px solid rgba(184,150,90,.1);user-select:none
+}
+.marquee-inner{display:flex;animation:kh-marquee 40s linear infinite;white-space:nowrap}
+.marquee-item{
+  font-family:var(--serif);font-size:11px;font-style:italic;color:var(--gold);
+  opacity:.42;padding:0 0 0 52px;flex-shrink:0;letter-spacing:.06em
+}
+.marquee-item::before{content:'·';margin-right:20px;opacity:.45;font-style:normal}
+@keyframes kh-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* sections */
+.about-section{padding:96px 0;border-bottom:1px solid var(--border);position:relative}
+.about-section:last-child{border-bottom:none}
+.about-section::before{
+  content:'';position:absolute;top:0;left:0;width:40px;height:1px;
+  background:linear-gradient(90deg,var(--gold),transparent);opacity:.5
+}
+.fade-up{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+.sec-id{position:relative;padding-top:88px;margin-bottom:14px;display:block}
+.sec-num{
+  font-family:var(--serif);font-size:clamp(86px,11.5vw,140px);font-weight:400;color:var(--gold);
+  opacity:.09;line-height:.88;position:absolute;top:-10px;left:-22px;letter-spacing:-.03em;
+  pointer-events:none;user-select:none;z-index:0
+}
+.sec-eyebrow{
+  font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.6;
+  position:relative;z-index:1;display:block;margin-bottom:10px
+}
+.sec-title{
+  position:relative;z-index:1;font-family:var(--serif);font-size:clamp(24px,2.8vw,40px);
+  font-weight:400;line-height:1.1;color:var(--cream);margin-bottom:10px
+}
+.sec-title em{font-style:italic;color:var(--gold2)}
+.sec-sub{
+  position:relative;z-index:1;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:56px
+}
+.two-col{display:grid;grid-template-columns:320px 1fr;gap:84px;align-items:start}
+.two-col.wide{grid-template-columns:280px 1fr}
+.r-label{font-size:8px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:16px}
+.r-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.r-list li{font-size:12px;font-weight:300;color:var(--dim);line-height:1.75;padding-left:16px;position:relative}
+.r-list li::before{content:'—';position:absolute;left:0;color:var(--gold);opacity:.4;font-size:10px}
+.r-p{font-size:12.5px;font-weight:300;color:var(--dim);line-height:1.9;margin-bottom:20px}
+.r-pull{
+  padding:52px 0!important;margin:44px 0!important;background:transparent!important;position:relative
+}
+.r-pull::before,.r-pull::after{
+  content:'';position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,rgba(184,150,90,.5),rgba(184,150,90,.1) 55%,transparent)
+}
+.r-pull::before{top:0}.r-pull::after{bottom:0}
+.r-pull p{
+  font-family:var(--serif)!important;font-size:clamp(18px,2.3vw,28px)!important;font-weight:400!important;
+  font-style:italic!important;color:var(--cream)!important;line-height:1.62!important
+}
+
+/* cards / visual modules */
+.usecase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.usecase-card{background:var(--bg1);border:1px solid var(--border);padding:34px 30px;min-height:260px}
+.usecase-k{font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px}
+.usecase-card h4{font-family:var(--serif);font-size:1.08rem;font-weight:400;margin-bottom:12px;color:var(--cream);line-height:1.25}
+.usecase-card p{font-size:12px;line-height:1.82;color:var(--dim);margin-bottom:12px}
+
+.frame-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.page-frame{
+  border:1px solid var(--border);background:linear-gradient(180deg,var(--bg1),var(--bg));padding:14px;min-height:420px;
+  display:flex;flex-direction:column
+}
+.page-frame iframe{
+  width:100%;height:250px;border:1px solid rgba(184,150,90,.14);background:#fff
+}
+.page-frame h4{
+  font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--cream);margin:14px 0 8px
+}
+.page-frame p{font-size:11px;line-height:1.76;color:var(--dim)}
+.asset-note{margin-top:auto;padding-top:14px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.process-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.process-card{
+  border:1px solid var(--border);background:linear-gradient(180deg,var(--bg1),var(--bg));padding:16px;min-height:460px;
+  display:flex;flex-direction:column
+}
+.process-card img,.process-card iframe{
+  width:100%;height:280px;object-fit:contain;object-position:top center;
+  border:1px solid rgba(184,150,90,.14);background:rgba(255,255,255,.02)
+}
+.process-card h4{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--cream);margin:14px 0 8px}
+.process-card p{font-size:11px;line-height:1.76;color:var(--dim)}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.compare-panel{border:1px solid var(--border);background:linear-gradient(180deg,var(--bg1),var(--bg));padding:18px}
+.compare-label{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px}
+.compare-panel iframe,.compare-panel img{
+  width:100%;height:320px;object-fit:contain;object-position:top center;
+  border:1px solid rgba(184,150,90,.14);background:rgba(255,255,255,.02)
+}
+.compare-copy{margin-top:14px;font-size:11px;line-height:1.8;color:var(--dim)}
+
+.decision-map{display:flex;flex-direction:column;gap:10px}
+.decision-row{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);background:var(--bg1)}
+.decision-cell{padding:26px}
+.decision-cell + .decision-cell{border-left:1px solid var(--border)}
+.decision-head{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:8px}
+.decision-body{font-size:12px;line-height:1.82;color:var(--dim)}
+
+.wp-link{
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);opacity:.76;
+  display:inline-flex;align-items:center;gap:8px;margin-top:4px;transition:opacity .2s,gap .2s
+}
+.wp-link:hover{opacity:1;gap:14px}
+
+/* footer */
+footer{
+  margin-left:var(--sw);border-top:1px solid var(--border);padding:32px 64px;
+  display:flex;justify-content:space-between;align-items:center
+}
+.ft-logo{font-family:var(--serif);font-size:13px;letter-spacing:.1em}
+.ft-copy{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+.g-cursor{
+  position:fixed;width:11px;height:11px;border:1px solid rgba(184,150,90,.8);
+  border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
+  transition:transform .14s ease,opacity .18s;opacity:0
+}
+.g-cursor.visible{opacity:1}
+.g-cursor.clicking{transform:translate(-50%,-50%) scale(.5);border-color:var(--gold2)}
+@media (min-width:900px){body{cursor:none}}
+
+@media(max-width:1100px){
+  .pg-hero,.two-col,.two-col.wide,.compare-grid{grid-template-columns:1fr}
+  .hero-board-grid,.usecase-grid,.frame-grid,.process-grid{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .main{padding:0 32px 100px}
+  .sec-num{font-size:clamp(64px,9vw,90px)}
+  .decision-row{grid-template-columns:1fr}
+  .decision-cell + .decision-cell{border-left:none;border-top:1px solid var(--border)}
+}
+@media(max-width:600px){
+  :root{--sw:0px}
+  .sidenav{display:none}
+  .main{padding:0 20px 80px}
+  .top-nav{top:12px}
+  footer{margin-left:0;padding:26px 20px;flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+<body>
+
 <nav class="sidenav">
   <a href="index.html" class="sn-logo">Head<sup>&#174;</sup></a>
   <ul class="sn-links">
@@ -53,13 +367,15 @@
   <div class="tn-steps">
     <button class="tn-btn active" data-target="overview">Overview</button>
     <span class="tn-arr">&#8594;</span>
-    <button class="tn-btn" data-target="intent">Intent</button>
+    <button class="tn-btn" data-target="problem">Problem</button>
     <span class="tn-arr">&#8594;</span>
-    <button class="tn-btn" data-target="model">Model</button>
+    <button class="tn-btn" data-target="usecases">Use Cases</button>
     <span class="tn-arr">&#8594;</span>
-    <button class="tn-btn" data-target="method">Method</button>
+    <button class="tn-btn" data-target="portfolio-pages">Pages</button>
     <span class="tn-arr">&#8594;</span>
-    <button class="tn-btn" data-target="translation">Translation</button>
+    <button class="tn-btn" data-target="process-evidence">Evidence</button>
+    <span class="tn-arr">&#8594;</span>
+    <button class="tn-btn" data-target="transformation">Transform</button>
     <span class="tn-arr">&#8594;</span>
     <button class="tn-btn" data-target="decisions">Decisions</button>
     <span class="tn-arr">&#8594;</span>
@@ -73,41 +389,43 @@
   <div class="pg-hero fade-up" id="overview">
     <div class="hero-text">
       <div class="pg-eyebrow">Case Study</div>
-      <h1 class="pg-h1">Building this portfolio as a<br><em>structured system</em></h1>
+      <h1 class="pg-h1">Making of the Portfolio<br><em>Building the System</em></h1>
 
       <p class="pg-intro">
-        This project was not designed to display work. It was designed to control interpretation.
+        This project documents how the portfolio was developed as a system rather than a collection of disconnected pages.
       </p>
 
-      <p class="pg-intro" style="margin-top:14px">
-        The challenge was to present research, product design, strategy, and writing in one portfolio without fragmenting them into unrelated categories or flattening them into a generic template.
+      <p class="pg-intro">
+        The goal was to create a structure that could hold research, product design, strategy, writing, and experiential work in one coherent framework while guiding how the work is understood.
       </p>
 
-      <p class="pg-intro" style="margin-top:14px;margin-bottom:32px">
-        The portfolio itself needed to demonstrate the kind of thinking it was describing: hierarchy, navigation, pacing, structure, and deliberate choices across a multi-page system.
+      <p class="pg-intro">
+        Instead of using invented visuals, this case study uses the actual portfolio pages and the actual process artifacts that informed the system.
       </p>
+    </div>
 
-      <div style="width:40px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:24px 0 18px"></div>
-
-      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:980px">
-        <div style="background:var(--bg1);border:1px solid var(--border);padding:18px 18px 16px;min-height:96px">
-          <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px">Project Type</div>
-          <div style="font-size:11px;line-height:1.7;color:var(--dim)">Portfolio system / case study / front-end build</div>
+    <div class="hero-board">
+      <div class="hero-board-label">What this page is showing</div>
+      <div class="hero-board-grid">
+        <div class="mini-frame">
+          <h4>Why the system was needed</h4>
+          <p>The portfolio had to explain how different types of work relate instead of leaving that burden to the viewer.</p>
+          <div class="line-stack"><div class="line"></div><div class="line mid"></div><div class="line short"></div></div>
         </div>
-
-        <div style="background:var(--bg1);border:1px solid var(--border);padding:18px 18px 16px;min-height:96px">
-          <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px">Primary Problem</div>
-          <div style="font-size:11px;line-height:1.7;color:var(--dim)">How to structure interpretation before a viewer reads deeply</div>
+        <div class="mini-frame">
+          <h4>How the pages were structured</h4>
+          <p>Each page has a role inside a larger system: orientation, depth, evidence, strategy, and translation.</p>
+          <div class="line-stack"><div class="line"></div><div class="line mid"></div><div class="line short"></div></div>
         </div>
-
-        <div style="background:var(--bg1);border:1px solid var(--border);padding:18px 18px 16px;min-height:96px">
-          <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px">System Scope</div>
-          <div style="font-size:11px;line-height:1.7;color:var(--dim)">Home, All Projects, About, Research, Strategy, Writing, Design, and case studies</div>
+        <div class="mini-frame">
+          <h4>What evidence supports it</h4>
+          <p>Research methods, affinity diagramming, ideation, micro-interactions, and heuristic analysis all feed into the portfolio logic.</p>
+          <div class="line-stack"><div class="line"></div><div class="line mid"></div><div class="line short"></div></div>
         </div>
-
-        <div style="background:var(--bg1);border:1px solid var(--border);padding:18px 18px 16px;min-height:96px">
-          <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px">Core Outcome</div>
-          <div style="font-size:11px;line-height:1.7;color:var(--dim)">A portfolio that behaves like a designed system, not a gallery</div>
+        <div class="mini-frame">
+          <h4>What the portfolio proves</h4>
+          <p>That structure, hierarchy, and interpretation can be deliberately designed across multiple disciplines.</p>
+          <div class="line-stack"><div class="line"></div><div class="line mid"></div><div class="line short"></div></div>
         </div>
       </div>
     </div>
@@ -117,225 +435,293 @@
     <div class="marquee-inner">
       <span class="marquee-item">Interpretation</span>
       <span class="marquee-item">Hierarchy</span>
-      <span class="marquee-item">Navigation</span>
-      <span class="marquee-item">Design Logic</span>
-      <span class="marquee-item">Pacing</span>
-      <span class="marquee-item">System Structure</span>
+      <span class="marquee-item">Research</span>
+      <span class="marquee-item">Writing</span>
+      <span class="marquee-item">Strategy</span>
+      <span class="marquee-item">Product Design</span>
       <span class="marquee-item">Interpretation</span>
       <span class="marquee-item">Hierarchy</span>
-      <span class="marquee-item">Navigation</span>
-      <span class="marquee-item">Design Logic</span>
-      <span class="marquee-item">Pacing</span>
-      <span class="marquee-item">System Structure</span>
+      <span class="marquee-item">Research</span>
+      <span class="marquee-item">Writing</span>
+      <span class="marquee-item">Strategy</span>
+      <span class="marquee-item">Product Design</span>
     </div>
   </div>
 
-  <!-- INTENT -->
-  <div class="about-section fade-up" id="intent">
+  <!-- PROBLEM -->
+  <div class="about-section fade-up" id="problem">
     <div class="sec-id">
       <span class="sec-num">01</span>
-      <span class="sec-eyebrow">Intent</span>
+      <span class="sec-eyebrow">Problem</span>
     </div>
-    <div class="sec-title">The portfolio exists to guide <em>understanding</em></div>
-    <div class="sec-sub">Interpretation · positioning · coherence</div>
+    <div class="sec-title">Why this portfolio needed a <em>system</em></div>
+    <div class="sec-sub">Interpretation · coherence · hierarchy</div>
 
     <div class="two-col wide">
       <div>
-        <div class="r-label">What this system needed to do</div>
+        <div class="r-label">Core challenge</div>
         <ul class="r-list">
-          <li>Establish a clear identity immediately</li>
-          <li>Unify design, research, strategy, and writing</li>
-          <li>Support both scanning and deep reading</li>
-          <li>Demonstrate systems thinking through the site itself</li>
+          <li>Research, design, writing, and strategy can look disconnected when shown side by side</li>
+          <li>Without hierarchy, breadth can be mistaken for inconsistency</li>
+          <li>Visual polish alone does not explain how the work fits together</li>
+          <li>The viewer should not have to build the interpretive model alone</li>
         </ul>
       </div>
 
       <div>
         <p class="r-p">
-          A conventional portfolio can show work, but it often fails to explain how that work belongs together. That was not enough here.
+          The portfolio needed to function as a navigable argument. It had to orient the viewer, separate disciplines clearly, and still show that they belong to one larger way of thinking.
         </p>
 
         <p class="r-p">
-          This site needed to perform three tasks at once: orient the viewer quickly, allow deeper reading when needed, and create a coherent identity across multiple disciplines.
+          That meant building a page system where each section had a role and where the portfolio itself became evidence of how structure affects understanding.
         </p>
 
         <div class="r-pull">
-          <p>
-            The portfolio is designed as evidence of how I structure complex systems.
-          </p>
+          <p>The portfolio was designed to explain the work, not just display it.</p>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <p class="r-p">
-          That meant the structure had to do more than organize pages. It had to shape interpretation before the viewer even chose where to click.
+  <!-- USE CASES -->
+  <div class="about-section fade-up" id="usecases">
+    <div class="sec-id">
+      <span class="sec-num">02</span>
+      <span class="sec-eyebrow">Use Cases</span>
+    </div>
+    <div class="sec-title">Who this portfolio is built <em>for</em></div>
+    <div class="sec-sub">Different readers require different access points</div>
+
+    <div class="usecase-grid">
+      <div class="usecase-card">
+        <div class="usecase-k">Use Case 01</div>
+        <h4>Recruiter</h4>
+        <p>Needs immediate clarity on role fit, level, and range without reading every page deeply.</p>
+        <p>Response: strong first-page orientation, visible page logic, and clear top-level distinctions.</p>
+      </div>
+
+      <div class="usecase-card">
+        <div class="usecase-k">Use Case 02</div>
+        <h4>Design or hiring lead</h4>
+        <p>Needs evidence of reasoning, decision-making, and whether the portfolio reflects actual systems thinking.</p>
+        <p>Response: case-study framing, real process artifacts, and structural continuity across pages.</p>
+      </div>
+
+      <div class="usecase-card">
+        <div class="usecase-k">Use Case 03</div>
+        <h4>Interdisciplinary reviewer</h4>
+        <p>Needs to understand how writing, research, strategy, and design belong together rather than appearing scattered.</p>
+        <p>Response: one shared shell, discipline-specific pages, and real evidence of translation from research to interface.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO PAGES -->
+  <div class="about-section fade-up" id="portfolio-pages">
+    <div class="sec-id">
+      <span class="sec-num">03</span>
+      <span class="sec-eyebrow">Portfolio Pages</span>
+    </div>
+    <div class="sec-title">Examples from the <em>portfolio</em></div>
+    <div class="sec-sub">Actual pages, not mockups</div>
+
+    <div class="frame-grid">
+      <div class="page-frame">
+        <iframe src="index.html" title="Home page preview"></iframe>
+        <h4>Home</h4>
+        <p>The home page orients the viewer immediately and establishes the portfolio as a system rather than a gallery.</p>
+        <div class="asset-note">actual file: index.html</div>
+      </div>
+
+      <div class="page-frame">
+        <iframe src="about.html" title="About page preview"></iframe>
+        <h4>About</h4>
+        <p>The about page connects background, disciplines, and methodology without breaking the visual system.</p>
+        <div class="asset-note">actual file: about.html</div>
+      </div>
+
+      <div class="page-frame">
+        <iframe src="research.html" title="Research page preview"></iframe>
+        <h4>Research</h4>
+        <p>The research page grounds the portfolio in evidence, method, and analytical structure.</p>
+        <div class="asset-note">actual file: research.html</div>
+      </div>
+
+      <div class="page-frame">
+        <iframe src="strategy.html" title="Strategy page preview"></iframe>
+        <h4>Strategy</h4>
+        <p>The strategy page shows prioritization, framing, and how decisions are organized into direction.</p>
+        <div class="asset-note">actual file: strategy.html</div>
+      </div>
+
+      <div class="page-frame">
+        <iframe src="writing.html" title="Writing page preview"></iframe>
+        <h4>Writing &amp; Voice</h4>
+        <p>The writing page shows language as a structural design tool rather than a decorative afterthought.</p>
+        <div class="asset-note">actual file: writing.html</div>
+      </div>
+
+      <div class="page-frame">
+        <iframe src="design.html" title="Design page preview"></iframe>
+        <h4>Product Design</h4>
+        <p>The design page presents interface reasoning, interaction choices, and visual hierarchy inside the same shell.</p>
+        <div class="asset-note">actual file: design.html</div>
+      </div>
+
+      <div class="page-frame">
+        <iframe src="botanic-elixir.html" title="Botanic Elixir page preview"></iframe>
+        <h4>Botanic Elixir</h4>
+        <p>This project extends the system into an experience-led environment, showing how digital and spatial logic connect.</p>
+        <div class="asset-note">actual file: botanic-elixir.html</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS EVIDENCE -->
+  <div class="about-section fade-up" id="process-evidence">
+    <div class="sec-id">
+      <span class="sec-num">04</span>
+      <span class="sec-eyebrow">Process Evidence</span>
+    </div>
+    <div class="sec-title">Actual artifacts that informed the <em>system</em></div>
+    <div class="sec-sub">Research · ideation · evaluation · translation</div>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <img src="Affinity Diagram.png" alt="Affinity Diagram">
+        <h4>Affinity Diagram</h4>
+        <p>This artifact shows how qualitative findings were grouped into patterns and insights. It supports the portfolio’s emphasis on structure and interpretation.</p>
+      </div>
+
+      <div class="process-card">
+        <img src="Crazy 8s- Apple Watch.png" alt="Crazy Eights">
+        <h4>Crazy 8s</h4>
+        <p>This ideation board shows rapid concept development and how problem framing begins to move toward interface direction.</p>
+      </div>
+
+      <div class="process-card">
+        <img src="Assignment 2- Micro Interactions-Button.jpg" alt="Micro Interactions assignment">
+        <h4>Micro-interactions</h4>
+        <p>This work shows attention to interaction timing, feedback, and interface behavior beyond static layout alone.</p>
+      </div>
+
+      <div class="process-card">
+        <img src="hueristics_image_5.png" alt="Heuristic analysis visual">
+        <h4>Heuristic Analysis Visual</h4>
+        <p>This visual demonstrates how interface critique was translated into clearer structure and more explicit recommendations.</p>
+      </div>
+
+      <div class="process-card">
+        <img src="page5-flexibility-minimal.png" alt="Heuristic page 5 visual">
+        <h4>Heuristic Recommendation Board</h4>
+        <p>This board shows before-and-after reasoning, hierarchy, and recommendation framing — all of which influenced the case-study logic of the portfolio.</p>
+      </div>
+
+      <div class="process-card">
+        <iframe src="Connection%20to%20Projects.pdf" title="Connection to Projects PDF"></iframe>
+        <h4>Connection to Projects</h4>
+        <p>This document explicitly traces the relationship between research, interface structure, and the evolution toward larger experiential systems.</p>
+      </div>
+
+      <div class="process-card">
+        <iframe src="AffinityDiagrams-User%20Interview%20Data.pdf" title="Affinity diagram interview data PDF"></iframe>
+        <h4>Interview Data</h4>
+        <p>The interview data shows the raw material behind synthesis and helps demonstrate that the portfolio’s logic is grounded in actual process.</p>
+      </div>
+
+      <div class="process-card">
+        <iframe src="Website-Heuristic-Analysis.pdf" title="Website Heuristic Analysis PDF"></iframe>
+        <h4>Website Heuristic Analysis</h4>
+        <p>This analysis reflects how critique, grouping, and redesign logic influenced later page structure and project framing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSFORMATION -->
+  <div class="about-section fade-up" id="transformation">
+    <div class="sec-id">
+      <span class="sec-num">05</span>
+      <span class="sec-eyebrow">Transformation</span>
+    </div>
+    <div class="sec-title">What changed in the <em>portfolio</em></div>
+    <div class="sec-sub">From content collection to structured system</div>
+
+    <div class="compare-grid">
+      <div class="compare-panel">
+        <div class="compare-label">Raw process / source material</div>
+        <img src="Affinity Diagram.png" alt="Affinity Diagram source material">
+        <p class="compare-copy">
+          The source material is rich, but by itself it does not yet explain how all the work belongs together inside a portfolio.
+        </p>
+      </div>
+
+      <div class="compare-panel">
+        <div class="compare-label">Structured portfolio outcome</div>
+        <iframe src="index.html" title="Structured portfolio home"></iframe>
+        <p class="compare-copy">
+          The portfolio translates that material into a legible system: first orientation, then categorized pages, then deeper case-study access.
         </p>
       </div>
     </div>
-  </div>
 
-  <!-- MODEL -->
-  <div class="about-section fade-up" id="model">
-    <div class="sec-id">
-      <span class="sec-num">02</span>
-      <span class="sec-eyebrow">System Model</span>
-    </div>
-    <div class="sec-title">The portfolio is structured as a <em>layered system</em></div>
-    <div class="sec-sub">Orientation · categorization · depth</div>
-
-    <div style="display:flex;flex-direction:column;gap:14px;max-width:860px">
-      <div style="border:1px solid var(--border);padding:28px 30px;background:var(--bg1);position:relative;min-height:120px">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);opacity:.42"></div>
-        <span style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.62;display:block;margin-bottom:10px">Layer 01</span>
-        <h4 style="font-family:var(--serif);font-size:1.12rem;font-weight:400;color:var(--cream);margin-bottom:10px">Orientation</h4>
-        <p style="font-size:12px;color:var(--dim);line-height:1.82;max-width:660px">Home establishes identity and reduces uncertainty immediately.</p>
-      </div>
-
-      <div style="border:1px solid var(--border);padding:28px 30px;background:var(--bg1);position:relative;min-height:120px">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);opacity:.42"></div>
-        <span style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.62;display:block;margin-bottom:10px">Layer 02</span>
-        <h4 style="font-family:var(--serif);font-size:1.12rem;font-weight:400;color:var(--cream);margin-bottom:10px">Categorization</h4>
-        <p style="font-size:12px;color:var(--dim);line-height:1.82;max-width:660px">Design, Research, Strategy, Writing &amp; Voice, and About separate the work into readable domains without turning them into unrelated silos.</p>
-      </div>
-
-      <div style="border:1px solid var(--border);padding:28px 30px;background:var(--bg1);position:relative;min-height:120px">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);opacity:.42"></div>
-        <span style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.62;display:block;margin-bottom:10px">Layer 03</span>
-        <h4 style="font-family:var(--serif);font-size:1.12rem;font-weight:400;color:var(--cream);margin-bottom:10px">Depth</h4>
-        <p style="font-size:12px;color:var(--dim);line-height:1.82;max-width:660px">Case studies explain system logic, method, and reasoning rather than stopping at outputs. This matches the page model already shown in the wireframe/prototype board. :contentReference[oaicite:1]{index=1}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- METHOD -->
-  <div class="about-section fade-up" id="method">
-    <div class="sec-id">
-      <span class="sec-num">03</span>
-      <span class="sec-eyebrow">Method</span>
-    </div>
-    <div class="sec-title">The system was developed through <em>structured iteration</em></div>
-    <div class="sec-sub">Analysis · mapping · translation</div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;min-height:190px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Step 01</div>
-        <h4 style="font-family:var(--serif);font-size:1.08rem;font-weight:400;margin-bottom:12px;color:var(--cream)">Identify the breakdown</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Traditional portfolios often rely on aesthetic polish or project dumping. That creates ambiguity when the work spans different kinds of thinking.</p>
-      </div>
-
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;min-height:190px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Step 02</div>
-        <h4 style="font-family:var(--serif);font-size:1.08rem;font-weight:400;margin-bottom:12px;color:var(--cream)">Define the model</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">A layered structure was established: orientation, categorization, and depth. This created a system model before layout decisions were made.</p>
-      </div>
-
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;min-height:190px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Step 03</div>
-        <h4 style="font-family:var(--serif);font-size:1.08rem;font-weight:400;margin-bottom:12px;color:var(--cream)">Map the model to pages</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Each section of the site was assigned a role rather than being treated as a standalone page: Home for orientation, discipline pages for categorization, case studies for depth.</p>
-      </div>
-
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;min-height:190px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Step 04</div>
-        <h4 style="font-family:var(--serif);font-size:1.08rem;font-weight:400;margin-bottom:12px;color:var(--cream)">Translate logic into interface</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Typography, spacing, numerals, navigation, and restrained color were used to convert abstract structure into a readable interface system.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- TRANSLATION -->
-  <div class="about-section fade-up" id="translation">
-    <div class="sec-id">
-      <span class="sec-num">04</span>
-      <span class="sec-eyebrow">Translation</span>
-    </div>
-    <div class="sec-title">Structure translated into <em>interface</em></div>
-    <div class="sec-sub">Navigation · shell · pacing</div>
-
-    <div style="background:linear-gradient(180deg,var(--bg1),var(--bg));border:1px solid var(--border2);min-height:340px;padding:26px;position:relative;overflow:hidden;margin-top:18px">
-      <div style="position:absolute;right:-40px;top:-20px;width:220px;height:220px;background:radial-gradient(circle at center, rgba(184,150,90,.10), transparent 62%);pointer-events:none"></div>
-
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px">
-        <div style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.62">Portfolio architecture</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span style="padding:6px 12px;border:1px solid rgba(184,150,90,.18);border-radius:999px;font-size:7px;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:#08080b;border-color:transparent;font-weight:500">Home</span>
-          <span style="padding:6px 12px;border:1px solid rgba(184,150,90,.18);border-radius:999px;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Projects</span>
-          <span style="padding:6px 12px;border:1px solid rgba(184,150,90,.18);border-radius:999px;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Research</span>
-          <span style="padding:6px 12px;border:1px solid rgba(184,150,90,.18);border-radius:999px;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Writing</span>
-          <span style="padding:6px 12px;border:1px solid rgba(184,150,90,.18);border-radius:999px;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Strategy</span>
-          <span style="padding:6px 12px;border:1px solid rgba(184,150,90,.18);border-radius:999px;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">About</span>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1.2fr .9fr;gap:12px">
-        <div style="border:1px solid rgba(184,150,90,.14);background:rgba(255,255,255,.015);min-height:230px;padding:18px">
-          <h4 style="font-family:var(--serif);font-weight:400;color:var(--cream);font-size:1rem;line-height:1.25;margin-bottom:10px">Shared shell</h4>
-          <p style="font-size:11px;line-height:1.82;color:var(--dim)">
-            Fixed side rail, flyout navigation, pill navigation, restrained palette, serif-led hierarchy, section numerals, and consistent spacing rhythm across pages.
-          </p>
-          <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-            <div style="height:1px;background:rgba(184,150,90,.14);width:100%"></div>
-            <div style="height:1px;background:rgba(184,150,90,.14);width:84%"></div>
-            <div style="height:1px;background:rgba(184,150,90,.14);width:72%"></div>
-          </div>
-        </div>
-
-        <div style="border:1px solid rgba(184,150,90,.14);background:rgba(255,255,255,.015);min-height:230px;padding:18px">
-          <h4 style="font-family:var(--serif);font-weight:400;color:var(--cream);font-size:1rem;line-height:1.25;margin-bottom:10px">Page-specific emphasis</h4>
-          <p style="font-size:11px;line-height:1.82;color:var(--dim)">
-            Each page changes in emphasis according to content type, but not in identity. The shell allows variation without visual drift.
-          </p>
-          <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
-            <div style="height:1px;background:rgba(184,150,90,.14);width:100%"></div>
-            <div style="height:1px;background:rgba(184,150,90,.14);width:72%"></div>
-          </div>
-        </div>
-      </div>
+    <div class="r-pull">
+      <p>The change was not just in visuals. It was in how the work was made legible.</p>
     </div>
   </div>
 
   <!-- DECISIONS -->
   <div class="about-section fade-up" id="decisions">
     <div class="sec-id">
-      <span class="sec-num">05</span>
-      <span class="sec-eyebrow">Design Decisions</span>
+      <span class="sec-num">06</span>
+      <span class="sec-eyebrow">Decision Mapping</span>
     </div>
-    <div class="sec-title">Design choices as <em>control mechanisms</em></div>
-    <div class="sec-sub">Reasoning for structure and style</div>
+    <div class="sec-title">Why these design decisions were <em>made</em></div>
+    <div class="sec-sub">Decision · intended effect</div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;transition:.25s ease;min-height:210px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Decision 01</div>
-        <h4 style="font-family:var(--serif);font-weight:400;font-size:1.08rem;margin-bottom:12px;color:var(--cream);line-height:1.25">Limit color to control attention</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Gold is used only for hierarchy, navigation, and cues. This keeps emphasis intentional and prevents the interface from competing with its own content.</p>
+    <div class="decision-map">
+      <div class="decision-row">
+        <div class="decision-cell">
+          <div class="decision-head">Decision</div>
+          <div class="decision-body">Use one shared black-and-gold shell across the portfolio</div>
+        </div>
+        <div class="decision-cell">
+          <div class="decision-head">Effect</div>
+          <div class="decision-body">Creates continuity so multiple disciplines feel related rather than scattered</div>
+        </div>
       </div>
 
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;transition:.25s ease;min-height:210px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Decision 02</div>
-        <h4 style="font-family:var(--serif);font-weight:400;font-size:1.08rem;margin-bottom:12px;color:var(--cream);line-height:1.25">Use typography to structure meaning</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Serif is used for conceptual weight. Sans-serif is used for clarity and interface readability. The distinction separates reflection from navigation.</p>
+      <div class="decision-row">
+        <div class="decision-cell">
+          <div class="decision-head">Decision</div>
+          <div class="decision-body">Separate research, writing, strategy, and product design into pages</div>
+        </div>
+        <div class="decision-cell">
+          <div class="decision-head">Effect</div>
+          <div class="decision-body">Improves legibility without flattening differences between kinds of work</div>
+        </div>
       </div>
 
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;transition:.25s ease;min-height:210px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Decision 03</div>
-        <h4 style="font-family:var(--serif);font-weight:400;font-size:1.08rem;margin-bottom:12px;color:var(--cream);line-height:1.25">Separate content without fragmenting it</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Each discipline has its own page, but all pages inherit the same shell. That preserves specificity while maintaining coherence.</p>
+      <div class="decision-row">
+        <div class="decision-cell">
+          <div class="decision-head">Decision</div>
+          <div class="decision-body">Use actual artifacts as evidence inside the portfolio project page</div>
+        </div>
+        <div class="decision-cell">
+          <div class="decision-head">Effect</div>
+          <div class="decision-body">Makes the case study provable instead of abstract or self-referential</div>
+        </div>
       </div>
 
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;transition:.25s ease;min-height:210px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Decision 04</div>
-        <h4 style="font-family:var(--serif);font-weight:400;font-size:1.08rem;margin-bottom:12px;color:var(--cream);line-height:1.25">Use spacing as hierarchy</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Large section intervals and restrained density slow the reading pace and reinforce that the site is meant to be interpreted, not skimmed like a feed.</p>
-      </div>
-
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;transition:.25s ease;min-height:210px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Decision 05</div>
-        <h4 style="font-family:var(--serif);font-weight:400;font-size:1.08rem;margin-bottom:12px;color:var(--cream);line-height:1.25">Turn numerals into structural anchors</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">Large section numerals are not decorative. They segment the reading experience and reinforce progression through the logic of the page.</p>
-      </div>
-
-      <div style="background:var(--bg1);border:1px solid var(--border);padding:34px 30px;transition:.25s ease;min-height:210px">
-        <div style="font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px">Decision 06</div>
-        <h4 style="font-family:var(--serif);font-weight:400;font-size:1.08rem;margin-bottom:12px;color:var(--cream);line-height:1.25">Keep the tone underrated</h4>
-        <p style="font-size:12px;line-height:1.82;color:var(--dim)">The site avoids loud interaction effects, bright saturation, and trend-driven styling. The aim is to signal judgment, not performance.</p>
+      <div class="decision-row">
+        <div class="decision-cell">
+          <div class="decision-head">Decision</div>
+          <div class="decision-body">Treat the portfolio as one project among the set</div>
+        </div>
+        <div class="decision-cell">
+          <div class="decision-head">Effect</div>
+          <div class="decision-body">Turns the medium itself into evidence of system-level thinking</div>
+        </div>
       </div>
     </div>
   </div>
@@ -343,37 +729,35 @@
   <!-- OUTCOME -->
   <div class="about-section fade-up" id="outcome">
     <div class="sec-id">
-      <span class="sec-num">06</span>
+      <span class="sec-num">07</span>
       <span class="sec-eyebrow">Outcome</span>
     </div>
-    <div class="sec-title">A portfolio that behaves like a <em>designed system</em></div>
-    <div class="sec-sub">What this project demonstrates</div>
+    <div class="sec-title">What this project <em>demonstrates</em></div>
+    <div class="sec-sub">Structure · translation · proof</div>
 
     <div class="two-col wide">
       <div>
-        <div class="r-label">What it demonstrates</div>
+        <div class="r-label">What the portfolio project demonstrates</div>
         <ul class="r-list">
           <li>Information architecture</li>
-          <li>Navigation design</li>
           <li>Content strategy</li>
-          <li>System logic</li>
-          <li>Front-end translation</li>
+          <li>Page system design</li>
+          <li>Research-to-interface translation</li>
+          <li>Cross-project coherence</li>
         </ul>
       </div>
 
       <div>
         <p class="r-p">
-          The result is not just a portfolio page. It is a system that guides interpretation, reduces ambiguity, and demonstrates how multiple kinds of work can be held together without becoming generic.
+          The result is a portfolio that does more than show work. It explains how the work belongs together, what role each page plays, and how process artifacts translate into interface systems and larger experiential ideas.
         </p>
 
         <p class="r-p">
-          It also makes the portfolio itself one of the strongest projects in the set, because the medium becomes evidence of the same design logic the site is describing.
+          That makes the portfolio itself one of the strongest projects in the set, because it demonstrates the same structural thinking it is describing.
         </p>
 
         <div class="r-pull">
-          <p>
-            The portfolio itself becomes the strongest project.
-          </p>
+          <p>The portfolio itself becomes evidence of the method.</p>
         </div>
 
         <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:14px">
@@ -398,9 +782,7 @@ const sections = document.querySelectorAll('.about-section, .pg-hero');
 navButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = document.getElementById(btn.dataset.target);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
@@ -409,9 +791,7 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
       const id = entry.target.id;
-      navButtons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.target === id);
-      });
+      navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.target === id));
     }
   });
 }, { threshold: 0.2 });
@@ -448,3 +828,6 @@ if (window.innerWidth > 900) {
   window.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
 }
 </script>
+
+</body>
+</html>
