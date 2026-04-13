@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Research · Head®</title>
+<title>Research - Head</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#000;--panel:#0d0d11;--cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.64);--muted:rgba(240,236,228,.36);--gold:#b8965a;--border:rgba(240,236,228,.08);--border2:rgba(184,150,90,.24);--serif:'Playfair Display',serif;--sans:'Jost',sans-serif;--sw:64px}
-*{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{background:radial-gradient(circle at top right,rgba(184,150,90,.08),transparent 28%),linear-gradient(180deg,#020202 0%,#000 100%);color:var(--cream);font-family:var(--sans);font-weight:300;min-height:100vh;padding-left:var(--sw)}
 a{color:inherit}
 .sidenav{position:fixed;left:0;top:0;bottom:0;width:var(--sw);display:flex;flex-direction:column;align-items:center;padding:32px 0;background:rgba(5,5,7,.78);backdrop-filter:blur(20px);border-right:1px solid var(--border)}
-.sn-logo{font-family:var(--serif);font-size:11px;letter-spacing:.12em;text-decoration:none;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}.sn-logo sup{font-size:7px;opacity:.45}
+.sn-logo{font-family:var(--serif);font-size:11px;letter-spacing:.12em;text-decoration:none;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}
+.sn-logo sup{font-size:7px;opacity:.45}
 .sn-links{display:flex;flex-direction:column;gap:8px;list-style:none;margin:auto 0}
 .sn-links a{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;border:1px solid transparent;border-radius:8px;transition:.25s}
 .sn-links a:hover,.sn-links a.active{color:var(--gold);background:rgba(184,150,90,.08);border-color:rgba(184,150,90,.16)}
@@ -21,29 +23,36 @@ a{color:inherit}
 .page{max-width:1120px;margin:0 auto}
 .hero,.section,.band,.footer{padding-left:56px;padding-right:56px}
 .hero{min-height:72vh;display:flex;align-items:end;padding-top:88px;padding-bottom:72px;border-bottom:1px solid var(--border)}
-.hero-grid,.two-col,.cards{display:grid;gap:24px}.hero-grid{grid-template-columns:1.15fr .85fr;align-items:end}.two-col{grid-template-columns:1fr 1fr}.cards{grid-template-columns:repeat(3,1fr)}
+.hero-grid,.two-col,.cards{display:grid;gap:24px}
+.hero-grid{grid-template-columns:1.15fr .85fr;align-items:end}
+.two-col{grid-template-columns:1fr 1fr}
+.cards{grid-template-columns:repeat(3,1fr)}
 .eyebrow,.mini-label,.section-kicker{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);opacity:.8}
 .section-kicker,.eyebrow{margin-bottom:16px}
-.title{font-family:var(--serif);font-size:clamp(42px,7vw,90px);line-height:.92;font-weight:400;letter-spacing:-.03em}.title em,.section-title em{font-style:italic;color:var(--gold)}
+.title{font-family:var(--serif);font-size:clamp(42px,7vw,90px);line-height:.92;font-weight:400;letter-spacing:-.03em}
+.title em,.section-title em{font-style:italic;color:var(--gold)}
 .intro,.section-note,.card p,.mini p,.panel p,.band p{color:var(--dim);line-height:1.9}
 .intro{margin-top:22px;max-width:640px;font-size:16px}
 .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border:1px solid var(--border2);font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:.25s}
-.btn.primary{background:rgba(184,150,90,.12);color:var(--gold)} .btn:hover{transform:translateY(-1px);border-color:rgba(184,150,90,.42);color:var(--cream)}
-.panel,.card,.mini{background:var(--panel);border-1.px solid var(--border);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05)}
-.panel,.card,.mini{padding:24px}
+.btn.primary{background:rgba(184,150,90,.12);color:var(--gold)}
+.btn:hover{transform:translateY(-1px);border-color:rgba(184,150,90,.42);color:var(--cream)}
+.panel,.card,.mini{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05);padding:24px}
 .panel-quote,.section-title,.card h3,.mini h4{font-family:var(--serif);font-weight:400}
 .panel-quote{font-size:24px;line-height:1.45;margin-bottom:12px}
-.panel p,.card p,.mini p font-size:14px}.card h3{font-size:24px;margin-bottom:12px}.mini h4{font-size:20px;margin:10px 0}
+.panel p,.card p,.mini p{font-size:14px}
+.card h3{font-size:24px;margin-bottom:12px}
+.mini h4{font-size:20px;margin:10px 0}
 .section{padding-top:80px;padding-bottom:80px;border-bottom:1px solid var(--border)}
 .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:32px}
 .section-title{font-family:var(--serif);font-size:clamp(28px,4vw,46px);font-weight:400;line-height:1.05}
 .section-note{max-width:500px;font-size:14px}
-.lis{display:grid;gap:12px}
+.list{display:grid;gap:12px}
 .list-item{padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.015)}
 .list-item strong{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:500}
 .list-item span{font-size:14px;color:var(--dim);line-height:1.8}
-.band{padding-top:64px;padding-bottom:84px;text-align:center}.band p{max-width:660px;margin:0 auto 24px;font-size:15px}
+.band{padding-top:64px;padding-bottom:84px;text-align:center}
+.band p{max-width:660px;margin:0 auto 24px;font-size:15px}
 .footer{padding-bottom:44px;display:flex;justify-content:space-between;gap:16px;align-items:center;color:var(--muted);font-size:12px}
 @media(max-width:960px){.hero-grid,.two-col,.cards{grid-template-columns:1fr}}
 @media(max-width:700px){:root{--sw:0px}body{padding-left:0}.sidenav{display:none}.hero,.section,.band,.footer{padding-left:24px;padding-right:24px}}
@@ -75,7 +84,7 @@ a{color:inherit}
       <aside class="panel">
         <div class="eyebrow">Research Position</div>
         <div class="panel-quote">Clarity starts before layout. It starts with what users are uncertain about.</div>
-        <p>The strongest insight is often not “users need more content.” It is “users need the system to explain itself differently.”</p>
+        <p>The strongest insight is often not "users need more content." It is "users need the system to explain itself differently."</p>
       </aside>
     </div>
   </section>
@@ -107,14 +116,14 @@ a{color:inherit}
     </div>
     <div class="list">
       <div class="list-item"><strong>Botanic Elixir</strong><span>Audience research and competitor analysis shaped the site into a discovery-and-planning tool rather than a conventional promotional page.</span></div>
-      <div class="list-item"><strong>Writing & Voice</strong><span>Observed hesitation around unfamiliar concepts informed labels like “How It Works,” experience descriptions, and serum explanations.</span></div>
+      <div class="list-item"><strong>Writing &amp; Voice</strong><span>Observed hesitation around unfamiliar concepts informed labels like "How It Works," experience descriptions, and serum explanations.</span></div>
       <div class="list-item"><strong>Strategy</strong><span>Findings translated into goals, keywords, and page priorities that reflect actual user behavior rather than assumption.</span></div>
     </div>
   </section>
   <section class="band">
     <p>Research is strongest when it changes what gets built. The related pages show how those insights move into structure, language, and visual systems.</p>
     <div class="actions" style="justify-content:center">
-      <a class="btn primary" href="writing.html">Writing & Voice</a>
+      <a class="btn primary" href="writing.html">Writing &amp; Voice</a>
       <a class="btn" href="design.html">Product Design</a>
       <a class="btn" href="All_Projects.html">All Projects</a>
     </div>
