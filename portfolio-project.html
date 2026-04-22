@@ -9,8 +9,8 @@
 :root{
   --bg:#000000;--bg1:#000000;--bg2:#0d0d12;
   --gold:#b8965a;--gold2:#d4b078;
-  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.56);--muted:rgba(240,236,228,.26);
-  --border:rgba(184,150,90,.10);--border2:rgba(184,150,90,.18);
+  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.56);--muted:rgba(240,236,228,.28);
+  --border:rgba(184,150,90,.10);--border2:rgba(184,150,90,.22);
   --serif:'Playfair Display',serif;--sans:'Jost',sans-serif;
   --sw:64px;
 }
@@ -308,13 +308,11 @@ footer{
   .top-nav{top:12px}
   footer{margin-left:0;padding:26px 20px;flex-direction:column;align-items:flex-start;gap:10px}
 }
-    .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
-    .cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(184,150,90,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+    .process-card iframe{height:220px;min-height:0;max-height:220px;width:100%}
   </style>
 </head>
 <body>
-<div class="cur" id="cur"></div>
-<div class="cur-r" id="curr"></div>
 
 <nav class="sidenav">
   <a href="index.html" class="sn-logo">Head<sup>&#174;</sup></a>
@@ -605,6 +603,11 @@ footer{
         <h4>Micro-interactions</h4>
         <p>This work shows attention to interaction timing, feedback, and interface behavior beyond static layout alone.</p>
       </div>
+      <div class="process-card">
+        <iframe src="https://embed.figma.com/design/9UUsi8iS6cYNqOyrnAlXN5/Micro-interactions--Project-2?node-id=0-1&embed-host=share" title="Micro-interactions Project 2" allowfullscreen></iframe>
+        <h4>Micro-interactions Project 2</h4>
+        <p>An extended exploration of interaction timing, feedback states, and micro-level interface behavior.</p>
+      </div>
 
       <div class="process-card">
         <img src="hueristics_image_5.png" alt="Heuristic analysis visual">
@@ -634,6 +637,22 @@ footer{
         <iframe src="Website-Heuristic-Analysis.pdf" title="Website Heuristic Analysis PDF"></iframe>
         <h4>Website Heuristic Analysis</h4>
         <p>This analysis reflects how critique, grouping, and redesign logic influenced later page structure and project framing.</p>
+      </div>
+
+      <div class="process-card">
+        <iframe src="https://embed.figma.com/design/srvM3lAMG8CoSYPAKtCRHZ/Portfolio-Style-Guide?node-id=0-1&embed-host=share" title="Portfolio Style Guide" allowfullscreen></iframe>
+        <h4>Portfolio Style Guide</h4>
+        <p>The visual system behind this portfolio — color tokens, typography scale, and spacing rules.</p>
+      </div>
+      <div class="process-card">
+        <iframe src="https://embed.figma.com/design/BOgIDQG0Z5LB1XizO8aFe9/Portfolio-Mockup?node-id=0-1&embed-host=share" title="Portfolio Mockup" allowfullscreen></iframe>
+        <h4>Portfolio Mockup</h4>
+        <p>High-fidelity mockup validating the visual system before implementation.</p>
+      </div>
+      <div class="process-card">
+        <iframe src="https://embed.figma.com/design/2f25x7QXmUtEf7TpXWusLv/Portfolio-Wireframe--Community-?node-id=0-1&embed-host=share" title="Portfolio Wireframe — Community" allowfullscreen></iframe>
+        <h4>Portfolio Wireframe — Community</h4>
+        <p>Community wireframe showing the structural foundation before visual design was applied.</p>
       </div>
     </div>
   </div>
@@ -779,6 +798,7 @@ footer{
 const navButtons = document.querySelectorAll('.tn-btn');
 const sections = document.querySelectorAll('.about-section, .pg-hero');
 
+// Click nav buttons to scroll
 navButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = document.getElementById(btn.dataset.target);
@@ -786,17 +806,29 @@ navButtons.forEach(btn => {
   });
 });
 
-const observer = new IntersectionObserver((entries) => {
+// Fade-in observer (only for animation, not nav tracking)
+const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      const id = entry.target.id;
-      navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.target === id));
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.05 });
+sections.forEach(section => fadeObserver.observe(section));
+
+// Scroll-based nav tracking — works regardless of section height
+function updateActiveNav() {
+  const scrollY = window.scrollY + 120; // offset for sticky nav
+  let current = '';
+  sections.forEach(section => {
+    if (section.id && section.offsetTop <= scrollY) {
+      current = section.id;
     }
   });
-}, { threshold: 0.2 });
-
-sections.forEach(section => observer.observe(section));
+  navButtons.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.target === current);
+  });
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
 
 const sideButtons = document.querySelectorAll('.sn-btn');
 sideButtons.forEach(btn => {
@@ -829,17 +861,5 @@ if (window.innerWidth > 900) {
 }
 </script>
 
-<script>
-var _c=document.getElementById('cur'),_cr=document.getElementById('curr');
-var _cx=0,_cy=0,_rx=0,_ry=0;
-window.addEventListener('mousemove',function(e){_cx=e.clientX;_cy=e.clientY;});
-(function _cl(){requestAnimationFrame(_cl);_rx+=(_cx-_rx)*.11;_ry+=(_cy-_ry)*.11;
-_c.style.left=_cx+'px';_c.style.top=_cy+'px';_cr.style.left=_rx+'px';_cr.style.top=_ry+'px';})();
-var _hh=document.querySelectorAll('a,button,.sn-btn,.card,.project,.signal-card,.list-item');
-for(var _i=0;_i<_hh.length;_i++){
-  _hh[_i].addEventListener('mouseenter',function(){_c.style.width='14px';_c.style.height='14px';_cr.style.width='48px';_cr.style.height='48px';});
-  _hh[_i].addEventListener('mouseleave',function(){_c.style.width='6px';_c.style.height='6px';_cr.style.width='28px';_cr.style.height='28px';});
-}
-</script>
 </body>
 </html>
