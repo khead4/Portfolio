@@ -1,136 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product Design · Head®</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#000;--panel:#0d0d11;--cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.64);--muted:rgba(240,236,228,.36);--gold:#b8965a;--border:rgba(240,236,228,.08);--border2:rgba(184,150,90,.24);--serif:'Playfair Display',serif;--sans:'Jost',sans-serif;--sw:64px}
-*{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth}
-body{background:radial-gradient(circle at top left,rgba(184,150,90,.08),transparent 26%),linear-gradient(180deg,#020202 0%,#000 100%);color:var(--cream);font-family:var(--sans);font-weight:300;min-height:100vh;padding-left:var(--sw)}
-a{color:inherit}
-.sidenav{position:fixed;left:0;top:0;bottom:0;width:var(--sw);display:flex;flex-direction:column;align-items:center;padding:32px 0;background:rgba(5,5,7,.78);backdrop-filter:blur(20px);border-right:1px solid var(--border)}
-.sn-logo{font-family:var(--serif);font-size:11px;letter-spacing:.12em;text-decoration:none;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}.sn-logo sup{font-size:7px;opacity:.45}
-.sn-links{display:flex;flex-direction:column;gap:8px;list-style:none;margin:auto 0}
-.sn-links a{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;border:1px solid transparent;border-radius:8px;transition:.25s}
-.sn-links a:hover,.sn-links a.active{color:var(--gold);background:rgba(184,150,90,.08);border-color:rgba(184,150,90,.16)}
-.sn-rule{width:1px;height:32px;margin-top:auto;background:linear-gradient(to bottom,transparent,rgba(184,150,90,.35),transparent)}
-.page{max-width:1120px;margin:0 auto}
-.hero,.section,.band,.footer{padding-left:56px;padding-right:56px}
-.hero{min-height:72vh;display:flex;align-items:end;padding-top:88px;padding-bottom:72px;border-bottom:1px solid var(--border)}
-.hero-grid,.two-col,.cards,.timeline{display:grid;gap:24px}.hero-grid{grid-template-columns:1.15fr .85fr;align-items:end}.two-col{grid-template-columns:1fr 1fr}.cards{grid-template-columns:repeat(4,1fr)}.timeline{grid-template-columns:repeat(4,1fr)}
-.eyebrow,.mini-label,.section-kicker{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);opacity:.8}.section-kicker,.eyebrow{margin-bottom:16px}
-.title{font-family:var(--serif);font-size:clamp(42px,7vw,90px);line-height:.92;font-weight:400;letter-spacing:-.03em}.title em,.section-title em{font-style:italic;color:var(--gold)}
-.intro,.section-note,.card p,.mini p,.panel p,.band p,.step p{color:var(--dim);line-height:1.9}.intro{margin-top:22px;max-width:640px;font-size:16px}
-.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border:1px solid var(--border2);font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:.25s}
-.btn.primary{background:rgba(184,150,90,.12);color:var(--gold)} .btn:hover{transform:translateY(-1px);border-color:rgba(184,150,90,.42);color:var(--cream)}
-.panel,.card,.mini,.step{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05)}
-.panel,.card,.mini,.step{padding:24px}
-.panel-quote,.section-title,.card h3,.mini h4{font-family:var(--serif);font-weight:400}
-.panel-quote{font-size:24px;line-height:1.45;margin-bottom:12px}
-.panel p,.card p,.mini p,.step p{font-size:14px}.card h3{font-size:24px;margin-bottom:12px}.mini h4{font-size:20px;margin:10px 0}
-.section{padding-top:80px;padding-bottom:80px;border-bottom:1px solid var(--border)}
-.section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:32px}
-.section-title{font-family:var(--serif);font-size:clamp(28px,4vw,46px);font-weight:400;line-height:1.05}
-.section-note{max-width:500px;font-size:14px}
-.step-num{font-family:var(--serif);font-size:34px;color:rgba(184,150,90,.24);line-height:1;margin-bottom:10px}
-.step h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;margin-bottom:8px}
-.band{padding-top:64px;padding-bottom:84px;text-align:center}.band p{max-width:660px;margin:0 auto 24px;font-size:15px}
-.footer{padding-bottom:44px;display:flex;justify-content:space-between;gap:16px;align-items:center;color:var(--muted);font-size:12px}
-@media(max-width:960px){.hero-grid,.two-col,.cards,.timeline{grid-template-columns:1fr}}
-@media(max-width:700px){:root{--sw:0px}body{padding-left:0}.sidenav{display:none}.hero,.section,.band,.footer{padding-left:24px;padding-right:24px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Design · Head®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000000;
+      --gold:#b8965a;--gold2:#d4b078;
+      --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);
+      --muted:rgba(240,236,228,.26);
+      --border:rgba(240,236,228,.07);--border2:rgba(184,150,90,.18);
+      --card:rgba(8,8,11,.68);--card2:rgba(8,8,11,.50);
+      --serif:'Playfair Display',Georgia,serif;
+      --sans:'Jost',sans-serif;
+      --sw:64px;--max:1240px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg);color:var(--cream);overflow-x:hidden;cursor:none;display:flex}
+
+    .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+    .cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(184,150,90,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+    body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
+
+        /* SIDE NAV */
+    .sidenav{position:fixed;left:0;top:0;bottom:0;width:var(--sw);z-index:200;display:flex;flex-direction:column;align-items:center;padding:32px 0;background:rgba(5,5,7,.72);backdrop-filter:blur(24px);border-right:1px solid var(--border)}
+    .sn-logo{font-family:var(--serif);font-size:11px;font-weight:400;letter-spacing:.12em;color:var(--cream);text-decoration:none;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}
+    .sn-logo sup{font-size:7px;opacity:.4}
+    .sn-links{display:flex;flex-direction:column;align-items:center;gap:4px;list-style:none;margin:auto 0}
+    .sn-links li{position:relative}
+    .sn-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--muted);font-size:14px;transition:all .3s;border:1px solid transparent;background:transparent;cursor:none;padding:0;font-family:inherit}
+    .sn-btn:hover,.sn-btn.open,.sn-btn.act{background:rgba(184,150,90,.07);color:var(--gold);border-color:rgba(184,150,90,.15)}
+    .sn-flyout{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(-6px);background:rgba(5,5,7,.96);border:1px solid var(--border2);border-radius:6px;padding:6px 0;min-width:160px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;z-index:300}
+    .sn-flyout::before{content:'';position:absolute;right:100%;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--border2)}
+    .sn-btn.open + .sn-flyout{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+    .sn-flyout-label{display:block;font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.5;padding:4px 16px 6px}
+    .sn-flyout a{display:block;font-family:var(--sans);font-size:10px;font-weight:300;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);padding:6px 16px;transition:color .18s,background .18s;text-decoration:none}
+    .sn-flyout a:hover{color:var(--cream);background:rgba(184,150,90,.07)}
+    .sn-rule{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(184,150,90,.3),transparent);margin-top:auto}
+
+    /* TOP PILL NAV */
+    .top-nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(8,8,11,.82);backdrop-filter:blur(24px);border:1px solid rgba(184,150,90,.14);border-radius:40px;padding:0 6px;display:flex;align-items:center;gap:0;box-shadow:0 8px 32px rgba(0,0,0,.45),0 0 0 1px rgba(184,150,90,.06);white-space:nowrap;margin-left:calc(var(--sw) / 2)}
+    .tn-btn{padding:9px 18px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:var(--sans);font-weight:400;background:none;border:none;cursor:none;border-radius:32px;transition:color .2s,background .2s,letter-spacing .2s,box-shadow .2s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;position:relative}
+    .tn-btn:hover{color:var(--gold);background:rgba(184,150,90,.08);letter-spacing:.18em;box-shadow:0 0 12px rgba(184,150,90,.08)}
+    .tn-btn.active{color:var(--bg);background:var(--gold);font-weight:500;letter-spacing:.14em;box-shadow:0 2px 16px rgba(184,150,90,.28)}
+    .tn-div{width:1px;height:12px;background:rgba(184,150,90,.18);margin:0 2px;flex-shrink:0}
+
+    /* LAYOUT */
+    .main{margin-left:var(--sw);flex:1;position:relative;z-index:2}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 56px}
+
+    /* HERO */
+    .hero{min-height:72vh;display:flex;align-items:flex-end;padding:112px 0 80px;border-bottom:1px solid var(--border)}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:end;width:100%}
+    .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.72;margin-bottom:22px;font-weight:300}
+    h1.hero-title{font-family:var(--serif);font-size:clamp(48px,7vw,86px);font-weight:400;line-height:.94;letter-spacing:-.02em;opacity:0;animation:fadeUp 1s .4s forwards}
+    h1.hero-title em{font-style:italic;color:var(--gold2)}
+    .hero-copy{margin-top:24px;max-width:620px;font-size:16px;color:var(--dim);line-height:1.9;font-weight:300;opacity:0;animation:fadeUp .8s .6s forwards}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;opacity:0;animation:fadeUp .8s .78s forwards}
+
+    /* SIGNAL CARD */
+    .signal-card{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border2);padding:28px;display:flex;flex-direction:column;gap:20px;opacity:0;animation:fadeUp .8s .95s forwards;transition:border-color .3s,box-shadow .3s}
+    .signal-card:hover{border-color:rgba(184,150,90,.35);box-shadow:0 24px 64px rgba(0,0,0,.4)}
+    .signal-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.72;font-weight:300}
+    .signal-quote{font-family:var(--serif);font-size:22px;line-height:1.4;transition:color .3s}
+    .signal-card:hover .signal-quote{color:var(--gold2)}
+    .signal-text{font-size:14px;color:var(--dim);line-height:1.85;font-weight:300;transition:color .3s}
+    .signal-card:hover .signal-text{color:var(--cream)}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border:1px solid var(--border2);font-size:11px;letter-spacing:.18em;text-transform:uppercase;transition:.2s;font-family:var(--sans);font-weight:300;text-decoration:none;cursor:none}
+    .btn.primary{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+    .btn.secondary{color:var(--gold)}
+    .btn:hover{transform:translateY(-1px)}
+
+    /* SECTIONS */
+    .section{padding:88px 0;border-bottom:1px solid var(--border)}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:44px}
+    .section-head h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.05;transition:color .3s,letter-spacing .3s}
+    .section-head h2:hover{color:var(--gold2);letter-spacing:.01em}
+    .section-kicker{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:12px}
+    .section-note{max-width:500px;color:var(--dim);font-size:14px;line-height:1.85;font-weight:300}
+
+    /* CARDS */
+    .cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+    .cards-2{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--border);padding:28px 30px;transition:border-color .3s,box-shadow .3s,transform .3s}
+    .card:hover{border-color:rgba(184,150,90,.28);box-shadow:0 20px 56px rgba(0,0,0,.4);transform:translateY(-3px)}
+    .card-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.75;margin-bottom:10px;font-weight:300}
+    .card h3{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:12px;transition:color .3s}
+    .card:hover h3{color:var(--gold2)}
+    .card p{font-size:14px;color:var(--dim);line-height:1.85;font-weight:300;margin-bottom:10px;transition:color .3s}
+    .card:hover p{color:var(--cream)}
+
+    /* PROCESS STEPS */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+    .step{background:var(--card);border:1px solid var(--border);padding:28px 24px;transition:border-color .3s,transform .3s}
+    .step:hover{border-color:rgba(184,150,90,.28);transform:translateY(-3px)}
+    .step-num{font-family:var(--serif);font-size:40px;color:rgba(184,150,90,.18);line-height:1;margin-bottom:12px;transition:color .3s}
+    .step:hover .step-num{color:rgba(184,150,90,.4)}
+    .step h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;margin-bottom:10px;transition:color .3s}
+    .step:hover h4{color:var(--gold2)}
+    .step p{font-size:13px;color:var(--dim);line-height:1.8;font-weight:300;transition:color .3s}
+    .step:hover p{color:var(--cream)}
+
+    /* BAND */
+    .band{padding:80px 0;text-align:center;border-bottom:1px solid var(--border)}
+    .band p{max-width:660px;margin:0 auto 28px;font-size:15px;color:var(--dim);line-height:1.9;font-weight:300}
+
+    /* FOOTER */
+    footer{padding:44px 0}
+    .foot{display:flex;justify-content:space-between;gap:24px;align-items:center;color:var(--muted);font-size:12px;font-weight:300}
+    .foot a{color:var(--muted);text-decoration:none;transition:color .2s}
+    .foot a:hover{color:var(--gold)}
+
+    /* REVEAL */
+    .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+    .rv.vis{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.2s}.d4{transition-delay:.27s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+    @media(max-width:1100px){
+      .hero-grid,.cards-2,.cards-4,.steps{grid-template-columns:1fr 1fr}
+      .wrap{padding:0 28px}
+    }
+    @media(max-width:680px){
+      :root{--sw:0px}
+      .sidenav{display:none}
+      .main{margin-left:0}
+      .wrap{padding:0 20px}
+      .cards-2,.cards-4,.steps,.hero-grid{grid-template-columns:1fr}
+      .top-nav{top:12px;margin-left:0}
+    }
+
+    .sn-resume{display:flex;align-items:center;justify-content:center;margin-top:16px;font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-family:var(--sans);font-weight:300;transition:color .25s,opacity .25s;writing-mode:vertical-rl;transform:rotate(180deg);opacity:.7}
+    .sn-resume:hover{color:var(--gold);opacity:1}
+  </style>
 </head>
 <body>
-<nav class="sidenav" aria-label="Section navigation">
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curr"></div>
+
+<nav class="sidenav">
   <a href="index.html" class="sn-logo">Head<sup>&#174;</sup></a>
   <ul class="sn-links">
-    <li><a href="index.html" aria-label="Home">&#9671;</a></li>
-    <li><a href="All_Projects.html" aria-label="All Projects">&#9670;</a></li>
-    <li><a href="design.html" class="active" aria-label="Design">&#11042;</a></li>
-    <li><a href="about.html" aria-label="About">&#9711;</a></li>
+    <li>
+      <button class="sn-btn" id="sn0">&#9671;</button>
+      <div class="sn-flyout">
+        <span class="sn-flyout-label">Portfolio</span>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#disciplines">Approach</a>
+        <a href="index.html#about">About</a>
+        <a href="All_Projects.html">All Projects</a>
+      </div>
+    </li>
+    <li>
+      <button class="sn-btn">&#9670;</button>
+      <div class="sn-flyout">
+        <span class="sn-flyout-label">Projects</span>
+        <a href="All_Projects.html">All Projects</a>
+        <a href="botanic-elixir.html">Botanic Elixir</a>
+        <a href="portfolio-project.html">Making of the Portfolio</a>
+        <a href="#">Virtual Gallery — In Construction</a>
+      </div>
+    </li>
+    <li>
+      <button class="sn-btn act">&#11042;</button>
+      <div class="sn-flyout">
+        <span class="sn-flyout-label">Disciplines</span>
+        <a href="research.html">Research</a>
+        <a href="writing.html">Writing &amp; Voice</a>
+        <a href="design.html">Product Design</a>
+        <a href="strategy.html">Strategy</a>
+      </div>
+    </li>
+    <li>
+      <button class="sn-btn">&#9711;</button>
+      <div class="sn-flyout">
+        <span class="sn-flyout-label">About</span>
+        <a href="about.html">About Kaitlyn</a>
+        <a href="resume.html">Résumé</a>
+        <a href="https://linkedin.com/in/kaitlyn-head" target="_blank">LinkedIn &#8599;</a>
+      </div>
+    </li>
   </ul>
   <div class="sn-rule"></div>
 </nav>
-<main class="page">
+
+<nav class="top-nav">
+  <a class="tn-btn active" href="#top" data-target="top">Overview</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#focus" data-target="focus">Focus</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#principles" data-target="principles">Principles</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#process" data-target="process">Process</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#connection" data-target="connection">Connection</a>
+</nav>
+
+<div class="main" id="top">
+
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow">Discipline · Product Design</div>
-        <h1 class="title">Designing systems that feel<br><em>clear and intentional</em></h1>
-        <p class="intro">The design work here is about hierarchy, pathways, atmosphere, and interaction. It turns research and strategy into forms people can actually move through, understand, and act on.</p>
-        <div class="actions">
-          <a class="btn primary" href="botanic-elixir.html">See Case Study</a>
-          <a class="btn" href="research.html">Research</a>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Discipline · Product Design</div>
+          <h1 class="hero-title">Designing systems that feel<br><em>clear and intentional</em></h1>
+          <p class="hero-copy">The design work here is about hierarchy, pathways, atmosphere, and interaction. It turns research and strategy into forms people can actually move through, understand, and act on.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="botanic-elixir.html">See Case Study</a>
+            <a class="btn secondary" href="research.html">Research</a>
+          </div>
+        </div>
+        <aside class="signal-card">
+          <div class="signal-label">Design Position</div>
+          <div class="signal-quote">A restrained interface can still feel rich when the structure is carrying meaning.</div>
+          <div class="signal-text">The aim is not maximal chrome. It is purposeful guidance: enough hierarchy, enough contrast, and enough atmosphere to make the product legible without flattening it.</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS -->
+  <section class="section" id="focus">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div>
+          <div class="section-kicker">Focus</div>
+          <h2>What this design work<br><em style="font-style:italic;color:var(--gold2)">optimizes for</em></h2>
+        </div>
+        <p class="section-note">The central question is how to make an unfamiliar or layered product understandable on first contact while preserving tone, identity, and depth.</p>
+      </div>
+      <div class="cards-4">
+        <article class="card rv d1">
+          <div class="card-label">Hierarchy</div>
+          <h3>Guide attention</h3>
+          <p>Not every element should compete equally. Structure decides what is seen first, what supports it, and what can recede.</p>
+        </article>
+        <article class="card rv d2">
+          <div class="card-label">Navigation</div>
+          <h3>Support paths</h3>
+          <p>Some visitors browse openly. Others arrive with a direct task. Design has to support both without creating friction.</p>
+        </article>
+        <article class="card rv d3">
+          <div class="card-label">Atmosphere</div>
+          <h3>Signal experience</h3>
+          <p>Color, image treatment, spacing, and motion communicate what a product feels like before a paragraph is read.</p>
+        </article>
+        <article class="card rv d4">
+          <div class="card-label">Clarity</div>
+          <h3>Lower hesitation</h3>
+          <p>Good product design reduces cognitive work at decision points and makes the next step visible without becoming mechanical.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="section" id="principles">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div>
+          <div class="section-kicker">Principles</div>
+          <h2>How design decisions<br><em style="font-style:italic;color:var(--gold2)">are made</em></h2>
+        </div>
+        <p class="section-note">Visual polish matters, but only when the underlying logic is already working. Design is judged by what it does for understanding, movement, and trust.</p>
+      </div>
+      <div class="cards-2">
+        <article class="card rv d1">
+          <h3>Interface should explain</h3>
+          <p>Navigation labels, grouping, and sequence all contribute to explanation. Design is not separate from content; it determines whether content becomes usable.</p>
+          <p>That is especially important in products that need interpretation before selection.</p>
+        </article>
+        <article class="card rv d2">
+          <h3>Atmosphere should support function</h3>
+          <p>The strongest aesthetic systems intensify understanding rather than hiding it. Visual restraint only works when readability and orientation are still protected.</p>
+          <p>Accessibility is part of the standard, not an afterthought.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div>
+          <div class="section-kicker">Process</div>
+          <h2>From structure to<br><em style="font-style:italic;color:var(--gold2)">visual system</em></h2>
+        </div>
+        <p class="section-note">The work moves from audience and task clarity into wireframes, interaction patterns, visual language, and refinement through implementation.</p>
+      </div>
+      <div class="steps">
+        <div class="step rv d1">
+          <div class="step-num">01</div>
+          <h4>Frame</h4>
+          <p>Define the decision points users must move through and what information each point needs.</p>
+        </div>
+        <div class="step rv d2">
+          <div class="step-num">02</div>
+          <h4>Organize</h4>
+          <p>Shape content into sections, paths, and layouts that support both scanning and deeper exploration.</p>
+        </div>
+        <div class="step rv d3">
+          <div class="step-num">03</div>
+          <h4>Signal</h4>
+          <p>Use color, spacing, and imagery selectively so mood and meaning become visible quickly.</p>
+        </div>
+        <div class="step rv d4">
+          <div class="step-num">04</div>
+          <h4>Refine</h4>
+          <p>Test legibility, continuity, responsiveness, and accessibility so the final layer strengthens the system.</p>
         </div>
       </div>
-      <aside class="panel">
-        <div class="eyebrow">Design Position</div>
-        <div class="panel-quote">A restrained interface can still feel rich when the structure is carrying meaning.</div>
-        <p>The aim is not maximal chrome. It is purposeful guidance: enough hierarchy, enough contrast, and enough atmosphere to make the product legible without flattening it.</p>
-      </aside>
     </div>
   </section>
-  <section class="section">
-    <div class="section-head">
-      <div><div class="section-kicker">Focus</div><h2 class="section-title">What this design work<br><em>optimizes for</em></h2></div>
-      <p class="section-note">The central question is how to make an unfamiliar or layered product understandable on first contact while preserving tone, identity, and depth.</p>
-    </div>
-    <div class="cards">
-      <article class="mini"><div class="mini-label">Hierarchy</div><h4>Guide attention</h4><p>Not every element should compete equally. Structure decides what is seen first, what supports it, and what can recede.</p></article>
-      <article class="mini"><div class="mini-label">Navigation</div><h4>Support paths</h4><p>Some visitors browse openly. Others arrive with a direct task. Design has to support both without creating friction.</p></article>
-      <article class="mini"><div class="mini-label">Atmosphere</div><h4>Signal experience</h4><p>Color, image treatment, spacing, and motion communicate what a product feels like before a paragraph is read.</p></article>
-      <article class="mini"><div class="mini-label">Clarity</div><h4>Lower hesitation</h4><p>Good product design reduces cognitive work at decision points and makes the next step visible without becoming mechanical.</p></article>
-    </div>
-  </section>
-  <section class="section">
-    <div class="section-head">
-      <div><div class="section-kicker">Principles</div><h2 class="section-title">How design decisions<br><em>are made</em></h2></div>
-      <p class="section-note">Visual polish matters, but only when the underlying logic is already working. Design is judged by what it does for understanding, movement, and trust.</p>
-    </div>
-    <div class="two-col">
-      <article class="card"><h3>Interface should explain</h3><p>Navigation labels, grouping, and sequence all contribute to explanation. Design is not separate from content; it determines whether content becomes usable.</p><p>That is especially important in products that need interpretation before selection.</p></article>
-      <article class="card"><h3>Atmosphere should support function</h3><p>The strongest aesthetic systems intensify understanding rather than hiding it. Visual restraint only works when readability and orientation are still protected.</p><p>Accessibility is part of the standard, not an afterthought.</p></article>
-    </div>
-  </section>
-  <section class="section">
-    <div class="section-head">
-      <div><div class="section-kicker">Process</div><h2 class="section-title">From structure to<br><em>visual system</em></h2></div>
-      <p class="section-note">The work moves from audience and task clarity into wireframes, interaction patterns, visual language, and refinement through implementation.</p>
-    </div>
-    <div class="timeline">
-      <div class="step"><div class="step-num">01</div><h4>Frame</h4><p>Define the decision points users must move through and what information each point needs.</p></div>
-      <div class="step"><div class="step-num">02</div><h4>Organize</h4><p>Shape content into sections, paths, and layouts that support both scanning and deeper exploration.</p></div>
-      <div class="step"><div class="step-num">03</div><h4>Signal</h4><p>Use color, spacing, and imagery selectively so mood and meaning become visible quickly.</p></div>
-      <div class="step"><div class="step-num">04</div><h4>Refine</h4><p>Test legibility, continuity, responsiveness, and accessibility so the final layer strengthens the system.</p></div>
+
+  <!-- CONNECTION -->
+  <section class="section" id="connection">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div>
+          <div class="section-kicker">Connection</div>
+          <h2>Where this work<br><em style="font-style:italic;color:var(--gold2)">connects outward</em></h2>
+        </div>
+        <p class="section-note">Design here is part of a larger chain. Research identifies the problem, writing gives the system language, and strategy defines what each page or flow is responsible for.</p>
+      </div>
+      <div class="cards-2">
+        <article class="card rv d1">
+          <h3>Botanic Elixir</h3>
+          <p>The strongest design example uses a receding interface, mood-coded color system, and experience-based pathways to make a novel concept feel understandable before arrival.</p>
+          <p>The visual language is doing structural work, not just decorative work.</p>
+        </article>
+        <article class="card rv d2">
+          <h3>Cross-disciplinary impact</h3>
+          <p>A filter is better when it reflects observed user intent. A label is better when the writing is specific. A layout is better when strategy defines the job of the page.</p>
+          <p>That is why these disciplines are linked rather than isolated.</p>
+        </article>
+      </div>
     </div>
   </section>
-  <section class="section">
-    <div class="section-head">
-      <div><div class="section-kicker">Connection</div><h2 class="section-title">Where this work<br><em>connects outward</em></h2></div>
-      <p class="section-note">Design here is part of a larger chain. Research identifies the problem, writing gives the system language, and strategy defines what each page or flow is responsible for.</p>
-    </div>
-    <div class="two-col">
-      <article class="card"><h3>Botanic Elixir</h3><p>The strongest design example uses a receding interface, mood-coded color system, and experience-based pathways to make a novel concept feel understandable before arrival.</p><p>The visual language is doing structural work, not just decorative work.</p></article>
-      <article class="card"><h3>Cross-disciplinary impact</h3><p>A filter is better when it reflects observed user intent. A label is better when the writing is specific. A layout is better when strategy defines the job of the page.</p><p>That is why these disciplines are linked rather than isolated.</p></article>
-    </div>
-  </section>
+
+  <!-- BAND -->
   <section class="band">
-    <p>Design in this portfolio is less about ornament and more about making complexity feel understandable, directional, and worth engaging with.</p>
-    <div class="actions" style="justify-content:center">
-      <a class="btn primary" href="research.html">Research</a>
-      <a class="btn" href="writing.html">Writing & Voice</a>
-      <a class="btn" href="All_Projects.html">All Projects</a>
+    <div class="wrap">
+      <p>Design in this portfolio is less about ornament and more about making complexity feel understandable, directional, and worth engaging with.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+        <a class="btn primary" href="research.html">Research</a>
+        <a class="btn secondary" href="writing.html">Writing &amp; Voice</a>
+        <a class="btn secondary" href="All_Projects.html">All Projects</a>
+      </div>
     </div>
   </section>
-  <footer class="footer">
-    <div>Head&#174; · Product Design</div>
-    <a href="All_Projects.html">Back to All Projects</a>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>Head&#174; · Product Design</div>
+        <a href="All_Projects.html">Back to All Projects</a>
+      </div>
+    </div>
   </footer>
-</main>
+
+</div><!-- .main -->
+
+<script>
+var cur = document.getElementById('cur'), curr = document.getElementById('curr');
+var cx = 0, cy = 0, rx = 0, ry = 0;
+window.addEventListener('mousemove', function(e){ cx = e.clientX; cy = e.clientY; });
+(function cl(){
+  requestAnimationFrame(cl);
+  rx += (cx - rx) * 0.11; ry += (cy - ry) * 0.11;
+  cur.style.left = cx+'px'; cur.style.top = cy+'px';
+  curr.style.left = rx+'px'; curr.style.top = ry+'px';
+})();
+var hEls = document.querySelectorAll('a, button, .sn-btn, .card, .step, .signal-card');
+for(var i=0;i<hEls.length;i++){
+  hEls[i].addEventListener('mouseenter',function(){ cur.style.width='14px'; cur.style.height='14px'; curr.style.width='48px'; curr.style.height='48px'; });
+  hEls[i].addEventListener('mouseleave',function(){ cur.style.width='6px'; cur.style.height='6px'; curr.style.width='28px'; curr.style.height='28px'; });
+}
+document.querySelectorAll('.sn-btn').forEach(function(b){
+  b.addEventListener('click', function(e){
+    e.stopPropagation();
+    var isOpen = this.classList.contains('open');
+    document.querySelectorAll('.sn-btn').forEach(function(x){ x.classList.remove('open'); });
+    if(!isOpen) this.classList.add('open');
+  });
+});
+document.addEventListener('click', function(){
+  document.querySelectorAll('.sn-btn').forEach(function(x){ x.classList.remove('open'); });
+});
+// Top nav scrollspy
+var tnBtns = document.querySelectorAll('.tn-btn[data-target]');
+var tnSecIds = ['top','focus','principles','process','connection'];
+window.addEventListener('scroll', function(){
+  var y = window.scrollY + 160;
+  var cur = 'top';
+  tnSecIds.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el && el.offsetTop <= y) cur = id;
+  });
+  tnBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.target === cur); });
+},{passive:true});
+
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); } });
+},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(function(el){ obs.observe(el); });
+</script>
 </body>
 </html>

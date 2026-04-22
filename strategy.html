@@ -1,336 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Strategy · Head®</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strategy · Head®</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000000;
+      --gold:#b8965a;--gold2:#d4b078;
+      --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);
+      --muted:rgba(240,236,228,.26);
+      --border:rgba(240,236,228,.07);--border2:rgba(184,150,90,.18);
+      --card:rgba(8,8,11,.68);--card2:rgba(8,8,11,.50);
+      --serif:'Playfair Display',Georgia,serif;
+      --sans:'Jost',sans-serif;
+      --sw:64px;--max:1240px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none;display:flex}
+    a{color:inherit;text-decoration:none}
 
-:root{
-  --bg:#050507;--bg1:#08080b;--bg2:#0d0d12;
-  --gold:#b8965a;--gold2:#d4b078;
-  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);--muted:rgba(240,236,228,.28);
-  --border:rgba(184,150,90,.1);--border2:rgba(184,150,90,.22);
-  --serif:'Playfair Display',serif;--sans:'Jost',sans-serif;
-  --sw:64px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
+    /* CURSOR */
+    .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+    .cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(184,150,90,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
 
-/* ── Sidebar ── */
-.sidenav{position:fixed;left:0;top:0;bottom:0;width:var(--sw);z-index:200;display:flex;flex-direction:column;align-items:center;padding:32px 0;background:rgba(5,5,7,.72);backdrop-filter:blur(24px);border-right:1px solid var(--border)}
-.sn-logo{font-family:var(--serif);font-size:11px;font-weight:400;letter-spacing:.12em;color:var(--cream);text-decoration:none;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}
-.sn-logo sup{font-size:7px;opacity:.4}
-.sn-links{display:flex;flex-direction:column;align-items:center;gap:4px;list-style:none;margin:auto 0}
-.sn-links li{position:relative}
-.sn-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--muted);font-size:14px;transition:all .3s;border:1px solid transparent;background:transparent;cursor:pointer;padding:0}
-.sn-btn:hover,.sn-btn.open{background:rgba(184,150,90,.07);color:var(--gold);border-color:rgba(184,150,90,.15)}
-.sn-flyout{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(-6px);background:rgba(5,5,7,.96);border:1px solid var(--border2);border-radius:6px;padding:6px 0;min-width:160px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;z-index:300}
-.sn-flyout::before{content:'';position:absolute;right:100%;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--border2)}
-.sn-btn.open + .sn-flyout{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0)}
-.sn-flyout-label{display:block;font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.5;padding:4px 16px 6px}
-.sn-flyout a{display:block;font-family:var(--sans);font-size:10px;font-weight:300;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);padding:6px 16px;transition:color .18s,background .18s}
-.sn-flyout a:hover{color:var(--cream);background:rgba(184,150,90,.07)}
-.sn-rule{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(184,150,90,.3),transparent);margin-top:auto}
-.sn-back{display:flex;flex-direction:column;align-items:center;gap:5px;text-decoration:none;color:var(--muted);font-size:7px;letter-spacing:.18em;text-transform:uppercase;font-family:var(--sans);margin-top:16px;transition:color .2s;padding:8px 0}
-.sn-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
-.sn-back:hover{color:var(--gold)}
+    body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03}
 
-/* ── Pipeline Nav ── */
-.wp-nav{position:sticky;top:0;z-index:100;background:rgba(5,5,7,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 64px;display:flex;align-items:center;gap:0}
-.wp-nav-label{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.5;margin-right:32px;white-space:nowrap;padding:20px 0}
-.wp-nav-steps{display:flex;align-items:center;gap:0}
-.wp-nav-btn{padding:20px 20px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-family:var(--sans);font-weight:400;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}
-.wp-nav-btn:hover{color:var(--dim)}
-.wp-nav-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
-.wp-nav-arr{font-size:10px;color:var(--border2);opacity:.6;padding:0 4px}
+        /* SIDE NAV */
+    .sidenav{position:fixed;left:0;top:0;bottom:0;width:var(--sw);z-index:200;display:flex;flex-direction:column;align-items:center;padding:32px 0;background:rgba(5,5,7,.72);backdrop-filter:blur(24px);border-right:1px solid var(--border)}
+    .sn-logo{font-family:var(--serif);font-size:11px;font-weight:400;letter-spacing:.12em;color:var(--cream);text-decoration:none;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}
+    .sn-logo sup{font-size:7px;opacity:.4}
+    .sn-links{display:flex;flex-direction:column;align-items:center;gap:4px;list-style:none;margin:auto 0}
+    .sn-links li{position:relative}
+    .sn-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--muted);font-size:14px;transition:all .3s;border:1px solid transparent;background:transparent;cursor:none;padding:0;font-family:inherit}
+    .sn-btn:hover,.sn-btn.open,.sn-btn.act{background:rgba(184,150,90,.07);color:var(--gold);border-color:rgba(184,150,90,.15)}
+    .sn-flyout{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(-6px);background:rgba(5,5,7,.96);border:1px solid var(--border2);border-radius:6px;padding:6px 0;min-width:160px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;z-index:300}
+    .sn-flyout::before{content:'';position:absolute;right:100%;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--border2)}
+    .sn-btn.open + .sn-flyout{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+    .sn-flyout-label{display:block;font-family:var(--sans);font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.5;padding:4px 16px 6px}
+    .sn-flyout a{display:block;font-family:var(--sans);font-size:10px;font-weight:300;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);padding:6px 16px;transition:color .18s,background .18s;text-decoration:none}
+    .sn-flyout a:hover{color:var(--cream);background:rgba(184,150,90,.07)}
+    .sn-rule{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(184,150,90,.3),transparent);margin-top:auto}
 
-/* ── Layout ── */
-.main{margin-left:var(--sw);padding:0 64px 120px;max-width:1200px}
+    /* TOP PILL NAV */
+    .top-nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(8,8,11,.82);backdrop-filter:blur(24px);border:1px solid rgba(184,150,90,.14);border-radius:40px;padding:0 6px;display:flex;align-items:center;gap:0;box-shadow:0 8px 32px rgba(0,0,0,.45),0 0 0 1px rgba(184,150,90,.06);white-space:nowrap;margin-left:calc(var(--sw) / 2)}
+    .tn-btn{padding:9px 18px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:var(--sans);font-weight:400;background:none;border:none;cursor:none;border-radius:32px;transition:color .2s,background .2s,letter-spacing .2s,box-shadow .2s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;position:relative}
+    .tn-btn:hover{color:var(--gold);background:rgba(184,150,90,.08);letter-spacing:.18em;box-shadow:0 0 12px rgba(184,150,90,.08)}
+    .tn-btn.active{color:var(--bg);background:var(--gold);font-weight:500;letter-spacing:.14em;box-shadow:0 2px 16px rgba(184,150,90,.28)}
+    .tn-div{width:1px;height:12px;background:rgba(184,150,90,.18);margin:0 2px;flex-shrink:0}
 
-/* ── Hero ── */
-.cs-hero{padding:100px 0 64px;border-bottom:1px solid var(--border);margin-bottom:80px}
-.hero-eyebrow{font-size:8px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:16px}
-.cs-hero h1{font-family:var(--serif);font-size:clamp(36px,4vw,64px);font-weight:400;line-height:1.08;margin-bottom:24px}
-.cs-hero h1 em{font-style:italic;color:var(--gold2)}
-.hero-body{font-size:13px;font-weight:300;color:var(--dim);line-height:1.8;max-width:560px}
+    /* LAYOUT */
+    .main{margin-left:var(--sw);flex:1;position:relative;z-index:2}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 56px}
 
-/* ── Sections ── */
-.section{padding:80px 0}
-.sec-label{font-size:8px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:12px}
-.sec-title{font-family:var(--serif);font-size:clamp(24px,2.8vw,40px);font-weight:400;line-height:1.15;margin-bottom:20px}
-.sec-title em{font-style:italic;color:var(--gold2)}
-.sec-body{font-size:12px;font-weight:300;color:var(--dim);line-height:1.85;max-width:600px;margin-bottom:48px}
+    /* HERO */
+    .hero{min-height:72vh;display:flex;align-items:flex-end;padding:112px 0 80px;border-bottom:1px solid var(--border)}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:end;width:100%}
+    .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);opacity:.72;margin-bottom:22px;font-weight:300}
+    h1.hero-title{font-family:var(--serif);font-size:clamp(48px,7vw,86px);font-weight:400;line-height:.94;letter-spacing:-.02em;opacity:0;animation:fadeUp 1s .4s forwards}
+    h1.hero-title em{font-style:italic;color:var(--gold2)}
+    .hero-copy{margin-top:24px;max-width:620px;font-size:16px;color:var(--dim);line-height:1.9;font-weight:300;opacity:0;animation:fadeUp .8s .6s forwards}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;opacity:0;animation:fadeUp .8s .78s forwards}
 
-/* ── Writing Projects (top section) ── */
-.wp-block{display:grid;grid-template-columns:220px 1fr;gap:48px;padding:56px 0;border-bottom:1px solid var(--border);align-items:start}
-.wp-num{font-family:var(--serif);font-size:48px;font-weight:400;color:var(--gold);opacity:.18;line-height:1;margin-bottom:12px}
-.wp-tag{font-size:8px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:8px}
-.wp-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;color:var(--cream);line-height:1.25;margin-bottom:4px}
-.wp-sub{font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-.wp-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
-.wp-badge{font-size:8px;font-weight:400;letter-spacing:.10em;text-transform:uppercase;padding:4px 10px;border-radius:2px;border:1px solid}
-.wp-b-ux{color:rgba(184,150,90,.9);border-color:rgba(184,150,90,.25);background:rgba(184,150,90,.05)}
-.wp-b-academic{color:rgba(140,160,200,.9);border-color:rgba(140,160,200,.25);background:rgba(140,160,200,.05)}
-.wp-b-req{color:rgba(140,180,140,.9);border-color:rgba(140,180,140,.25);background:rgba(140,180,140,.05)}
-.wp-b-desc{color:rgba(180,150,200,.9);border-color:rgba(180,150,200,.25);background:rgba(180,150,200,.05)}
-.wp-b-reflect{color:rgba(200,140,140,.9);border-color:rgba(200,140,140,.25);background:rgba(200,140,140,.05)}
-.wp-right{display:flex;flex-direction:column;gap:28px}
-.wp-detail-label{font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:8px}
-.wp-detail p{font-size:12px;font-weight:300;color:var(--dim);line-height:1.85;margin-bottom:16px}
-.wp-link{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);opacity:.7;display:inline-flex;align-items:center;gap:8px;margin-top:4px;transition:opacity .2s,gap .2s}
-.wp-link:hover{opacity:1;gap:14px}
+    /* SIGNAL CARD */
+    .signal-card{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border2);padding:28px;display:flex;flex-direction:column;gap:20px;opacity:0;animation:fadeUp .8s .95s forwards;transition:border-color .3s,box-shadow .3s}
+    .signal-card:hover{border-color:rgba(184,150,90,.35);box-shadow:0 24px 64px rgba(0,0,0,.4)}
+    .signal-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.72;font-weight:300}
+    .signal-quote{font-family:var(--serif);font-size:22px;line-height:1.4;transition:color .3s}
+    .signal-card:hover .signal-quote{color:var(--gold2)}
+    .signal-text{font-size:14px;color:var(--dim);line-height:1.85;font-weight:300;transition:color .3s}
+    .signal-card:hover .signal-text{color:var(--cream)}
+    .signal-list{display:grid;gap:10px}
+    .signal-item{padding-top:10px;border-top:1px solid var(--border);font-size:13px;color:var(--dim);font-weight:300;transition:color .25s,padding-left .25s,border-color .25s}
+    .signal-item:hover{color:var(--cream);padding-left:6px;border-top-color:rgba(184,150,90,.3)}
+    .signal-item strong{display:block;color:var(--cream);font-weight:400;margin-bottom:3px;transition:color .25s}
+    .signal-item:hover strong{color:var(--gold2)}
 
-/* ── UX Copy Display ── */
-.be-copy-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:24px}
-.be-copy-card{background:var(--bg1);border:1px solid var(--border);padding:24px 28px}
-.be-copy-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px}
-.be-copy-text{font-size:12px;font-weight:300;color:var(--dim);line-height:1.85;font-style:italic}
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border:1px solid var(--border2);font-size:11px;letter-spacing:.18em;text-transform:uppercase;transition:.2s;font-family:var(--sans);font-weight:300;text-decoration:none;cursor:none}
+    .btn.primary{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+    .btn.secondary{color:var(--gold)}
+    .btn:hover{transform:translateY(-1px)}
 
-/* ── Writing Types (methods) ── */
-.wt-block{display:grid;grid-template-columns:220px 1fr;gap:64px;padding:72px 0;border-bottom:1px solid var(--border);align-items:start}
-.wt-num{font-family:var(--serif);font-size:52px;font-weight:400;color:var(--gold);opacity:.15;line-height:1;margin-bottom:8px}
-.wt-name{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--cream);margin-bottom:14px;line-height:1.2}
-.wt-desc{font-size:11px;font-weight:300;color:var(--dim);line-height:1.85;margin-bottom:24px}
-.wt-links{display:flex;flex-direction:column;gap:8px}
-.wt-link{font-size:9px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);opacity:.7;transition:opacity .2s}
-.wt-link:hover{opacity:1}
-.wt-right{display:flex;flex-direction:column;gap:48px}
+    /* SECTIONS */
+    .section{padding:88px 0;border-bottom:1px solid var(--border)}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:44px}
+    .section-head h2{font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.05;transition:color .3s,letter-spacing .3s}
+    .section-head h2:hover{color:var(--gold2);letter-spacing:.01em}
+    .section-kicker{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:12px}
+    .section-note{max-width:500px;color:var(--dim);font-size:14px;line-height:1.85;font-weight:300}
 
-/* ── Pair: viewer + summary ── */
-.wp-pair{display:grid;grid-template-columns:420px 1fr;gap:40px;align-items:start;padding-bottom:48px;border-bottom:1px solid rgba(184,150,90,.07)}
-.wp-pair:last-child{padding-bottom:0;border-bottom:none}
-.wp-summary{display:flex;flex-direction:column;gap:16px;padding-top:8px}
-.wps-tag{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6}
-.wps-title{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--cream);line-height:1.3}
-.wp-summary>p{font-size:11px;font-weight:300;color:var(--dim);line-height:1.85;margin-bottom:8px}
-.wps-points{display:flex;flex-direction:column;gap:12px;border-left:1px solid var(--border2);padding-left:16px}
-.wps-point{display:flex;gap:10px;font-size:10px;font-weight:300;color:var(--dim);line-height:1.75}
-.wps-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.5;flex-shrink:0;margin-top:7px}
-.wps-connection{background:rgba(184,150,90,.04);border:1px solid rgba(184,150,90,.1);padding:16px 20px;margin-top:4px}
-.wps-connection-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:8px}
-.wps-connection p{font-size:10px;font-weight:300;color:var(--dim);line-height:1.75;margin:0}
+    /* CARDS */
+    .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .cards-2{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--border);padding:28px 30px;transition:border-color .3s,box-shadow .3s,transform .3s}
+    .card:hover{border-color:rgba(184,150,90,.28);box-shadow:0 20px 56px rgba(0,0,0,.4);transform:translateY(-3px)}
+    .card-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.75;margin-bottom:10px;font-weight:300}
+    .card h3{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:12px;transition:color .3s}
+    .card:hover h3{color:var(--gold2)}
+    .card p{font-size:14px;color:var(--dim);line-height:1.85;font-weight:300;margin-bottom:10px;transition:color .3s}
+    .card:hover p{color:var(--cream)}
 
-/* ── Viewer ── */
-.wv-block{display:flex;flex-direction:column;gap:0}
-.wp-doc-viewer{margin-top:32px;display:flex;flex-direction:column;gap:0}
-.wv-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:28px}
-.wv-open-btn{background:none;border:1px solid rgba(184,150,90,.25);color:var(--gold);font-size:7px;letter-spacing:.16em;text-transform:uppercase;padding:3px 9px;cursor:pointer;font-family:var(--sans);opacity:.6;transition:opacity .2s;white-space:nowrap;flex-shrink:0}
-.wv-open-btn:hover{opacity:1;border-color:rgba(184,150,90,.55)}
-.wv-doc{border:1px solid var(--border);height:440px;background:var(--bg1);overflow:hidden;display:flex;align-items:flex-start;justify-content:center}
-.wv-doc img{width:100%;height:100%;object-fit:contain;object-position:top center;display:block}
-.wv-controls{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
-.wv-btn{background:none;border:1px solid var(--border);color:var(--muted);font-size:8px;letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;cursor:pointer;font-family:var(--sans);transition:all .2s}
-.wv-btn:hover:not(:disabled){color:var(--gold);border-color:var(--border2)}
-.wv-btn:disabled{opacity:.2;cursor:default}
-.wv-counter{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.wv-dots{display:flex;gap:5px;justify-content:center;margin-top:8px}
-.wv-dot{width:4px;height:4px;border-radius:50%;background:var(--muted);cursor:pointer;transition:background .2s;border:none;padding:0}
-.wv-dot.active{background:var(--gold)}
+    /* LIST */
+    .list{display:grid;gap:2px}
+    .list-item{background:var(--card);border:1px solid var(--border);padding:20px 24px;transition:border-color .3s,padding-left .25s}
+    .list-item:hover{border-color:rgba(184,150,90,.28);padding-left:30px}
+    .list-item strong{display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px}
+    .list-item span{font-size:14px;color:var(--dim);line-height:1.8;font-weight:300;transition:color .25s}
+    .list-item:hover span{color:var(--cream)}
 
-/* ── Takeaways ── */
-.wtw-grid{display:flex;flex-direction:column;gap:0}
-.wtw-card{padding:48px 0;border-bottom:1px solid var(--border)}
-.wtw-num{font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.5;margin-bottom:14px}
-.wtw-title{font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--cream);line-height:1.35;margin-bottom:20px}
-.wtw-body{font-size:12px;font-weight:300;color:var(--dim);line-height:1.95;max-width:720px}
-.wtw-closing{padding:72px 0 0;display:flex;flex-direction:column;gap:32px;align-items:center}
-.wtw-rule{width:1px;height:64px;background:linear-gradient(to bottom,rgba(184,150,90,.35),transparent)}
-.wtw-quote{font-family:var(--serif);font-size:clamp(13px,1.4vw,17px);font-weight:400;font-style:italic;color:var(--dim);line-height:1.85;max-width:680px;text-align:center;margin:0;padding:0;border:none}
+    /* FRAMEWORK STEPS */
+    .fw-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:start;gap:0}
+    .fw-arrow{font-size:16px;color:rgba(184,150,90,.28);padding:0 12px;margin-top:20px;transition:color .3s}
+    .fw-step{padding:20px 16px;transition:transform .3s}
+    .fw-step:hover{transform:translateY(-5px)}
+    .fw-num{font-family:var(--serif);font-size:36px;color:rgba(184,150,90,.14);line-height:1;margin-bottom:10px;transition:color .3s}
+    .fw-step:hover .fw-num{color:rgba(184,150,90,.4)}
+    .fw-title{font-family:var(--serif);font-size:17px;font-weight:400;margin-bottom:4px;transition:color .3s}
+    .fw-step:hover .fw-title{color:var(--gold2)}
+    .fw-sub{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:10px;font-weight:300;transition:opacity .3s}
+    .fw-step:hover .fw-sub{opacity:1}
+    .fw-desc{font-size:12px;color:var(--dim);line-height:1.75;font-weight:300;transition:color .3s}
+    .fw-step:hover .fw-desc{color:var(--cream)}
 
-/* Footer */
-footer{margin-left:var(--sw);border-top:1px solid var(--border);padding:32px 64px;display:flex;justify-content:space-between;align-items:center}
-.ft-logo{font-family:var(--serif);font-size:13px;letter-spacing:.1em}
-.ft-copy{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    /* BAND */
+    .band{padding:80px 0;text-align:center;border-bottom:1px solid var(--border)}
+    .band p{max-width:660px;margin:0 auto 28px;font-size:15px;color:var(--dim);line-height:1.9;font-weight:300}
 
-@media(max-width:1000px){
-  .main{padding:0 32px 80px}
-  .wp-pair{grid-template-columns:1fr;gap:24px}
-  .wp-block,.wt-block{grid-template-columns:1fr;gap:32px}
-  .be-copy-grid{grid-template-columns:1fr}
-}
+    /* FOOTER */
+    footer{padding:44px 0}
+    .foot{display:flex;justify-content:space-between;gap:24px;align-items:center;color:var(--muted);font-size:12px;font-weight:300}
+    .foot a{color:var(--muted);text-decoration:none;transition:color .2s}
+    .foot a:hover{color:var(--gold)}
 
-/* ── Personas ── */
-.persona-intro{max-width:680px;margin-bottom:56px}
-.persona-intro p{font-size:12px;font-weight:300;color:var(--dim);line-height:1.85}
-.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:64px}
-.persona-card{background:var(--bg1);border:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-.persona-img-wrap{height:280px;overflow:hidden;background:var(--bg2)}
-.persona-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;filter:grayscale(20%)}
-.persona-body{padding:28px;display:flex;flex-direction:column;gap:0}
-.persona-name{font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--cream);margin-bottom:4px}
-.persona-role{font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.persona-experience{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:20px}
-.persona-experience span{color:var(--gold);opacity:.8}
-.persona-section-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:10px;margin-top:20px}
-.persona-list{list-style:none;display:flex;flex-direction:column;gap:8px;padding-left:0}
-.persona-list li{font-size:10px;font-weight:300;color:var(--dim);line-height:1.75;padding-left:14px;position:relative}
-.persona-list li::before{{content:'—';position:absolute;left:0;color:var(--gold);opacity:.4}}
-.persona-quote{font-family:var(--serif);font-size:11px;font-style:italic;color:var(--dim);line-height:1.75;border-left:2px solid rgba(184,150,90,.25);padding:12px 16px;margin:20px 0;background:rgba(184,150,90,.03)}
-.persona-connection{background:rgba(184,150,90,.04);border:1px solid rgba(184,150,90,.1);padding:14px 18px;margin-top:4px}
-.persona-connection-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:6px}
-.persona-connection p{font-size:10px;font-weight:300;color:var(--dim);line-height:1.75;margin:0}
-.persona-bridge{display:flex;flex-direction:column;align-items:center;gap:28px;padding-top:16px}
-.persona-bridge-rule{width:1px;height:48px;background:linear-gradient(to bottom,rgba(184,150,90,.35),transparent)}
-.persona-bridge p{font-family:var(--serif);font-size:clamp(12px,1.2vw,15px);font-style:italic;color:var(--dim);line-height:1.85;max-width:640px;text-align:center;margin:0}
-@media(max-width:900px){{.persona-grid{{grid-template-columns:1fr}}}}
+    /* REVEAL */
+    .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+    .rv.vis{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.2s}.d4{transition-delay:.27s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 
+    @media(max-width:1100px){
+      .hero-grid,.cards-2,.fw-grid{grid-template-columns:1fr}
+      .fw-arrow{display:none}
+      .wrap{padding:0 28px}
+    }
+    @media(max-width:680px){
+      :root{--sw:0px}
+      .sidenav{display:none}
+      .main{margin-left:0}
+      .wrap{padding:0 20px}
+      .cards-3{grid-template-columns:1fr}
+      .top-nav{top:12px;margin-left:0}
+    }
 
-
-.lc{display:flex;flex-direction:column;gap:9px;padding:20px 22px;border:1px solid rgba(184,150,90,.16);background:rgba(184,150,90,.025);text-decoration:none;transition:border-color .25s,background .25s,transform .2s}
-.lc:hover{border-color:rgba(184,150,90,.42);background:rgba(184,150,90,.07);transform:translateY(-2px)}
-.lc-type{font-size:7.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.6}
-.lc-title{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--cream);line-height:1.3}
-.lc-desc{font-size:10.5px;font-weight:300;color:var(--dim);line-height:1.68}
-.lc-btn{display:inline-flex;align-items:center;gap:5px;margin-top:4px;align-self:flex-start;font-size:7.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(5,5,7,.95);background:var(--gold);padding:6px 14px;transition:background .2s}
-.lc:hover .lc-btn{background:var(--gold2)}
-
-
-/* ── Floating pill nav ── */
-.top-nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(8,8,11,.82);backdrop-filter:blur(24px);border:1px solid rgba(184,150,90,.14);border-radius:40px;padding:0 6px;display:flex;align-items:center;box-shadow:0 8px 32px rgba(0,0,0,.45),0 0 0 1px rgba(184,150,90,.06);white-space:nowrap}
-.tn-steps{display:flex;align-items:center}
-.tn-btn{padding:9px 18px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:var(--sans);font-weight:400;background:none;border:none;cursor:pointer;border-radius:32px;transition:color .2s,background .2s;white-space:nowrap}
-.tn-btn:hover{color:var(--cream)}
-.tn-btn.active{color:rgba(5,5,7,.95);background:var(--gold);font-weight:500}
-.tn-arr{font-size:8px;color:rgba(184,150,90,.22);padding:0 1px;flex-shrink:0}
-
-/* ── Canvas ── */
-.main{margin-left:var(--sw);padding:0 64px 160px}
-
-/* ── Page hero ── */
-.pg-hero{padding:110px 0 80px;border-bottom:1px solid var(--border)}
-.pg-eyebrow{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:20px}
-.pg-h1{font-family:var(--serif);font-size:clamp(36px,4.2vw,64px);font-weight:400;line-height:1.06;margin-bottom:28px}
-.pg-h1 em{font-style:italic;color:var(--gold2)}
-.pg-intro{font-size:13px;font-weight:300;color:var(--dim);line-height:1.85;max-width:560px}
-
-/* ── Chapter ── */
-.chapter{padding:96px 0 0}
-.chapter + .chapter{border-top:1px solid var(--border)}
-
-/* ── Chapter header ── */
-.ch-id{display:flex;align-items:baseline;gap:0;margin-bottom:10px}
-.ch-num{font-family:var(--serif);font-size:11px;font-weight:400;color:var(--gold);opacity:.5;letter-spacing:.12em;margin-right:16px}
-.ch-eyebrow{font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);opacity:.5}
-.ch-title{font-family:var(--serif);font-size:clamp(26px,3vw,44px);font-weight:400;line-height:1.1;color:var(--cream);margin-bottom:6px}
-.ch-title em{font-style:italic;color:var(--gold2)}
-.ch-sub{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:32px}
-
-/* ── Meta row ── */
-.meta-row{display:flex;flex-direction:column;gap:16px;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:64px}
-.meta-badges{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
-.badge{font-size:7.5px;letter-spacing:.10em;text-transform:uppercase;padding:3px 10px;border-radius:2px;border:1px solid}
-.bd-strategy{color:rgba(184,150,90,.9);border-color:rgba(184,150,90,.22);background:rgba(184,150,90,.04)}
-.bd-research{color:rgba(160,200,180,.85);border-color:rgba(160,200,180,.2);background:rgba(160,200,180,.04)}
-.bd-ia{color:rgba(200,140,140,.85);border-color:rgba(200,140,140,.2);background:rgba(200,140,140,.04)}
-.bd-content{color:rgba(140,160,200,.85);border-color:rgba(140,160,200,.2);background:rgba(140,160,200,.04)}
-.bd-isr{color:rgba(140,200,200,.85);border-color:rgba(140,200,200,.2);background:rgba(140,200,200,.04)}
-
-/* ── Two-column grid: reasoning (sticky) + content ── */
-.proj-grid{display:grid;grid-template-columns:320px 1fr;gap:72px;align-items:start;padding-bottom:96px}
-.reasoning{position:sticky;top:80px;display:flex;flex-direction:column;gap:0}
-.r-block{padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid var(--border)}
-.r-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.r-label{font-size:8px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:12px}
-.r-problem{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--cream);line-height:1.55;margin-bottom:14px}
-.r-p{font-size:12px;font-weight:300;color:var(--dim);line-height:1.85;margin-bottom:10px}
-.r-p:last-child{margin-bottom:0}
-.r-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin:10px 0}
-.r-list li{font-size:12px;font-weight:300;color:var(--dim);line-height:1.75;padding-left:16px;position:relative}
-.r-list li::before{content:'—';position:absolute;left:0;color:var(--gold);opacity:.4;font-size:10px}
-.r-pull{border-left:2px solid rgba(184,150,90,.3);padding:12px 16px;margin:14px 0;background:rgba(184,150,90,.025)}
-.r-pull p{font-size:11.5px;font-weight:300;color:var(--dim);line-height:1.78;font-style:italic}
-.r-outcome{font-size:11px;font-weight:400;color:var(--cream);letter-spacing:.04em;line-height:1.6;margin-top:14px}
-
-/* ── Content column ── */
-.content-col{display:flex;flex-direction:column;gap:40px}
-
-/* ── Info cards grid ── */
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.info-card{background:var(--bg1);border:1px solid var(--border);padding:22px 24px;display:flex;flex-direction:column;gap:6px}
-.info-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.55}
-.info-value{font-size:11.5px;font-weight:300;color:var(--dim);line-height:1.75}
-.info-value strong{font-weight:400;color:var(--cream)}
-
-/* ── Keyword cloud ── */
-.keyword-cloud{display:flex;flex-wrap:wrap;gap:6px;padding:24px;border:1px solid var(--border);background:var(--bg1)}
-.kw{font-size:9px;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);padding:4px 10px;border:1px solid rgba(240,236,228,.07)}
-
-/* ── Audience cards ── */
-.audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.aud-card{background:var(--bg1);border:1px solid var(--border);padding:24px}
-.aud-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:8px}
-.aud-name{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--cream);margin-bottom:8px}
-.aud-desc{font-size:11px;font-weight:300;color:var(--dim);line-height:1.78;margin-bottom:12px}
-.aud-need{font-size:10px;font-weight:300;color:var(--dim);line-height:1.7;border-top:1px solid var(--border);padding-top:10px;font-style:italic}
-
-/* ── IA tree ── */
-.ia-tree{display:flex;flex-direction:column;gap:2px}
-.ia-row{display:grid;grid-template-columns:140px 1fr;gap:2px;align-items:stretch}
-.ia-hub{background:rgba(184,150,90,.06);border:1px solid rgba(184,150,90,.16);padding:14px 16px;font-size:10px;font-weight:400;color:var(--cream);letter-spacing:.08em;display:flex;align-items:center}
-.ia-children{display:flex;gap:2px;flex:1}
-.ia-child{background:var(--bg1);border:1px solid var(--border);padding:12px 14px;font-size:10px;font-weight:300;color:var(--dim);line-height:1.65;flex:1}
-
-/* ── ISR work items ── */
-.isr-grid{display:flex;flex-direction:column;gap:2px}
-.isr-item{background:var(--bg1);border:1px solid var(--border);padding:24px 28px;display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start}
-.isr-label{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:6px}
-.isr-title{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--cream);line-height:1.3;margin-bottom:4px}
-.isr-sub{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.isr-body{font-size:11.5px;font-weight:300;color:var(--dim);line-height:1.82}
-.isr-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
-.isr-tag{font-size:7.5px;letter-spacing:.10em;text-transform:uppercase;padding:3px 9px;border-radius:2px;border:1px solid rgba(140,200,200,.22);color:rgba(140,200,200,.8);background:rgba(140,200,200,.04)}
-
-/* ── link-cards row ── */
-.link-cards{display:flex;flex-wrap:wrap;gap:12px}
-
-/* ── caption ── */
-.caption{font-size:9px;font-weight:300;color:var(--muted);line-height:1.65;padding:8px 0 0}
-.caption a{color:var(--gold);opacity:.55;border-bottom:1px solid rgba(184,150,90,.18);transition:opacity .2s}
-.caption a:hover{opacity:1}
-
-/* ── sub-project ── */
-.sub{display:grid;grid-template-columns:260px 1fr;gap:56px;padding:72px 0;border-top:1px solid var(--border);align-items:start}
-.sub-n{font-family:var(--serif);font-size:32px;font-weight:400;color:var(--gold);opacity:.14;line-height:1;margin-bottom:10px}
-.sub-ey{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.5;margin-bottom:6px}
-.sub-title{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--cream);margin-bottom:3px}
-.sub-subtitle{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
-.sub-badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px}
-
-@media(max-width:1100px){.proj-grid{grid-template-columns:280px 1fr;gap:48px}.reasoning{position:static}}
-@media(max-width:960px){.proj-grid{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}.audience-grid{grid-template-columns:1fr}.ia-row{grid-template-columns:1fr}.isr-item{grid-template-columns:1fr}}
-@media(max-width:900px){.main{padding:0 32px 100px}.top-nav{top:14px}.sub{grid-template-columns:1fr;gap:28px}}
-@media(max-width:600px){:root{--sw:0px}.sidenav{display:none}.main{padding:0 20px 80px}.top-nav{top:12px;padding:0 4px}}
-</style>
+    .sn-resume{display:flex;align-items:center;justify-content:center;margin-top:16px;font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-family:var(--sans);font-weight:300;transition:color .25s,opacity .25s;writing-mode:vertical-rl;transform:rotate(180deg);opacity:.7}
+    .sn-resume:hover{color:var(--gold);opacity:1}
+  </style>
 </head>
 <body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curr"></div>
 
 <nav class="sidenav">
   <a href="index.html" class="sn-logo">Head<sup>&#174;</sup></a>
   <ul class="sn-links">
     <li>
-      <button class="sn-btn">&#9671;</button>
+      <button class="sn-btn" id="sn0">&#9671;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">Portfolio</span>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
-        <a href="index.html#approaches">Approaches</a>
+        <a href="index.html#disciplines">Approach</a>
         <a href="index.html#about">About</a>
+        <a href="All_Projects.html">All Projects</a>
       </div>
     </li>
-<li>
-  <button class="sn-btn">&#9670;</button>
-  <div class="sn-flyout">
-    <span class="sn-flyout-label">Projects</span>
-    <a href="All_Projects.html">All Projects</a>
-    <a href="botanic-elixir.html">Botanic Elixir</a>
-    <a href="portfolio-project.html">Making of the Portfolio</a>
-    <a href="#">Virtual Gallery — In Construction</a>
-  </div>
-</li>
     <li>
-      <button class="sn-btn">&#11042;</button>
+      <button class="sn-btn">&#9670;</button>
+      <div class="sn-flyout">
+        <span class="sn-flyout-label">Projects</span>
+        <a href="All_Projects.html">All Projects</a>
+        <a href="botanic-elixir.html">Botanic Elixir</a>
+        <a href="portfolio-project.html">Making of the Portfolio</a>
+        <a href="#">Virtual Gallery — In Construction</a>
+      </div>
+    </li>
+    <li>
+      <button class="sn-btn act">&#11042;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">Disciplines</span>
         <a href="research.html">Research</a>
@@ -344,432 +203,249 @@ footer{margin-left:var(--sw);border-top:1px solid var(--border);padding:32px 64p
       <div class="sn-flyout">
         <span class="sn-flyout-label">About</span>
         <a href="about.html">About Kaitlyn</a>
+        <a href="resume.html">Résumé</a>
         <a href="https://linkedin.com/in/kaitlyn-head" target="_blank">LinkedIn &#8599;</a>
       </div>
     </li>
   </ul>
   <div class="sn-rule"></div>
-  <a href="index.html" class="sn-back" onclick="if(history.length>1){event.preventDefault();history.back()}">
-    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Back
-  </a>
 </nav>
 
-<nav class="top-nav" id="topNav">
-  <div class="tn-steps">
-    <button class="tn-btn active" data-target="p01">Botanic Elixir</button>
-    <span class="tn-arr">&#8594;</span>
-    <button class="tn-btn" data-target="p02">Audience</button>
-    <span class="tn-arr">&#8594;</span>
-    <button class="tn-btn" data-target="p03">IA &amp; Flows</button>
-    <span class="tn-arr">&#8594;</span>
-    <button class="tn-btn" data-target="p04">ISR Division</button>
-  </div>
+<nav class="top-nav">
+  <a class="tn-btn active" href="#top" data-target="top">Overview</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#function" data-target="function">Function</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#process" data-target="process">Process</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#application" data-target="application">Application</a>
+  <div class="tn-div"></div>
+  <a class="tn-btn" href="#connection" data-target="connection">Connection</a>
 </nav>
 
-<div class="main">
+<div class="main" id="top">
 
-  <div class="pg-hero">
-    <div class="pg-eyebrow">Strategy</div>
-    <h1 class="pg-h1">Goals, positioning,<br><em>and evidence-based decisions</em></h1>
-    <p class="pg-intro">Strategy is the work that happens before design — defining what a product is for, who it is for, and what the structure needs to communicate before anything is built. The work here begins with a problem and ends with a set of decisions that constrain everything that follows.</p>
-  </div>
-
-
-  <!-- ══ 01 BOTANIC ELIXIR — BUSINESS PLAN & CONTENT STRATEGY ══ -->
-  <div class="chapter" id="p01">
-    <div style="padding-top:80px">
-      <div class="ch-id"><span class="ch-num">01</span><span class="ch-eyebrow">Business Plan · Content Strategy · Botanic Elixir</span></div>
-      <div class="ch-title">From concept to <em>structured plan</em></div>
-      <div class="ch-sub">Defining goals, audience, positioning, and success metrics before anything was designed</div>
-      <div class="meta-row">
-        <div class="meta-badges">
-          <span class="badge bd-strategy">Business Planning</span>
-          <span class="badge bd-strategy">Positioning</span>
-          <span class="badge bd-content">Content Strategy</span>
-          <span class="badge bd-research">Audience Research</span>
-        </div>
-        <div class="link-cards">
-          <a href="botanic-elixir.html" class="lc">
-            <span class="lc-type">Case Study</span>
-            <span class="lc-title">Botanic Elixir</span>
-            <span class="lc-desc">Full process documentation — research through build. Strategy section covers the business plan and content decisions.</span>
-            <span class="lc-btn">View Case Study &#8594;</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="proj-grid">
-      <div class="reasoning">
-        <div class="r-block">
-          <div class="r-label">Strategic problem</div>
-          <p class="r-problem">Botanic Elixir is a novel concept with no direct category. Users cannot be expected to find it through conventional search behavior.</p>
-          <p class="r-p">The site cannot function as a promotional page — it must function as an explanation. The structural and content decisions follow from this. Everything is oriented toward helping a visitor understand the concept before they are asked to do anything.</p>
-        </div>
-        <div class="r-block">
-          <div class="r-label">Central strategic theme</div>
-          <div class="r-pull"><p>"Intentional Experience Through Adaptive Design" — every page title, keyword cluster, navigation label, and filtering mechanism was derived from this positioning.</p></div>
-          <p class="r-p">This is not a tagline. It is a constraint. It ruled out product-first navigation, standard café copy conventions, and any framing that reduced the concept to its drinks menu.</p>
-        </div>
-        <div class="r-block">
-          <div class="r-label">Structural decisions from strategy</div>
-          <ul class="r-list">
-            <li>Non-linear navigation — visitors arrive at different decision stages</li>
-            <li>How It Works page — required because the concept is novel</li>
-            <li>Filtering on Experiences, Menu, and Community — content volume demands it</li>
-            <li>Mood-based entry — routes visitors by intent, not by product category</li>
-          </ul>
-          <p class="r-outcome">Outcome: strategy produced a set of structural requirements that made the IA and copy decisions non-arbitrary. Each one traces back to a defined goal.</p>
-        </div>
-      </div>
-
-      <div class="content-col">
-        <!-- Core strategic parameters -->
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
         <div>
-          <div class="r-label" style="margin-bottom:14px">Business plan — core parameters</div>
-          <div class="info-grid">
-            <div class="info-card">
-              <div class="info-label">Positioning</div>
-              <div class="info-value"><strong>Intentional Experience Through Adaptive Design</strong> — a mood-aligned, non-alcoholic adaptive café in Shoreditch. Not a bar. Not a café. Something that requires explanation.</div>
-            </div>
-            <div class="info-card">
-              <div class="info-label">Timeline</div>
-              <div class="info-value">3–4 months across four stages: wireframes → prototype → full pages → testing and revision</div>
-            </div>
-            <div class="info-card">
-              <div class="info-label">Page Architecture</div>
-              <div class="info-value">Home · Experiences · How It Works · Menu · Community &amp; Events · About/Contact — each page exists because the strategy required it</div>
-            </div>
-            <div class="info-card">
-              <div class="info-label">Success Metrics</div>
-              <div class="info-value">Click-through to How It Works · Experiences engagement · Reservation conversions · Newsletter sign-ups · Event participation</div>
-            </div>
-            <div class="info-card">
-              <div class="info-label">Tools</div>
-              <div class="info-value">HTML5 · CSS · VS Code · GitHub · Google Analytics</div>
-            </div>
-            <div class="info-card">
-              <div class="info-label">Location &amp; Context</div>
-              <div class="info-value">42 Kingsland Road, Shoreditch E2 8DA — positioned in a neighborhood where the audience already exists</div>
-            </div>
+          <div class="eyebrow">Discipline · Strategy</div>
+          <h1 class="hero-title">Turning research into<br><em>decisions that ship</em></h1>
+          <p class="hero-copy">Strategy here means translating findings into a clear set of decisions about what a product is for, what it prioritizes, and how those priorities show up in every page, label, and flow. It is the connective layer between research and execution.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="botanic-elixir.html">See Case Study</a>
+            <a class="btn secondary" href="research.html">Research</a>
           </div>
         </div>
+        <aside class="signal-card">
+          <div class="signal-label">Strategy Position</div>
+          <div class="signal-quote">Strategy is not a document. It is the set of decisions that makes everything else coherent.</div>
+          <div class="signal-text">The most useful strategic work is invisible in the final product — you see its absence when pages feel disconnected or when the same user question keeps appearing.</div>
+          <div class="signal-list">
+            <div class="signal-item"><strong>Goals</strong> Define what success looks like before designing anything.</div>
+            <div class="signal-item"><strong>Priorities</strong> Decide what the product is responsible for — and what it is not.</div>
+            <div class="signal-item"><strong>Coherence</strong> Make sure research, writing, design, and IA are working toward the same outcome.</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
 
-        <!-- Keyword strategy -->
+  <!-- WHAT STRATEGY DOES -->
+  <section class="section" id="function">
+    <div class="wrap">
+      <div class="section-head rv">
         <div>
-          <div class="r-label" style="margin-bottom:12px">Keyword strategy — search intent mapping</div>
-          <p class="r-p" style="font-size:12px;color:var(--dim);line-height:1.82;margin-bottom:14px">Keywords were selected to capture visitors who don't yet know this product exists — people searching for experiences adjacent to what Botanic Elixir offers. The list avoids generic café terms in favor of intent-specific phrases.</p>
-          <div class="keyword-cloud">
-            <span class="kw">adaptive environment</span>
-            <span class="kw">intentional experiences</span>
-            <span class="kw">serums</span>
-            <span class="kw">mood-based drinks</span>
-            <span class="kw">creative space Shoreditch</span>
-            <span class="kw">writing nights London</span>
-            <span class="kw">game nights London</span>
-            <span class="kw">wellness events</span>
-            <span class="kw">immersive design</span>
-            <span class="kw">nonalcoholic bar</span>
-            <span class="kw">focus environment</span>
-            <span class="kw">botanical drinks</span>
-            <span class="kw">nootropics café</span>
-            <span class="kw">experience-based venue</span>
-          </div>
-          <p class="caption">Keywords were derived from audience research and the central positioning theme — not from competitor keyword analysis, which would have anchored the site in the wrong category.</p>
+          <div class="section-kicker">Function</div>
+          <h2>What strategy is doing<br><em style="font-style:italic;color:var(--gold2)">inside the work</em></h2>
         </div>
+        <p class="section-note">Strategy is the translation layer. It converts research into direction, direction into priorities, and priorities into decisions about what gets built and in what order.</p>
+      </div>
+      <div class="cards-3">
+        <article class="card rv d1">
+          <div class="card-label">Definition</div>
+          <h3>What the product is for</h3>
+          <p>Before structure, copy, or design, strategy defines the job of the product and what kind of person it is built to help. That definition shapes everything downstream.</p>
+        </article>
+        <article class="card rv d2">
+          <div class="card-label">Prioritization</div>
+          <h3>What comes first</h3>
+          <p>A product can't do everything equally well. Strategy identifies which decisions matter most — the ones users encounter first and the ones that cause the most friction when wrong.</p>
+        </article>
+        <article class="card rv d3">
+          <div class="card-label">Alignment</div>
+          <h3>Keeping disciplines connected</h3>
+          <p>Research, writing, IA, and design can all be technically correct and still produce incoherent experiences. Strategy is what keeps them working toward the same outcome.</p>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
 
-
-  <!-- ══ 02 AUDIENCE RESEARCH ══ -->
-  <div class="chapter" id="p02">
-    <div style="padding-top:80px">
-      <div class="ch-id"><span class="ch-num">02</span><span class="ch-eyebrow">Audience Research · Persona Development</span></div>
-      <div class="ch-title">Who the site was <em>built for</em></div>
-      <div class="ch-sub">Three audience types defined before any layout decision was made</div>
-      <div class="meta-row">
-        <div class="meta-badges">
-          <span class="badge bd-research">Audience Research</span>
-          <span class="badge bd-research">Personas</span>
-          <span class="badge bd-strategy">Decision Filters</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="proj-grid">
-      <div class="reasoning">
-        <div class="r-block">
-          <div class="r-label">Strategic problem</div>
-          <p class="r-problem">A site built for everyone is built for no one. Audience definition is not a UX artifact — it is a strategic constraint that determines what content exists and how it is structured.</p>
-        </div>
-        <div class="r-block">
-          <div class="r-label">How audience shapes structure</div>
-          <p class="r-p">Each audience type arrived with a different primary question. The structure of the site is organized around answering those questions in the right sequence:</p>
-          <ul class="r-list">
-            <li>Experience Seekers need to feel oriented before they choose</li>
-            <li>Wellness Community members need the concept validated before they invest</li>
-            <li>Professionals need to understand the system before they trust it</li>
-          </ul>
-          <div class="r-pull"><p>Audience research is not descriptive. It is architectural. The personas defined which pages needed to exist, what order content appeared in, and which questions the navigation had to answer.</p></div>
-        </div>
-        <div class="r-block">
-          <div class="r-label">Connection to design</div>
-          <p class="r-p">The mood selector serves Experience Seekers. How It Works serves Professionals. The Research and Science pages serve both the Wellness Community and Professionals. Each structural decision has an audience behind it.</p>
-          <p class="r-outcome">Outcome: three audience types functioning as design constraints — not descriptions, but filters for every layout and copy decision.</p>
-        </div>
-      </div>
-
-      <div class="content-col">
-        <div class="audience-grid">
-          <div class="aud-card">
-            <div class="aud-label">Primary Audience</div>
-            <div class="aud-name">The Experience Seeker</div>
-            <div class="aud-desc">Urban professionals aged 25–40 seeking intentional social and creative experiences. Value curated environments. Already avoiding alcohol or reducing consumption. Looking for something that gives a night out a purpose beyond the drink.</div>
-            <div class="aud-need">Primary need: understand what this is and whether it's for them — before arrival, not during.</div>
-          </div>
-          <div class="aud-card">
-            <div class="aud-label">Secondary Audience</div>
-            <div class="aud-name">The Wellness Community</div>
-            <div class="aud-desc">Mindfulness practitioners, yoga and meditation communities, people building intentional daily routines. Receptive to functional ingredients and adaptive environments. Prioritize substance — they will read the research pages.</div>
-            <div class="aud-need">Primary need: validation that the concept is serious and evidence-based, not trend-adjacent.</div>
-          </div>
-          <div class="aud-card">
-            <div class="aud-label">Tertiary Audience</div>
-            <div class="aud-name">The Creative Professional</div>
-            <div class="aud-desc">Writers, designers, developers, and creatives who need a productive environment outside the home or office. Looking for focus infrastructure — the physical space, the serum to support it, and the social permission to work in public.</div>
-            <div class="aud-need">Primary need: understand the system well enough to trust it before committing a working session to it.</div>
-          </div>
-          <div class="aud-card" style="background:rgba(184,150,90,.025);border-color:rgba(184,150,90,.18)">
-            <div class="aud-label">Shared need across all three</div>
-            <div class="aud-name">Understanding before choice</div>
-            <div class="aud-desc">All three audiences arrive without a clear decision already made. The site must explain the concept, establish trust, and make the choice feel obvious — in that order. None can be sent directly to a booking page.</div>
-            <div class="aud-need">This is the strategic reason for the How It Works page, the depth content, and the non-linear navigation structure.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ══ 03 IA & FLOWS ══ -->
-  <div class="chapter" id="p03">
-    <div style="padding-top:80px">
-      <div class="ch-id"><span class="ch-num">03</span><span class="ch-eyebrow">Information Architecture · Storyboard · Botanic Elixir</span></div>
-      <div class="ch-title">A non-linear structure that <em>reflects the space</em></div>
-      <div class="ch-sub">Site architecture derived directly from audience needs and strategic goals</div>
-      <div class="meta-row">
-        <div class="meta-badges">
-          <span class="badge bd-ia">Site Map</span>
-          <span class="badge bd-ia">User Flows</span>
-          <span class="badge bd-ia">Storyboard</span>
-          <span class="badge bd-strategy">Evidence-Based</span>
-        </div>
-        <div class="link-cards">
-          <a href="botanic-elixir.html#ia" class="lc">
-            <span class="lc-type">Case Study · IA Section</span>
-            <span class="lc-title">Botanic Elixir — IA &amp; Flows</span>
-            <span class="lc-desc">Full site structure, storyboard, and flow documentation including the mood-selector routing logic.</span>
-            <span class="lc-btn">View in Case Study &#8594;</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="proj-grid">
-      <div class="reasoning">
-        <div class="r-block">
-          <div class="r-label">Strategic problem</div>
-          <p class="r-problem">A novel concept with multiple audience types cannot use a standard hierarchical navigation model. Different users arrive at different decision stages.</p>
-          <p class="r-p">A linear funnel assumes a single entry point and a shared decision sequence. Botanic Elixir's three audiences each have a different primary question — and none of them follows the same path.</p>
-        </div>
-        <div class="r-block">
-          <div class="r-label">Structural decisions</div>
-          <p class="r-p"><em style="font-style:normal;color:var(--cream)">Non-linear navigation</em> — every page accessible from every other. Users are not forced through a single path.</p>
-          <p class="r-p" style="margin-top:10px"><em style="font-style:normal;color:var(--cream)">Mood-based entry</em> — the home page routes by intent state, not product category. The first choice a user makes is about themselves, not the product.</p>
-          <p class="r-p" style="margin-top:10px"><em style="font-style:normal;color:var(--cream)">Filtering on content-heavy pages</em> — Experiences, Menu, and Community all have enough content that unfiltered lists would break comprehension.</p>
-          <p class="r-p" style="margin-top:10px"><em style="font-style:normal;color:var(--cream)">How It Works as a required page</em> — the concept is novel. The page exists because the strategy required it, not because it was a convention to follow.</p>
-        </div>
-        <div class="r-block">
-          <div class="r-label">What the storyboard established</div>
-          <div class="r-pull"><p>The storyboard is not a wireframe. It is a proof that the structure can support every user's journey — that no audience type hits a dead end, and that every primary question gets answered before a decision is required.</p></div>
-          <p class="r-outcome">Outcome: an IA that is arguable — every page exists for a stated reason, every navigation path serves a defined audience need.</p>
-        </div>
-      </div>
-
-      <div class="content-col">
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="wrap">
+      <div class="section-head rv">
         <div>
-          <div class="r-label" style="margin-bottom:14px">Site structure — each page justified</div>
-          <div class="ia-tree">
-            <div class="ia-row">
-              <div class="ia-hub">Home</div>
-              <div class="ia-children">
-                <div class="ia-child">Introduces the concept · Mood selector routes by intent state · Entry to all sections · CTA to How It Works for first-time visitors</div>
-              </div>
-            </div>
-            <div class="ia-row">
-              <div class="ia-hub">Experiences</div>
-              <div class="ia-children">
-                <div class="ia-child">Deep Work</div>
-                <div class="ia-child">Writing Circle</div>
-                <div class="ia-child">Game Night</div>
-                <div class="ia-child">Wellness</div>
-                <div class="ia-child">Date Night</div>
-                <div class="ia-child">Reflection</div>
-              </div>
-            </div>
-            <div class="ia-row">
-              <div class="ia-hub">How It Works</div>
-              <div class="ia-children">
-                <div class="ia-child">Exists because the concept is novel · 4-step adaptive process · Space configurations · Science of serums · Answers the question before it becomes an obstacle</div>
-              </div>
-            </div>
-            <div class="ia-row">
-              <div class="ia-hub">Menu</div>
-              <div class="ia-children">
-                <div class="ia-child">Filtered by mood state · Serum descriptions with functional ingredients · Adaptogens, nootropics, botanicals · Intended cognitive and emotional effects</div>
-              </div>
-            </div>
-            <div class="ia-row">
-              <div class="ia-hub">Community</div>
-              <div class="ia-children">
-                <div class="ia-child">Recurring events · Special events · Calendar filtered by mood category · Newsletter sign-up · Serves the Wellness Community and return visitors</div>
-              </div>
-            </div>
-            <div class="ia-row">
-              <div class="ia-hub">About / Contact</div>
-              <div class="ia-children">
-                <div class="ia-child">42 Kingsland Road, Shoreditch E2 8DA · Hours · Reservations · Consultation booking · Serves users at the final decision stage</div>
-              </div>
-            </div>
-          </div>
-          <p class="caption">Every page in this architecture was specified in the business plan before wireframes began. The IA is not a design output — it is a strategy output.</p>
+          <div class="section-kicker">Process</div>
+          <h2>How strategic decisions<br><em style="font-style:italic;color:var(--gold2)">get made</em></h2>
+        </div>
+        <p class="section-note">Good strategy work starts with what the research shows, not with what looks right. The goal is decisions that can be explained and defended at every stage.</p>
+      </div>
+      <div class="fw-grid rv">
+        <div class="fw-step">
+          <div class="fw-num">01</div>
+          <div class="fw-title">Audience</div>
+          <div class="fw-sub">Who arrives and why</div>
+          <div class="fw-desc">Define the user, their entry state, and what they need to accomplish before the product can help them.</div>
+        </div>
+        <div class="fw-arrow">&#8594;</div>
+        <div class="fw-step">
+          <div class="fw-num">02</div>
+          <div class="fw-title">Goals</div>
+          <div class="fw-sub">What success looks like</div>
+          <div class="fw-desc">Translate audience needs into product goals — specific, testable, and tied to real behavior rather than assumption.</div>
+        </div>
+        <div class="fw-arrow">&#8594;</div>
+        <div class="fw-step">
+          <div class="fw-num">03</div>
+          <div class="fw-title">Priorities</div>
+          <div class="fw-sub">What gets solved first</div>
+          <div class="fw-desc">Rank which friction points, pages, or flows produce the most impact when resolved. Design toward those first.</div>
+        </div>
+        <div class="fw-arrow">&#8594;</div>
+        <div class="fw-step">
+          <div class="fw-num">04</div>
+          <div class="fw-title">Execution</div>
+          <div class="fw-sub">Where strategy shows up</div>
+          <div class="fw-desc">Translate priorities into IA, copy decisions, design choices, and page hierarchy that reflect the defined goals.</div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-
-  <!-- ══ 04 ISR DIVISION SYSTEMS ══ -->
-  <div class="chapter" id="p04">
-    <div style="padding-top:80px">
-      <div class="ch-id"><span class="ch-num">04</span><span class="ch-eyebrow">UX/UI Design Specialist · ISR Division Systems LLC · 2023–Present</span></div>
-      <div class="ch-title">Systems strategy <em>in production</em></div>
-      <div class="ch-sub">End-to-end UX design across IoT B2B workflows — from customer-facing interfaces to internal operations</div>
-      <div class="meta-row">
-        <div class="meta-badges">
-          <span class="badge bd-isr">B2B IoT</span>
-          <span class="badge bd-isr">Systems Design</span>
-          <span class="badge bd-strategy">End-to-End</span>
-          <span class="badge bd-ia">Workflow Architecture</span>
-          <span class="badge bd-content">Multi-System</span>
+  <!-- WHERE IT SHOWS UP -->
+  <section class="section" id="application">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div>
+          <div class="section-kicker">Application</div>
+          <h2>Where strategy is visible<br><em style="font-style:italic;color:var(--gold2)">in the work</em></h2>
+        </div>
+        <p class="section-note">Strategy doesn't produce a deliverable the user sees. It produces the decisions that make what the user sees feel clear, directed, and appropriately sequenced.</p>
+      </div>
+      <div class="list rv">
+        <div class="list-item">
+          <strong>Botanic Elixir — Site structure</strong>
+          <span>The decision to build a discovery-first experience rather than a promotional page came from strategic analysis of user entry states and competitor positioning.</span>
+        </div>
+        <div class="list-item">
+          <strong>Botanic Elixir — SEO and keywords</strong>
+          <span>Search terms were chosen based on observed user language and intent rather than category names the business preferred internally.</span>
+        </div>
+        <div class="list-item">
+          <strong>Botanic Elixir — Page hierarchy</strong>
+          <span>Which pages existed, what they were named, and what they were responsible for communicating came directly from strategic decisions about user flow and comprehension barriers.</span>
+        </div>
+        <div class="list-item">
+          <strong>Writing decisions</strong>
+          <span>Strategy defined what each page needed to accomplish — which determined what the writing needed to say and in what order.</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="proj-grid">
-      <div class="reasoning">
-        <div class="r-block">
-          <div class="r-label">Context</div>
-          <p class="r-problem">ISR Division Systems LLC is a B2B IoT company. The UX work spans the full operational surface — not a single product, but an interconnected set of systems that each need to be coherent individually and consistent with each other.</p>
+  <!-- CONNECTION -->
+  <section class="section" id="connection">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div>
+          <div class="section-kicker">Connection</div>
+          <h2>How strategy connects<br><em style="font-style:italic;color:var(--gold2)">the other disciplines</em></h2>
         </div>
-        <div class="r-block">
-          <div class="r-label">Strategic challenge</div>
-          <p class="r-p">B2B systems serve users who cannot disengage from the product — logistics coordinators, repair technicians, and customer service teams use these interfaces under time pressure, often with incomplete information. The cost of a bad UX decision is measured in operational time, not bounce rate.</p>
-          <div class="r-pull"><p>The strategic work here is not positioning or audience research. It is systems coherence — ensuring that decisions made in one interface do not create problems in another, and that workflow logic is embedded in the structure rather than delegated to documentation.</p></div>
-        </div>
-        <div class="r-block">
-          <div class="r-label">What this work demonstrates</div>
-          <ul class="r-list">
-            <li>Strategy applied to constrained, real-world operational contexts</li>
-            <li>Multi-system IA where consistency is a design requirement</li>
-            <li>Evidence-based decisions under production conditions</li>
-            <li>Stakeholder alignment across front-end, logistics, and service teams</li>
-          </ul>
-          <p class="r-outcome">Outcome: production UX across five interconnected systems, maintained and iterated over two years.</p>
-        </div>
+        <p class="section-note">Strategy is not its own output — it is the reasoning that makes research findings, writing choices, and design decisions coherent as a system.</p>
       </div>
-
-      <div class="content-col">
-        <div class="isr-grid">
-          <div class="isr-item">
-            <div>
-              <div class="isr-label">System 01</div>
-              <div class="isr-title">Front-End Interface</div>
-              <div class="isr-sub">Customer-facing product</div>
-              <div class="isr-tags"><span class="isr-tag">UX Design</span><span class="isr-tag">UI</span><span class="isr-tag">Customer-Facing</span></div>
-            </div>
-            <div class="isr-body">Primary customer interface for the IoT product. Design decisions made here set the baseline for what users expect from every other touchpoint in the system — language, interaction patterns, information hierarchy. A strategic decision about what to surface on the front-end has downstream consequences for what support requests look like.</div>
-          </div>
-          <div class="isr-item">
-            <div>
-              <div class="isr-label">System 02</div>
-              <div class="isr-title">Logistics Workflow</div>
-              <div class="isr-sub">Internal operations</div>
-              <div class="isr-tags"><span class="isr-tag">Workflow Design</span><span class="isr-tag">IA</span><span class="isr-tag">Internal Tools</span></div>
-            </div>
-            <div class="isr-body">Logistics coordination requires interfaces that reduce decision time, not interfaces that require deliberation. The structure of logistics workflows was designed around task completion under time pressure — status visibility, action clarity, and exception handling that doesn't require supervisor escalation for standard cases.</div>
-          </div>
-          <div class="isr-item">
-            <div>
-              <div class="isr-label">System 03</div>
-              <div class="isr-title">Customer Service System</div>
-              <div class="isr-sub">Support &amp; resolution</div>
-              <div class="isr-tags"><span class="isr-tag">Service Design</span><span class="isr-tag">Workflow</span><span class="isr-tag">Resolution</span></div>
-            </div>
-            <div class="isr-body">Customer service interfaces need to surface the right information at the right moment — account history, device status, prior interactions — without requiring agents to navigate between systems. Design work here focused on information consolidation and the reduction of context-switching during live support interactions.</div>
-          </div>
-          <div class="isr-item">
-            <div>
-              <div class="isr-label">System 04</div>
-              <div class="isr-title">Repair Dispatch</div>
-              <div class="isr-sub">Field operations</div>
-              <div class="isr-tags"><span class="isr-tag">Dispatch</span><span class="isr-tag">Field UX</span><span class="isr-tag">Mobile</span></div>
-            </div>
-            <div class="isr-body">Repair dispatch operates across mobile and desktop. Technicians need task assignments, location data, and job status available at a glance — without reading. The interface was designed for operational environments where screen time is limited and error recovery is expensive. Structural decisions here connect back to how logistics and customer service systems communicate job state.</div>
-          </div>
-          <div class="isr-item">
-            <div>
-              <div class="isr-label">System 05</div>
-              <div class="isr-title">Sign-Off Workflows</div>
-              <div class="isr-sub">Compliance &amp; verification</div>
-              <div class="isr-tags"><span class="isr-tag">Compliance</span><span class="isr-tag">Verification</span><span class="isr-tag">Audit Trail</span></div>
-            </div>
-            <div class="isr-body">Sign-off workflows require that users confirm completion of steps that carry operational and legal weight. The design challenge is making confirmation feel like a genuine checkpoint — not a form to dismiss. Structurally, this means reducing ambiguity about what is being confirmed, and surfacing the consequences of sign-off in the interface itself.</div>
-          </div>
-        </div>
+      <div class="cards-2">
+        <article class="card rv d1">
+          <h3>Research → Strategy</h3>
+          <p>Research identifies what users need and where they struggle. Strategy converts those observations into decisions about what to build, change, or remove.</p>
+          <p>Without strategy, research findings produce recommendations instead of decisions. With it, they produce a clear direction the rest of the work can follow.</p>
+        </article>
+        <article class="card rv d2">
+          <h3>Strategy → Execution</h3>
+          <p>Strategic decisions show up in IA, page copy, navigation structure, and visual hierarchy. Each execution choice should be traceable back to a goal.</p>
+          <p>That traceability is what distinguishes design that can be defended from design that merely looks good.</p>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
 
-</div>
+  <!-- BAND -->
+  <section class="band">
+    <div class="wrap">
+      <p>Strategy connects the research to what gets built. The related pages show how those decisions move into language, structure, and visual systems.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+        <a class="btn primary" href="research.html">Research</a>
+        <a class="btn secondary" href="writing.html">Writing &amp; Voice</a>
+        <a class="btn secondary" href="All_Projects.html">All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>Head&#174; · Strategy</div>
+        <a href="All_Projects.html">Back to All Projects</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- .main -->
 
 <script>
+var cur = document.getElementById('cur'), curr = document.getElementById('curr');
+var cx = 0, cy = 0, rx = 0, ry = 0;
+window.addEventListener('mousemove', function(e){ cx = e.clientX; cy = e.clientY; });
+(function cl(){
+  requestAnimationFrame(cl);
+  rx += (cx - rx) * 0.11; ry += (cy - ry) * 0.11;
+  cur.style.left = cx+'px'; cur.style.top = cy+'px';
+  curr.style.left = rx+'px'; curr.style.top = ry+'px';
+})();
+var hEls = document.querySelectorAll('a, button, .sn-btn, .card, .list-item, .fw-step, .signal-card');
+for(var i=0;i<hEls.length;i++){
+  hEls[i].addEventListener('mouseenter',function(){ cur.style.width='14px'; cur.style.height='14px'; curr.style.width='48px'; curr.style.height='48px'; });
+  hEls[i].addEventListener('mouseleave',function(){ cur.style.width='6px'; cur.style.height='6px'; curr.style.width='28px'; curr.style.height='28px'; });
+}
 document.querySelectorAll('.sn-btn').forEach(function(b){
-  b.addEventListener('click',function(e){
+  b.addEventListener('click', function(e){
     e.stopPropagation();
-    var o=this.classList.contains('open');
-    document.querySelectorAll('.sn-btn').forEach(function(x){x.classList.remove('open')});
-    if(!o)this.classList.add('open');
+    var isOpen = this.classList.contains('open');
+    document.querySelectorAll('.sn-btn').forEach(function(x){ x.classList.remove('open'); });
+    if(!isOpen) this.classList.add('open');
   });
 });
-document.addEventListener('click',function(){
-  document.querySelectorAll('.sn-btn').forEach(function(x){x.classList.remove('open')});
+document.addEventListener('click', function(){
+  document.querySelectorAll('.sn-btn').forEach(function(x){ x.classList.remove('open'); });
 });
-document.querySelectorAll('.tn-btn').forEach(function(b){
-  b.addEventListener('click',function(){
-    var t=document.getElementById(this.dataset.target);
-    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+// Top nav scrollspy
+var tnBtns = document.querySelectorAll('.tn-btn[data-target]');
+var tnSecIds = ['top','function','process','application','connection'];
+window.addEventListener('scroll', function(){
+  var y = window.scrollY + 160;
+  var cur = 'top';
+  tnSecIds.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el && el.offsetTop <= y) cur = id;
   });
-});
-var ids=['p01','p02','p03','p04'];
-var btns=document.querySelectorAll('.tn-btn');
-window.addEventListener('scroll',function(){
-  var y=window.scrollY+160,cur='p01';
-  ids.forEach(function(id){var el=document.getElementById(id);if(el&&el.offsetTop<=y)cur=id;});
-  btns.forEach(function(b){b.classList.toggle('active',b.dataset.target===cur);});
-});
+  tnBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.target === cur); });
+},{passive:true});
+
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); } });
+},{threshold:0.08});
+document.querySelectorAll('.rv').forEach(function(el){ obs.observe(el); });
 </script>
 </body>
 </html>
