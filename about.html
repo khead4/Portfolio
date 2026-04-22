@@ -7,10 +7,10 @@
 <style>
 
 :root{
-  --bg:#050507;--bg1:#08080b;--bg2:#0d0d12;
+  --bg:#000000;--bg1:#000000;--bg2:#0d0d12;
   --gold:#b8965a;--gold2:#d4b078;
-  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);--muted:rgba(240,236,228,.28);
-  --border:rgba(184,150,90,.1);--border2:rgba(184,150,90,.22);
+  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);--muted:rgba(240,236,228,.26);
+  --border:rgba(240,236,228,.07);--border2:rgba(184,150,90,.18);
   --serif:'Playfair Display',serif;--sans:'Jost',sans-serif;
   --sw:64px;
 }
@@ -339,9 +339,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .skills-list{grid-template-columns:1fr}
   .sec-num{font-size:clamp(64px,9vw,90px)}
 }
-</style>
+    .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+    .cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(184,150,90,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+  </style>
 </head>
 <body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curr"></div>
 
 <nav class="sidenav">
   <a href="index.html" class="sn-logo">Head<sup>&#174;</sup></a>
@@ -885,6 +889,17 @@ if(skillsSection)skillsObserver.observe(skillsSection);
   document.addEventListener('mouseup',function(){c.classList.remove('clicking');});
 })();
 </script>
+<script>
+var _c=document.getElementById('cur'),_cr=document.getElementById('curr');
+var _cx=0,_cy=0,_rx=0,_ry=0;
+window.addEventListener('mousemove',function(e){_cx=e.clientX;_cy=e.clientY;});
+(function _cl(){requestAnimationFrame(_cl);_rx+=(_cx-_rx)*.11;_ry+=(_cy-_ry)*.11;
+_c.style.left=_cx+'px';_c.style.top=_cy+'px';_cr.style.left=_rx+'px';_cr.style.top=_ry+'px';})();
+var _hh=document.querySelectorAll('a,button,.sn-btn,.card,.project,.signal-card,.list-item');
+for(var _i=0;_i<_hh.length;_i++){
+  _hh[_i].addEventListener('mouseenter',function(){_c.style.width='14px';_c.style.height='14px';_cr.style.width='48px';_cr.style.height='48px';});
+  _hh[_i].addEventListener('mouseleave',function(){_c.style.width='6px';_c.style.height='6px';_cr.style.width='28px';_cr.style.height='28px';});
+}
+</script>
 </body>
 </html>
-
