@@ -453,26 +453,39 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 </nav>
 
 <!-- HERO -->
-<section class="cs-hero" style="height:auto;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;padding:0;overflow:hidden;background:#000">
-  <div style="display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 80px">
+<section class="cs-hero" style="position:relative;display:grid;grid-template-columns:55% 45%;background:#000;">
+
+  <div style="display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 80px;min-height:100vh;">
     <div class="hero-kicker"><span>Case Study 01</span></div>
     <h1 class="cs-title">Botanic<br><em>Elixir</em></h1>
     <p class="cs-sub">A system built to make an abstract concept clear and navigable — through research that defines the audience, language that shapes meaning, and structure that guides decision.</p>
-    <div class="cs-meta">
+    <p class="body-text" style="margin-top:24px;max-width:480px;">Users struggled to understand what Botanic Elixir actually is before arriving — whether it is a café, an experience, or something in between. That uncertainty creates hesitation and unclear expectations. The goal was to clarify the concept without removing its intrigue.</p>
+    <div class="cs-meta" style="margin-top:32px;">
       <div><span class="cs-meta-label">Location</span><span class="cs-meta-val">Shoreditch, London</span></div>
       <div><span class="cs-meta-label">Discipline</span><span class="cs-meta-val">UX Research · Strategy · Writing · IA · Design · Build</span></div>
       <div><span class="cs-meta-label">Output</span><span class="cs-meta-val">Live Website</span></div>
     </div>
-    <a href="https://project3oswego.w3spaces.com" target="_blank" class="cs-sec-link" aria-label="View Botanic Elixir live site">Live Site &#8599;</a>
+    <a href="https://project3oswego.w3spaces.com" target="_blank" class="cs-sec-link" style="margin-top:24px;" aria-label="View Botanic Elixir live site">Live Site &#8599;</a>
   </div>
-  <div style="position:relative;overflow:hidden;border-left:1px solid rgba(184,150,90,.12)">
-    <iframe src="https://project3oswego.w3spaces.com/learn-more.html" 
-      style="width:100%;height:100%;border:none;min-height:100vh;display:block" 
-      title="Botanic Elixir — live site preview"
-      loading="lazy"
-      scrolling="no">
-    </iframe>
+
+  <div style="display:flex;align-items:center;justify-content:center;padding:362px 40px 80px 0;">
+    <div style="width:100%;border-radius:10px;overflow:hidden;border:1px solid rgba(184,150,90,.2);">
+      <div style="background:#1c1c1c;padding:7px 12px;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(255,255,255,.06);">
+        <span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;display:inline-block;flex-shrink:0;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:#ffbd2e;display:inline-block;flex-shrink:0;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:#28c840;display:inline-block;flex-shrink:0;"></span>
+        <span style="font-family:'Jost',sans-serif;font-size:9px;color:rgba(255,255,255,.3);margin-left:6px;letter-spacing:.05em;">botaniclelixir.co — learn more</span>
+      </div>
+      <div style="position:relative;height:560px;overflow:hidden;background:#f5f5f5;">
+        <iframe src="https://project3oswego.w3spaces.com/learn-more.html"
+          style="position:absolute;top:0;left:0;width:300%;height:300%;border:none;transform:scale(0.333);transform-origin:top left;pointer-events:none;"
+          title="Botanic Elixir live site preview"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
   </div>
+
 </section>
 
 <!-- PIPELINE — sticky nav, each step clickable, highlights on scroll -->
