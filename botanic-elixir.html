@@ -10,10 +10,11 @@
 <style>
 
 :root{
-  --bg:#000000;--bg1:#000000;--bg2:#0c0c0c;
-  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);--muted:rgba(240,236,228,.26);
+  --bg:#000000;
   --gold:#b8965a;--gold2:#d4b078;
-  --border:rgba(240,236,228,.07);--border2:rgba(184,150,90,.18);
+  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.56);
+  --muted:rgba(240,236,228,.26);
+  --border:rgba(184,150,90,.10);--border2:rgba(184,150,90,.18);
   --serif:'Playfair Display',serif;--sans:'Jost',sans-serif;
   --sw:64px;
   --be-blue:#1a78d4;--be-violet:#6d28d9;--be-green:#15803d;
@@ -106,7 +107,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 .sn-rule{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(184,150,90,.3),transparent);margin-top:auto}
 
 /* ── HERO ── */
-.cs-hero{position:relative;height:100vh;min-height:640px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 96px 80px;overflow:hidden;background:linear-gradient(160deg,#050507 0%,#050507 100%)}
+.cs-hero{position:relative;height:100vh;min-height:640px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 96px 80px;overflow:hidden;background:linear-gradient(160deg,#000000 0%,#000000 100%)}
 .hero-bg{display:none}
 .hero-bg svg{width:100%;height:100%}
 .hero-kicker{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:20px;display:flex;align-items:center;gap:14px}
@@ -235,7 +236,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 .comp-card{padding:0;background:var(--bg2);border:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
 .comp-brand-img{width:100%;height:160px;object-fit:cover;object-position:center;display:block;filter:grayscale(15%) brightness(.85)}
 .comp-brand-header{position:relative;height:160px;overflow:hidden;background:#111;flex-shrink:0}
-.comp-brand-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(13,13,18,.95) 100%)}
+.comp-brand-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.95) 100%)}
 .comp-brand-name-block{position:absolute;bottom:0;left:0;right:0;padding:16px 24px}
 .comp-brand-site{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .comp-card-body{padding:24px;display:flex;flex-direction:column;flex:1}
@@ -330,7 +331,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 .lesson-body{font-size:12px;font-weight:300;color:var(--dim);line-height:1.75}
 
 /* ── OUTCOME ── */
-.outcome-section{padding:96px 96px;background:linear-gradient(160deg,#000000 0%,#050507 60%,#050507 100%);text-align:center;scroll-margin-top:0}
+.outcome-section{padding:96px 96px;background:linear-gradient(160deg,#000000 0%,#000000 60%,#000000 100%);text-align:center;scroll-margin-top:0}
 .outcome-desc{font-size:14px;font-weight:300;color:var(--dim);max-width:560px;margin:24px auto 48px;line-height:1.85}
 .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:64px}
 .cta-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:rgba(184,150,90,.12);border:1px solid var(--border2);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:400;transition:all .25s}
@@ -452,39 +453,26 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 </nav>
 
 <!-- HERO -->
-<section class="cs-hero" style="position:relative;display:grid;grid-template-columns:55% 45%;background:#000;margin-bottom:510px;">
-
-  <div style="display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 80px;min-height:100vh;">
+<section class="cs-hero" style="height:auto;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;padding:0;overflow:hidden;background:#000">
+  <div style="display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 80px">
     <div class="hero-kicker"><span>Case Study 01</span></div>
     <h1 class="cs-title">Botanic<br><em>Elixir</em></h1>
     <p class="cs-sub">A system built to make an abstract concept clear and navigable — through research that defines the audience, language that shapes meaning, and structure that guides decision.</p>
-    <p class="body-text" style="margin-top:24px;max-width:480px;">Users struggled to understand what Botanic Elixir actually is before arriving — whether it is a café, an experience, or something in between. That uncertainty creates hesitation and unclear expectations. The goal was to clarify the concept without removing its intrigue.</p>
-    <div class="cs-meta" style="margin-top:32px;">
+    <div class="cs-meta">
       <div><span class="cs-meta-label">Location</span><span class="cs-meta-val">Shoreditch, London</span></div>
       <div><span class="cs-meta-label">Discipline</span><span class="cs-meta-val">UX Research · Strategy · Writing · IA · Design · Build</span></div>
       <div><span class="cs-meta-label">Output</span><span class="cs-meta-val">Live Website</span></div>
     </div>
-    <a href="https://project3oswego.w3spaces.com" target="_blank" class="cs-sec-link" style="margin-top:24px;" aria-label="View Botanic Elixir live site">Live Site &#8599;</a>
+    <a href="https://project3oswego.w3spaces.com" target="_blank" class="cs-sec-link" aria-label="View Botanic Elixir live site">Live Site &#8599;</a>
   </div>
-
-  <div style="padding:60px 48px 0 0;">
-    <div style="width:100%;border-radius:10px;overflow:hidden;border:1px solid rgba(184,150,90,.2);">
-      <div style="background:#1c1c1c;padding:7px 12px;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(255,255,255,.06);">
-        <span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;display:inline-block;flex-shrink:0;"></span>
-        <span style="width:7px;height:7px;border-radius:50%;background:#ffbd2e;display:inline-block;flex-shrink:0;"></span>
-        <span style="width:7px;height:7px;border-radius:50%;background:#28c840;display:inline-block;flex-shrink:0;"></span>
-        <span style="font-family:'Jost',sans-serif;font-size:9px;color:rgba(255,255,255,.3);margin-left:6px;letter-spacing:.05em;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">botaniclelixir.co — learn more</span>
-      </div>
-      <div style="position:relative;height:1700px;overflow:hidden;background:#f5f5f5;">
-        <iframe src="https://project3oswego.w3spaces.com/learn-more.html"
-          style="position:absolute;top:0;left:0;width:300%;height:300%;border:none;transform:scale(0.333);transform-origin:top left;pointer-events:none;"
-          title="Botanic Elixir live site preview"
-          loading="lazy">
-        </iframe>
-      </div>
-    </div>
+  <div style="position:relative;overflow:hidden;border-left:1px solid rgba(184,150,90,.12)">
+    <iframe src="https://project3oswego.w3spaces.com/learn-more.html" 
+      style="width:100%;height:100%;border:none;min-height:100vh;display:block" 
+      title="Botanic Elixir — live site preview"
+      loading="lazy"
+      scrolling="no">
+    </iframe>
   </div>
-
 </section>
 
 <!-- PIPELINE — sticky nav, each step clickable, highlights on scroll -->
@@ -510,6 +498,9 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 <!-- ══════════════════════════════════════════════
      01 RESEARCH
 ══════════════════════════════════════════════ -->
+
+
+
 <section class="cs-section" id="research">
   <div class="section-step">01 &mdash; Research</div>
   <h2 class="section-title">Understanding who arrives<br>and <em>why</em></h2>
@@ -906,7 +897,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
         <div>
           <div class="sg-swatch-row">
-            <div class="sg-swatch" style="background:#050507;"></div>
+            <div class="sg-swatch" style="background:#000000;"></div>
             <div class="sg-swatch" style="background:#6d28d9;"></div>
           </div>
           <div class="sg-color-name">Blue #1a78d4 — Focus &amp; Create<br>Violet #6d28d9 — Writing / Connect</div>
@@ -941,7 +932,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
     <div class="sg-card">
       <div class="sg-label">Spacing</div>
       <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;align-items:center;gap:10px"><div style="background:#050507;height:3px;width:8px;border-radius:1px;flex-shrink:0"></div><span class="sg-body">8px — micro gap</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="background:#000000;height:3px;width:8px;border-radius:1px;flex-shrink:0"></div><span class="sg-body">8px — micro gap</span></div>
         <div style="display:flex;align-items:center;gap:10px"><div style="background:#6d28d9;height:3px;width:16px;border-radius:1px;flex-shrink:0"></div><span class="sg-body">16px — element</span></div>
         <div style="display:flex;align-items:center;gap:10px"><div style="background:#15803d;height:3px;width:32px;border-radius:1px;flex-shrink:0"></div><span class="sg-body">32px — component</span></div>
         <div style="display:flex;align-items:center;gap:10px"><div style="background:#c2410c;height:3px;width:56px;border-radius:1px;flex-shrink:0"></div><span class="sg-body">64px — section</span></div>
