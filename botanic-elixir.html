@@ -453,25 +453,25 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 </nav>
 
 <!-- HERO -->
-<section class="cs-hero" style="height:auto;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;padding:0;overflow:hidden;background:#000">
-  <div style="display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 80px">
-    <div class="hero-kicker"><span>Case Study 01</span></div>
-    <h1 class="cs-title">Botanic<br><em>Elixir</em></h1>
-    <p class="cs-sub">A system built to make an abstract concept clear and navigable — through research that defines the audience, language that shapes meaning, and structure that guides decision.</p>
-    <div class="cs-meta">
-      <div><span class="cs-meta-label">Location</span><span class="cs-meta-val">Shoreditch, London</span></div>
-      <div><span class="cs-meta-label">Discipline</span><span class="cs-meta-val">UX Research · Strategy · Writing · IA · Design · Build</span></div>
-      <div><span class="cs-meta-label">Output</span><span class="cs-meta-val">Live Website</span></div>
-    </div>
-    <a href="https://project3oswego.w3spaces.com" target="_blank" class="cs-sec-link" aria-label="View Botanic Elixir live site">Live Site &#8599;</a>
+<section class="cs-hero">
+  
+  <div class="hero-kicker">Case Study 01</div>
+  <h1 class="cs-title">Botanic<br><em>Elixir</em></h1>
+  <p class="cs-tagline">A system built to make an abstract concept clear and navigable — through research that defines the audience, language that shapes meaning, and structure that guides decision.</p>
+  <p class="cs-tagline" style="margin-top:12px;opacity:.75">Users struggled to understand what Botanic Elixir actually is before arriving — whether it is a café, an experience, or something in between. That uncertainty creates hesitation and unclear expectations. The goal was to clarify the concept without removing its intrigue.</p>
+  <div class="cs-meta-row">
+    <div class="cs-meta-item"><span class="cs-meta-label">Location</span><span class="cs-meta-val">Shoreditch, London</span></div>
+    <div class="cs-meta-item"><span class="cs-meta-label">Discipline</span><span class="cs-meta-val">UX Research · Strategy · Writing · IA · Design · Build</span></div>
+    <div class="cs-meta-item"><span class="cs-meta-label">Output</span><span class="cs-meta-val">Live Website</span></div>
   </div>
-  <div style="position:relative;overflow:hidden;border-left:1px solid rgba(184,150,90,.12)">
-    <iframe src="https://project3oswego.w3spaces.com/learn-more.html" 
-      style="width:100%;height:100%;border:none;min-height:100vh;display:block" 
-      title="Botanic Elixir — live site preview"
-      loading="lazy"
-      scrolling="no">
-    </iframe>
+  <div style="margin-top:28px;display:flex;gap:20px;flex-wrap:wrap">
+    <a href="https://project3oswego.w3spaces.com" target="_blank" class="cs-sec-link" aria-label="View Botanic Elixir live site">Live Site &#8599;</a>
+    <a href="https://www.figma.com/design/xbb7e1ZhKuP75nObmaRBvM/Untitled?node-id=0-1&t=4SRJV2a4Q9eqB9Wp-1" target="_blank" class="lc">
+  <span class="lc-type">Figma · Prototype</span>
+  <span class="lc-title">Botanic Elixir — Figma Prototype</span>
+  <span class="lc-desc">Full interactive prototype showing mood-based navigation, experience selection, and booking flow before the live build.</span>
+  <span class="lc-btn">Open in Figma &#8599;</span>
+</a>
   </div>
 </section>
 
@@ -499,7 +499,23 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
      01 RESEARCH
 ══════════════════════════════════════════════ -->
 
-
+<section class="cs-section" id="site-visual" style="padding:60px 96px 80px">
+  <div class="section-step">Live Site &mdash; Output</div>
+  <h2 class="section-title" style="margin-bottom:24px">The experience, <em>built</em></h2>
+  <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(184,150,90,.18);margin-bottom:20px">
+    <div style="background:#1a1a1a;padding:10px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(255,255,255,.06)">
+      <div style="width:8px;height:8px;border-radius:50%;background:#ff5f57"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#ffbd2e"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#28c840"></div>
+      <span style="font-family:var(--sans);font-size:10px;color:rgba(255,255,255,.3);margin-left:10px;letter-spacing:.06em">botaniclelixir.co &mdash; Choose your mood</span>
+    </div>
+    <img src="mood-screenshot.png" alt="Botanic Elixir live site showing four adaptive experience pathways: Focus and Create, Play and Engage, Connect and Share, Reflect and Restore" style="width:100%;display:block">
+  </div>
+  <div style="display:flex;gap:14px;align-items:flex-start">
+    <div style="width:2px;min-height:52px;background:var(--gold);flex-shrink:0;border-radius:2px"></div>
+    <p style="font-family:var(--sans);font-size:13px;color:var(--dim);line-height:1.8"><strong style="color:var(--cream);font-weight:400">Mood-first navigation.</strong> Users select an experience state before any explicit categorisation &mdash; reducing friction at the point of highest drop-off. Four distinct moods replace a single ambiguous entry point. The site teaches the concept through the act of choosing.</p>
+  </div>
+</section>
 
 <section class="cs-section" id="research">
   <div class="section-step">01 &mdash; Research</div>
