@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#050507;--bg1:#08080b;--bg2:#0d0d12;
-  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);--muted:rgba(240,236,228,.28);
+  --bg:#000000;--bg1:#000000;--bg2:#0d0d12;
+  --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);--muted:rgba(240,236,228,.26);
   --gold:#b8965a;--gold2:#d4b078;
-  --border:rgba(240,236,228,.07);--border2:rgba(184,150,90,.3);
+  --border:rgba(240,236,228,.07);--border2:rgba(184,150,90,.18);
   --serif:'Playfair Display',serif;--sans:'Jost',sans-serif;
   --sw:64px;
 }
@@ -199,29 +199,30 @@ document.addEventListener('DOMContentLoaded', function() {
   <a href="index.html" class="sn-logo">Head<sup>&#174;</sup></a>
   <ul class="sn-links">
     <li>
-      <button class="sn-btn" aria-label="Portfolio">&#9671;</button>
+      <button class="sn-btn" id="sn0">&#9671;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">Portfolio</span>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
-        <a href="index.html#approaches">Approaches</a>
+        <a href="index.html#disciplines">Approach</a>
         <a href="index.html#about">About</a>
         <a href="All_Projects.html">All Projects</a>
       </div>
     </li>
     <li>
-      <button class="sn-btn" aria-label="Projects">&#9670;</button>
+      <button class="sn-btn act">&#9670;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">Projects</span>
         <a href="All_Projects.html">All Projects</a>
         <a href="botanic-elixir.html">Botanic Elixir</a>
-        <a href="portfolio-process.html">Portfolio Development</a>
+        <a href="portfolio-project.html">Making of the Portfolio</a>
+        <a href="#">Virtual Gallery — In Construction</a>
       </div>
     </li>
     <li>
-      <button class="sn-btn" aria-label="Approaches">&#11042;</button>
+      <button class="sn-btn">&#11042;</button>
       <div class="sn-flyout">
-        <span class="sn-flyout-label">Approaches</span>
+        <span class="sn-flyout-label">Disciplines</span>
         <a href="research.html">Research</a>
         <a href="writing.html">Writing &amp; Voice</a>
         <a href="design.html">Product Design</a>
@@ -229,10 +230,11 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </li>
     <li>
-      <button class="sn-btn" aria-label="About">&#9711;</button>
+      <button class="sn-btn">&#9711;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">About</span>
-        <a href="index.html#about">About Kaitlyn</a>
+        <a href="about.html">About Kaitlyn</a>
+        <a href="resume.html">Résumé</a>
         <a href="https://linkedin.com/in/kaitlyn-head" target="_blank">LinkedIn &#8599;</a>
       </div>
     </li>
@@ -1023,14 +1025,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  var obs = new IntersectionObserver(function(entries){
-    var visible = entries
-      .filter(function(e){ return e.isIntersecting; })
-      .sort(function(a,b){ return b.intersectionRatio - a.intersectionRatio; });
-    if(visible.length) setActive(visible[0].target.id);
-  },{rootMargin:'-20% 0px -55% 0px',threshold:[0.2,0.35,0.5,0.7]});
-
-  sections.forEach(function(s){ obs.observe(s); });
+  // Scroll-based tracking — works regardless of section height
+  function updateActive(){
+    var scrollY = window.scrollY + 160;
+    var current = 'top';
+    sections.forEach(function(s){
+      if(s && s.offsetTop <= scrollY) current = s.id;
+    });
+    setActive(current);
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
 
   links.forEach(function(link){
     link.addEventListener('click',function(){
