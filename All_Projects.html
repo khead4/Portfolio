@@ -152,7 +152,12 @@ img{display:block;width:100%}
 .modal.fullscreen{padding:0 !important}
 .modal.fullscreen .modal-content{max-width:90vw !important;max-height:90vh !important;width:90vw;height:90vh;border-radius:8px;margin:auto}
 
-</style>
+
+  /* Hide broken image browser icons */
+  img[src$=".jpg"]:not([src^="data"]):not([src^="http"]) {
+    display: none;
+  }
+  </style>
 
 <script>
 function openModal(modalId) {
@@ -312,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="section-divider"></div>
     <article class="featured-card">
       <div class="featured-media">
-        <img src="coffee-5252372_1280.jpg" alt="Atmospheric close-up of coffee preparation — visual for the Botanic Elixir case study.">
+        <div class="img-placeholder" style="width:100%;aspect-ratio:16/9;background:#0c0c0c;border:1px solid rgba(184,150,90,.1);border-radius:4px"></div>
         <svg viewBox="0 0 560 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1" aria-hidden="true">
           <ellipse cx="320" cy="160" rx="180" ry="90" fill="none" stroke="rgba(184,150,90,.2)" stroke-width="1" transform="rotate(-18 320 160)"/>
           <ellipse cx="280" cy="260" rx="220" ry="110" fill="none" stroke="rgba(100,180,90,.10)" stroke-width=".8"/>
@@ -362,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <article class="project-card">
         <div class="project-media">
-          <img src="Voice Access Final Results.jpg" alt="Voice access output showing speech recognition results against target sentences, highlighting capitalisation, punctuation, and formatting gaps.">
+          <div class="img-placeholder" style="width:100%;aspect-ratio:16/9;background:#0c0c0c;border:1px solid rgba(184,150,90,.1);border-radius:4px"></div>
           <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1" aria-hidden="true">
             <text x="28" y="58" font-family="monospace" font-size="8.5" fill="rgba(240,236,228,.22)">" one, two, three, four, five!"</text>
             <text x="28" y="73" font-family="monospace" font-size="8.5" fill="rgba(184,150,90,.32)">"One, two, three, four, five!"</text>
@@ -482,7 +487,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <article class="project-card">
         <div class="project-media">
-          <img src="Miro Assignment 4.jpg" alt="Affinity diagram board in Miro showing four stages: extractions from Apple Watch interview data, clustering by theme, derived insights, and final reflection.">
+          <div class="img-placeholder" style="width:100%;aspect-ratio:16/9;background:#0c0c0c;border:1px solid rgba(184,150,90,.1);border-radius:4px"></div>
           <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1;background:#0a0a0e" aria-hidden="true">
             <text x="50%" y="18%" text-anchor="middle" font-family="sans-serif" font-size="7.5" fill="rgba(184,150,90,.35)" letter-spacing="0.14em">AFFINITY DIAGRAM</text>
             <rect x="52" y="52" width="36" height="28" rx="1" fill="rgba(60,160,80,.3)"/>
@@ -744,7 +749,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <article class="project-card">
         <div class="project-media">
-          <img src="Atelier Style Guide.jpg" alt="Cognitive Atelier Style Reference Guide showing colour palette, accessibility guidelines, and typography hierarchy across three pages.">
+          <div class="img-placeholder" style="width:100%;aspect-ratio:16/9;background:#0c0c0c;border:1px solid rgba(184,150,90,.1);border-radius:4px"></div>
           <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1;background:#0a0a0e" aria-hidden="true">
             <text x="50%" y="40%" text-anchor="middle" font-family="sans-serif" font-size="7.5" fill="rgba(184,150,90,.3)" letter-spacing="0.14em">AI USAGE &middot; REFLECTION</text>
           </svg>
@@ -821,7 +826,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <article class="project-card">
         <div class="project-media">
-          <img src="coffee-5252372_1280.jpg" alt="Coffee preparation visual used for Botanic Elixir business plan and experience strategy.">
+          <div class="img-placeholder" style="width:100%;aspect-ratio:16/9;background:#0c0c0c;border:1px solid rgba(184,150,90,.1);border-radius:4px"></div>
           <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1" aria-hidden="true">
             <text x="50%" y="50%" text-anchor="middle" font-family="serif" font-size="12" fill="rgba(184,150,90,.22)">Botanic Elixir</text>
             <text x="50%" y="63%" text-anchor="middle" font-family="sans-serif" font-size="7" fill="rgba(184,150,90,.16)" letter-spacing="0.14em">BUSINESS PLAN</text>
@@ -925,7 +930,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <article class="project-card">
         <div class="project-media">
-          <img src="Atelier Style Guide.jpg" alt="Cognitive Atelier Style Reference Guide — three-page system showing colour palette with hex values, three-tier typography, and imagery principles.">
+          <div class="img-placeholder" style="width:100%;aspect-ratio:16/9;background:#0c0c0c;border:1px solid rgba(184,150,90,.1);border-radius:4px"></div>
           <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1;background:#08080c" aria-hidden="true">
             <text x="50%" y="22%" text-anchor="middle" font-family="serif" font-style="italic" font-size="10" fill="rgba(240,236,228,.22)">Cognitive Atelier</text>
             <text x="50%" y="32%" text-anchor="middle" font-family="sans-serif" font-size="7" fill="rgba(184,150,90,.25)" letter-spacing="0.16em">STYLE REFERENCE GUIDE</text>
@@ -957,7 +962,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <article class="project-card">
         <div class="project-media">
-          <img src="coffee-5252372_1280.jpg" alt="Coffee preparation ritual — visual for Café Interaction Study.">
+          <div class="img-placeholder" style="width:100%;aspect-ratio:16/9;background:#0c0c0c;border:1px solid rgba(184,150,90,.1);border-radius:4px"></div>
           <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:relative;z-index:1" aria-hidden="true">
             <text x="50%" y="46%" text-anchor="middle" font-family="serif" font-size="12" fill="rgba(184,150,90,.22)">Caf&#233; Interaction</text>
             <text x="50%" y="59%" text-anchor="middle" font-family="sans-serif" font-size="7" fill="rgba(184,150,90,.16)" letter-spacing="0.14em">RITUAL &middot; SEQUENCE &middot; ATMOSPHERE</text>
