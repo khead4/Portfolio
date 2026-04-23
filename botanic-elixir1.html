@@ -10,7 +10,7 @@
 <style>
 
 :root{
-  --bg:#000000;--bg1:#000000--bg2:#000000;
+  --bg:#050507;--bg1:#050507--bg2:#050507;
   --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.52);--muted:rgba(240,236,228,.28);
   --gold:#b8965a;--gold2:#d4b078;
   --border:rgba(240,236,228,.07);--border2:rgba(184,150,90,.3);
@@ -36,7 +36,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 .sidenav{
   position:fixed;left:0;top:0;bottom:0;width:var(--sw);z-index:200;
   display:flex;flex-direction:column;align-items:center;padding:32px 0;
-  background:rgba(0,0,0,.72);backdrop-filter:blur(24px);
+  background:rgba(5,5,7,.72);backdrop-filter:blur(24px);
   border-right:1px solid var(--border);
 }
 .sn-logo{font-family:var(--serif);font-size:11px;font-weight:400;letter-spacing:.12em;color:var(--cream);text-decoration:none;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}
@@ -65,7 +65,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
   position:absolute;
   left:calc(100% + 12px);
   top:50%;transform:translateY(-50%) translateX(-6px);
-  background:rgba(0,0,0,.96);
+  background:rgba(5,5,7,.96);
   border:1px solid var(--border2);
   border-radius:6px;
   padding:6px 0;
@@ -403,11 +403,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 .lc-desc{font-size:10.5px;font-weight:300;color:var(--dim);line-height:1.68}
 .lc-btn{display:inline-flex;align-items:center;gap:5px;margin-top:4px;align-self:flex-start;font-size:7.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(5,5,7,.95);background:var(--gold);padding:6px 14px;transition:background .2s}
 .lc:hover .lc-btn{background:var(--gold2)}
-
-  /* Edge compatibility fix */
-  html { background:#000000; }
-  body { background-color:#000000; }
-  </style>
+</style>
 </head>
 <body>
 
