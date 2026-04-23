@@ -112,7 +112,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 
 /* ── HERO ── */
 .cs-hero{position:relative;height:100vh;min-height:640px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 96px 80px;overflow:hidden;background:linear-gradient(160deg,#0d0d12 0%,#0d0d12 100%)}
-.hero-bg{position:absolute;inset:0;opacity:.18;pointer-events:none}
+.hero-bg{display:none}
 .hero-bg svg{width:100%;height:100%}
 .hero-kicker{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:20px;display:flex;align-items:center;gap:14px}
 .hero-kicker::before{content:'';width:36px;height:1px;background:var(--gold);opacity:.6}
@@ -458,19 +458,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 
 <!-- HERO -->
 <section class="cs-hero">
-  <div class="hero-bg" aria-hidden="true">
-    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="900" cy="200" rx="280" ry="120" fill="none" stroke="rgba(122,184,100,.15)" stroke-width="1" transform="rotate(-25 900 200)"/>
-      <ellipse cx="850" cy="300" rx="200" ry="80" fill="none" stroke="rgba(122,184,100,.08)" stroke-width=".8" transform="rotate(-25 850 300)"/>
-      <ellipse cx="200" cy="600" rx="320" ry="130" fill="none" stroke="rgba(100,160,80,.1)" stroke-width="1" transform="rotate(15 200 600)"/>
-      <path d="M900,500 Q860,380 880,240" stroke="rgba(122,184,100,.12)" stroke-width="1.2" fill="none"/>
-      <circle cx="700" cy="120" r="3" fill="rgba(184,150,90,.3)"/>
-      <circle cx="720" cy="140" r="2" fill="rgba(184,150,90,.2)"/>
-      <circle cx="400" cy="700" r="4" fill="rgba(184,150,90,.15)"/>
-      <line x1="0" y1="400" x2="1200" y2="400" stroke="rgba(184,150,90,.03)" stroke-width=".5"/>
-      <line x1="600" y1="0" x2="600" y2="800" stroke="rgba(184,150,90,.03)" stroke-width=".5"/>
-    </svg>
-  </div>
+  
   <div class="hero-kicker">Case Study 01</div>
   <h1 class="cs-title">Botanic<br><em>Elixir</em></h1>
   <p class="cs-tagline">A system built to make an abstract concept clear and navigable — through research that defines the audience, language that shapes meaning, and structure that guides decision.</p>
