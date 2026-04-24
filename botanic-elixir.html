@@ -399,7 +399,15 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 .lc:hover .lc-btn{background:var(--gold2)}
     .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
     .cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(184,150,90,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
-  </style>
+  
+.cs-feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--border);margin-top:0;}
+.cs-feat-card{padding:2em 1.6em;border:1px solid var(--border);display:flex;flex-direction:column;gap:1em;}
+.cs-feat-card--chosen{border-color:rgba(184,150,90,.3);background:rgba(184,150,90,.04);}
+.cs-feat-dot{width:10px;height:10px;border-radius:50%;background:var(--muted);flex-shrink:0;}
+.cs-feat-label{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.cs-feat-title{font-family:var(--serif);font-size:1.05em;color:var(--cream);font-weight:400;}
+.cs-feat-body{font-family:var(--sans);font-size:.85em;color:var(--dim);line-height:1.7;font-weight:300;}
+</style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -455,7 +463,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 <!-- HERO -->
 <section class="cs-hero" style="position:relative;display:grid;grid-template-columns:55% 45%;background:#000;">
 
-  <div style="display:flex;flex-direction:column;justify-content:flex-start;padding:40px 64px 80px;">
+  <div style="display:flex;flex-direction:column;justify-content:flex-end;padding:0 64px 200px;min-height:100vh;">
     <div class="hero-kicker"><span>Case Study 01</span></div>
     <h1 class="cs-title">Botanic<br><em>Elixir</em></h1>
     <p class="cs-sub">A system built to make an abstract concept clear and navigable — through research that defines the audience, language that shapes meaning, and structure that guides decision.</p>
@@ -468,7 +476,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
     <a href="https://project3oswego.w3spaces.com" target="_blank" class="cs-sec-link" style="margin-top:24px;" aria-label="View Botanic Elixir live site">Live Site &#8599;</a>
   </div>
 
-  <div style="display:flex;align-items:flex-start;justify-content:center;padding:40px 40px 80px 0;">
+  <div style="display:flex;align-items:flex-start;justify-content:center;padding:362px 40px 80px 0;">
     <div style="width:100%;border-radius:10px;overflow:hidden;border:1px solid rgba(184,150,90,.2);box-shadow:0 8px 40px rgba(0,0,0,.4);">
       <div style="background:#1c1c1c;padding:7px 12px;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(255,255,255,.06);">
         <span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;display:inline-block;flex-shrink:0;"></span>
@@ -739,42 +747,31 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
   <div class="section-step">KEY DECISION</div>
   <h2 class="section-title">The choice that <em>shaped the structure</em></h2>
   <div class="section-rule"></div>
-  <div class="two-col">
-    <div>
-      <p class="body-text">The research made one thing clear: people arrive knowing how they feel, not what they want. No existing space was built around that. The question was whether to organise the site around what Botanic Elixir offers — or around who arrives and why.</p>
-      <p class="body-text" style="margin-top:1.4em;">Card sorting with twelve participants showed that users grouped experiences by feeling rather than by service type. "A quiet evening" and "a writing session" landed together. "Game night" and "social booking" in another group. The structure followed that logic.</p>
-      <blockquote class="cs-quote" style="margin-top:2em;"><em>The site should orient before it informs. Most visitors don't know enough to choose — they need to understand what they're choosing between first.</em></blockquote>
-      <p class="body-text" style="margin-top:1.4em;">The trade-off was real. Mood-first navigation required significantly more copy work — each pathway needed language that explained the experience it led to. It also creates friction for visitors arriving from search with a specific intent. That friction was accepted because the alternative failed more people than it served.</p>
+  <p class="body-text" style="max-width:640px;margin-bottom:3em;">The research identified one consistent pattern: people arrive knowing how they feel, not what they want. Two IA structures were considered. Card sorting with twelve participants showed users group experiences by feeling rather than service type — that data made the decision.</p>
+  <div class="cs-feat-grid">
+    <div class="cs-feat-card">
+      <div class="cs-feat-dot"></div>
+      <p class="cs-feat-label">NOT CHOSEN</p>
+      <p class="cs-feat-title">Service-first navigation</p>
+      <p class="cs-feat-body">Organise by what the space offers — experiences, menu, bookings. Familiar and fast for visitors who already understand the concept. Fails anyone arriving uncertain.</p>
     </div>
-    <div>
-      <div class="cs-comp-card">
-        <div class="cs-comp-card-header">
-          <p class="cs-comp-name">Service-first</p>
-          <p class="cs-comp-type">NOT CHOSEN</p>
-        </div>
-        <div class="cs-comp-section">
-          <p class="cs-comp-section-label">APPROACH</p>
-          <p class="cs-comp-section-text">Organise by what the space offers — experiences, menu, bookings. Familiar. Fast for visitors who already understand the concept.</p>
-        </div>
-        <div class="cs-comp-section">
-          <p class="cs-comp-section-label">WHY NOT</p>
-          <p class="cs-comp-section-text">Fails anyone arriving uncertain. Assumes prior knowledge the site hasn't yet provided.</p>
-        </div>
-      </div>
-      <div class="cs-comp-card" style="margin-top:1.5em;border-color:var(--gold2);background:rgba(184,150,90,.04);">
-        <div class="cs-comp-card-header">
-          <p class="cs-comp-name" style="color:var(--gold2);">Mood-first</p>
-          <p class="cs-comp-type" style="color:var(--gold);">CHOSEN</p>
-        </div>
-        <div class="cs-comp-section">
-          <p class="cs-comp-section-label">APPROACH</p>
-          <p class="cs-comp-section-text">Organise by emotional intent. Works before understanding. The site teaches the concept through the act of choosing.</p>
-        </div>
-        <div class="cs-comp-section">
-          <p class="cs-comp-section-label">WHY</p>
-          <p class="cs-comp-section-text">Card sorting showed users group by feeling, not function. Meets people where they are rather than where the business needs them to be.</p>
-        </div>
-      </div>
+    <div class="cs-feat-card cs-feat-card--chosen">
+      <div class="cs-feat-dot" style="background:var(--gold);"></div>
+      <p class="cs-feat-label" style="color:var(--gold);">CHOSEN</p>
+      <p class="cs-feat-title">Mood-first navigation</p>
+      <p class="cs-feat-body">Organise by emotional intent. Works before understanding. The site teaches the concept through the act of choosing. Meets people where they are, not where the business needs them to be.</p>
+    </div>
+    <div class="cs-feat-card">
+      <div class="cs-feat-dot"></div>
+      <p class="cs-feat-label">THE EVIDENCE</p>
+      <p class="cs-feat-title">Card sorting data</p>
+      <p class="cs-feat-body">Twelve participants grouped experiences by feeling rather than function. "A quiet evening" and "a writing session" landed together. "Game night" and "social booking" in another. Structure followed that logic.</p>
+    </div>
+    <div class="cs-feat-card">
+      <div class="cs-feat-dot"></div>
+      <p class="cs-feat-label">THE TRADE-OFF</p>
+      <p class="cs-feat-title">Accepted friction</p>
+      <p class="cs-feat-body">Mood-first required significantly more copy work — each pathway needed language explaining the experience it led to. It also creates friction for visitors with a specific task. That friction was accepted because the alternative failed more people than it served.</p>
     </div>
   </div>
 </section>
