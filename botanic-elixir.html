@@ -399,15 +399,7 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
 .lc:hover .lc-btn{background:var(--gold2)}
     .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
     .cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(184,150,90,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
-  
-.cs-feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--border);margin-top:0;}
-.cs-feat-card{padding:2em 1.6em;border:1px solid var(--border);display:flex;flex-direction:column;gap:1em;}
-.cs-feat-card--chosen{border-color:rgba(184,150,90,.3);background:rgba(184,150,90,.04);}
-.cs-feat-dot{width:10px;height:10px;border-radius:50%;background:var(--muted);flex-shrink:0;}
-.cs-feat-label{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:400;}
-.cs-feat-title{font-family:var(--serif);font-size:1.05em;color:var(--cream);font-weight:400;}
-.cs-feat-body{font-family:var(--sans);font-size:.85em;color:var(--dim);line-height:1.7;font-weight:300;}
-</style>
+  </style>
 </head>
 <body>
 <div class="cur" id="cur"></div>
@@ -743,37 +735,8 @@ body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight
     </div>
   </div>
 </section>
-<section class="cs-section" id="decision">
-  <div class="section-step">KEY DECISION</div>
-  <h2 class="section-title">The choice that <em>shaped the structure</em></h2>
-  <div class="section-rule"></div>
-  <p class="body-text" style="max-width:640px;margin-bottom:3em;">The research identified one consistent pattern: people arrive knowing how they feel, not what they want. Two IA structures were considered. Card sorting with twelve participants showed users group experiences by feeling rather than service type — that data made the decision.</p>
-  <div class="cs-feat-grid">
-    <div class="cs-feat-card">
-      <div class="cs-feat-dot"></div>
-      <p class="cs-feat-label">NOT CHOSEN</p>
-      <p class="cs-feat-title">Service-first navigation</p>
-      <p class="cs-feat-body">Organise by what the space offers — experiences, menu, bookings. Familiar and fast for visitors who already understand the concept. Fails anyone arriving uncertain.</p>
-    </div>
-    <div class="cs-feat-card cs-feat-card--chosen">
-      <div class="cs-feat-dot" style="background:var(--gold);"></div>
-      <p class="cs-feat-label" style="color:var(--gold);">CHOSEN</p>
-      <p class="cs-feat-title">Mood-first navigation</p>
-      <p class="cs-feat-body">Organise by emotional intent. Works before understanding. The site teaches the concept through the act of choosing. Meets people where they are, not where the business needs them to be.</p>
-    </div>
-    <div class="cs-feat-card">
-      <div class="cs-feat-dot"></div>
-      <p class="cs-feat-label">THE EVIDENCE</p>
-      <p class="cs-feat-title">Card sorting data</p>
-      <p class="cs-feat-body">Twelve participants grouped experiences by feeling rather than function. "A quiet evening" and "a writing session" landed together. "Game night" and "social booking" in another. Structure followed that logic.</p>
-    </div>
-    <div class="cs-feat-card">
-      <div class="cs-feat-dot"></div>
-      <p class="cs-feat-label">THE TRADE-OFF</p>
-      <p class="cs-feat-title">Accepted friction</p>
-      <p class="cs-feat-body">Mood-first required significantly more copy work — each pathway needed language explaining the experience it led to. It also creates friction for visitors with a specific task. That friction was accepted because the alternative failed more people than it served.</p>
-    </div>
-  </div>
+<section class="cs-section" id="decision" style="padding-top:0;padding-bottom:0;">
+  <blockquote class="cs-quote" style="font-size:1.6em;letter-spacing:.02em;">Experience, then <em>Service.</em></blockquote>
 </section>
 
 <!-- ══════════════════════════════════════════════
