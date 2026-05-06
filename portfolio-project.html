@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Making of the Portfolio · Head®</title>
+<title>Making of the Portfolio &middot; Head&reg;</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#000000;--bg1:#000000;--bg2:#0d0d12;
   --gold:#b8965a;--gold2:#d4b078;
+  --plum:#9b2f66;--green:#0f8a5f;--blue:#4ca8c8;
   --cream:rgba(240,236,228,.92);--dim:rgba(240,236,228,.56);--muted:rgba(240,236,228,.26);
   --border:rgba(184,150,90,.10);--border2:rgba(184,150,90,.18);
   --serif:'Playfair Display',serif;--sans:'Jost',sans-serif;
@@ -96,8 +97,10 @@ body::after{
   position:fixed;top:20px;left:50%;transform:translateX(-50%);
   z-index:100;background:rgba(8,8,11,.82);backdrop-filter:blur(24px);
   border:1px solid rgba(184,150,90,.14);border-radius:40px;padding:0 6px;
-  display:flex;align-items:center;box-shadow:0 8px 32px rgba(0,0,0,.45);white-space:nowrap
+  display:flex;align-items:center;box-shadow:0 8px 32px rgba(0,0,0,.45);white-space:nowrap;
+  max-width:calc(100vw - var(--sw) - 36px);overflow-x:auto;scrollbar-width:none
 }
+.top-nav::-webkit-scrollbar{display:none}
 .tn-steps{display:flex;align-items:center}
 .tn-btn{
   padding:9px 18px;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
@@ -113,8 +116,8 @@ body::after{
 
 /* hero */
 .pg-hero{
-  display:grid;grid-template-columns:1fr 420px;gap:42px;align-items:start;
-  padding:110px 0 80px;border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,470px);gap:56px;align-items:center;
+  padding:118px 0 88px;border-bottom:1px solid var(--border);
   position:relative;overflow:visible
 }
 .pg-hero::before{
@@ -129,10 +132,18 @@ body::after{
   margin-bottom:26px;max-width:900px
 }
 .pg-h1 em{font-style:italic;color:var(--gold2)}
-.pg-intro{font-size:13px;color:var(--dim);line-height:1.9;max-width:620px;margin-bottom:18px}
+.pg-intro{font-size:14px;color:var(--dim);line-height:1.9;max-width:700px;margin-bottom:18px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-action{
+  display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 16px;
+  border:1px solid rgba(184,150,90,.22);background:rgba(184,150,90,.08);color:var(--cream);
+  font-size:8px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;transition:background .2s,border-color .2s,transform .2s
+}
+.hero-action.secondary{background:rgba(240,236,228,.025);color:var(--dim)}
+.hero-action:hover{background:rgba(184,150,90,.16);border-color:rgba(184,150,90,.42);transform:translateY(-1px)}
 
 .hero-board{
-  background:linear-gradient(180deg,var(--bg1),var(--bg));
+  background:linear-gradient(180deg,rgba(10,10,13,.96),var(--bg));
   border:1px solid var(--border2);min-height:360px;padding:20px;position:relative;overflow:hidden
 }
 .hero-board::before{
@@ -143,10 +154,26 @@ body::after{
   font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);
   opacity:.62;margin-bottom:14px
 }
+.system-flow{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:12px
+}
+.system-step{
+  border:1px solid rgba(184,150,90,.14);background:rgba(240,236,228,.025);padding:12px 10px;min-height:92px;
+  display:flex;flex-direction:column;justify-content:space-between
+}
+.system-step span{
+  font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.7
+}
+.system-step strong{
+  display:block;font-family:var(--serif);font-size:18px;font-weight:400;line-height:1.05;color:var(--cream)
+}
+.system-step small{
+  display:block;font-size:9.5px;line-height:1.45;color:var(--dim)
+}
 .hero-board-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mini-frame{
   border:1px solid rgba(184,150,90,.16);background:rgba(255,255,255,.015);
-  min-height:145px;padding:14px
+  min-height:145px;padding:14px;display:flex;flex-direction:column
 }
 .mini-frame h4{
   font-family:var(--serif);font-size:.98rem;font-weight:400;color:var(--cream);margin-bottom:8px
@@ -167,7 +194,7 @@ body::after{
   font-family:var(--serif);font-size:11px;font-style:italic;color:var(--gold);
   opacity:.42;padding:0 0 0 52px;flex-shrink:0;letter-spacing:.06em
 }
-.marquee-item::before{content:'·';margin-right:20px;opacity:.45;font-style:normal}
+.marquee-item::before{content:'\00B7';margin-right:20px;opacity:.45;font-style:normal}
 @keyframes kh-marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* sections */
@@ -204,7 +231,7 @@ body::after{
 .r-label{font-size:8px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.55;margin-bottom:16px}
 .r-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
 .r-list li{font-size:12px;font-weight:300;color:var(--dim);line-height:1.75;padding-left:16px;position:relative}
-.r-list li::before{content:'—';position:absolute;left:0;color:var(--gold);opacity:.4;font-size:10px}
+.r-list li::before{content:'-';position:absolute;left:0;color:var(--gold);opacity:.4;font-size:10px}
 .r-p{font-size:12.5px;font-weight:300;color:var(--dim);line-height:1.9;margin-bottom:20px}
 .r-pull{
   padding:52px 0!important;margin:44px 0!important;background:transparent!important;position:relative
@@ -221,16 +248,24 @@ body::after{
 
 /* cards / visual modules */
 .usecase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.usecase-card{background:var(--bg1);border:1px solid var(--border);padding:34px 30px;min-height:260px}
+.usecase-card{
+  background:linear-gradient(180deg,rgba(12,12,16,.95),var(--bg));border:1px solid var(--border);
+  padding:34px 30px;min-height:260px;position:relative;overflow:hidden
+}
+.usecase-card::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),rgba(184,150,90,.08))
+}
 .usecase-k{font-size:7px;letter-spacing:.20em;text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:12px}
 .usecase-card h4{font-family:var(--serif);font-size:1.08rem;font-weight:400;margin-bottom:12px;color:var(--cream);line-height:1.25}
 .usecase-card p{font-size:12px;line-height:1.82;color:var(--dim);margin-bottom:12px}
 
 .frame-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .page-frame{
-  border:1px solid var(--border);background:linear-gradient(180deg,var(--bg1),var(--bg));padding:14px;min-height:420px;
-  display:flex;flex-direction:column
+  border:1px solid var(--border);background:linear-gradient(180deg,rgba(12,12,16,.95),var(--bg));padding:14px;min-height:420px;
+  display:flex;flex-direction:column;transition:transform .22s ease,border-color .22s ease,background .22s ease
 }
+.page-frame:hover{transform:translateY(-2px);border-color:rgba(184,150,90,.32);background:linear-gradient(180deg,rgba(18,17,18,.98),var(--bg))}
 .page-frame iframe{
   width:100%;height:250px;border:1px solid rgba(184,150,90,.14);background:#fff
 }
@@ -242,9 +277,10 @@ body::after{
 
 .process-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .process-card{
-  border:1px solid var(--border);background:linear-gradient(180deg,var(--bg1),var(--bg));padding:16px;min-height:460px;
-  display:flex;flex-direction:column
+  border:1px solid var(--border);background:linear-gradient(180deg,rgba(12,12,16,.95),var(--bg));padding:16px;min-height:460px;
+  display:flex;flex-direction:column;transition:transform .22s ease,border-color .22s ease
 }
+.process-card:hover{transform:translateY(-2px);border-color:rgba(184,150,90,.32)}
 .process-card img,.process-card iframe{
   width:100%;height:280px;object-fit:contain;object-position:top center;
   border:1px solid rgba(184,150,90,.14);background:rgba(255,255,255,.02)
@@ -261,9 +297,17 @@ body::after{
 }
 .compare-copy{margin-top:14px;font-size:11px;line-height:1.8;color:var(--dim)}
 
-.decision-map{display:flex;flex-direction:column;gap:10px}
-.decision-row{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);background:var(--bg1)}
+.decision-map{display:flex;flex-direction:column;gap:10px;counter-reset:decision}
+.decision-row{
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(12,12,16,.95),var(--bg));position:relative;counter-increment:decision
+}
+.decision-row::before{
+  content:counter(decision,decimal-leading-zero);position:absolute;left:18px;top:22px;
+  font-family:var(--serif);font-size:28px;line-height:1;color:var(--gold);opacity:.48
+}
 .decision-cell{padding:26px}
+.decision-cell:first-child{padding-left:66px}
 .decision-cell + .decision-cell{border-left:1px solid var(--border)}
 .decision-head{font-size:8px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.6;margin-bottom:8px}
 .decision-body{font-size:12px;line-height:1.82;color:var(--dim)}
@@ -273,6 +317,7 @@ body::after{
   display:inline-flex;align-items:center;gap:8px;margin-top:4px;transition:opacity .2s,gap .2s
 }
 .wp-link:hover{opacity:1;gap:14px}
+.action-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
 
 /* footer */
 footer{
@@ -282,30 +327,28 @@ footer{
 .ft-logo{font-family:var(--serif);font-size:13px;letter-spacing:.1em}
 .ft-copy{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
-.g-cursor{
-  position:fixed;width:11px;height:11px;border:1px solid rgba(184,150,90,.8);
-  border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
-  transition:transform .14s ease,opacity .18s;opacity:0
-}
-.g-cursor.visible{opacity:1}
-.g-cursor.clicking{transform:translate(-50%,-50%) scale(.5);border-color:var(--gold2)}
-@media (min-width:900px){body{cursor:none}}
+@media (min-width:900px) and (hover:hover){body{cursor:none}}
 
 @media(max-width:1100px){
   .pg-hero,.two-col,.two-col.wide,.compare-grid{grid-template-columns:1fr}
-  .hero-board-grid,.usecase-grid,.frame-grid,.process-grid{grid-template-columns:1fr}
+  .hero-board-grid,.usecase-grid,.frame-grid,.process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .system-flow{grid-template-columns:repeat(4,minmax(120px,1fr));overflow-x:auto;padding-bottom:4px}
 }
 @media(max-width:900px){
   .main{padding:0 32px 100px}
   .sec-num{font-size:clamp(64px,9vw,90px)}
+  .usecase-grid,.frame-grid,.process-grid{grid-template-columns:1fr}
   .decision-row{grid-template-columns:1fr}
   .decision-cell + .decision-cell{border-left:none;border-top:1px solid var(--border)}
+  .decision-cell:first-child{padding-left:58px}
+  .cur,.cur-r{display:none}
 }
 @media(max-width:600px){
   :root{--sw:0px}
   .sidenav{display:none}
   .main{padding:0 20px 80px}
-  .top-nav{top:12px}
+  .top-nav{top:12px;left:20px;right:20px;transform:none;max-width:none}
+  .system-flow,.hero-board-grid{grid-template-columns:1fr;overflow:visible}
   footer{margin-left:0;padding:26px 20px;flex-direction:column;align-items:flex-start;gap:10px}
 }
     .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
@@ -320,7 +363,7 @@ footer{
   <a href="index.html" class="sn-logo">Head<sup>&#174;</sup></a>
   <ul class="sn-links">
     <li>
-      <button class="sn-btn" id="sn0">&#9671;</button>
+      <button class="sn-btn" id="sn0" type="button" aria-label="Open portfolio navigation">&#9671;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">Portfolio</span>
         <a href="index.html">Home</a>
@@ -331,7 +374,7 @@ footer{
       </div>
     </li>
     <li>
-      <button class="sn-btn act">&#9670;</button>
+      <button class="sn-btn act" type="button" aria-label="Open project navigation">&#9670;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">Projects</span>
         <a href="botanic-elixir.html">Botanic Elixir</a> 
@@ -342,7 +385,7 @@ footer{
       </div>
     </li>
     <li>
-      <button class="sn-btn">&#11042;</button>
+      <button class="sn-btn" type="button" aria-label="Open discipline navigation">&#11042;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">Disciplines</span>
         <a href="research.html">Research</a>
@@ -352,11 +395,11 @@ footer{
       </div>
     </li>
     <li>
-      <button class="sn-btn">&#9711;</button>
+      <button class="sn-btn" type="button" aria-label="Open about navigation">&#9711;</button>
       <div class="sn-flyout">
         <span class="sn-flyout-label">About</span>
         <a href="about.html">About Kaitlyn</a>
-        <a href="resume.html">Résumé</a>
+        <a href="resume.html">R&eacute;sum&eacute;</a>
         <a href="https://linkedin.com/in/kaitlyn-head" target="_blank">LinkedIn &#8599;</a>
       </div>
     </li>
@@ -403,10 +446,36 @@ footer{
       <p class="pg-intro">
         Instead of using invented visuals, this case study uses the actual portfolio pages and the actual process artifacts that informed the system.
       </p>
+      <div class="hero-actions" aria-label="Portfolio project actions">
+        <a class="hero-action" href="#problem">Read the case study</a>
+        <a class="hero-action secondary" href="All_Projects.html">View all projects</a>
+      </div>
     </div>
 
     <div class="hero-board">
       <div class="hero-board-label">What this page is showing</div>
+      <div class="system-flow" aria-label="Portfolio system flow">
+        <div class="system-step">
+          <span>01</span>
+          <strong>Orient</strong>
+          <small>Help the reader understand the portfolio shape first.</small>
+        </div>
+        <div class="system-step">
+          <span>02</span>
+          <strong>Sort</strong>
+          <small>Separate disciplines without making them feel unrelated.</small>
+        </div>
+        <div class="system-step">
+          <span>03</span>
+          <strong>Prove</strong>
+          <small>Use artifacts and pages as visible evidence.</small>
+        </div>
+        <div class="system-step">
+          <span>04</span>
+          <strong>Connect</strong>
+          <small>Show one method across different types of work.</small>
+        </div>
+      </div>
       <div class="hero-board-grid">
         <div class="mini-frame">
           <h4>Why the system was needed</h4>
@@ -456,7 +525,7 @@ footer{
       <span class="sec-eyebrow">Problem</span>
     </div>
     <div class="sec-title">Why this portfolio needed a <em>system</em></div>
-    <div class="sec-sub">Interpretation · coherence · hierarchy</div>
+    <div class="sec-sub">Interpretation &middot; coherence &middot; hierarchy</div>
 
     <div class="two-col wide">
       <div>
@@ -529,49 +598,49 @@ footer{
 
     <div class="frame-grid">
       <div class="page-frame">
-        <iframe src="index.html" title="Home page preview"></iframe>
+        <iframe src="index.html" title="Home page preview" loading="lazy"></iframe>
         <h4>Home</h4>
         <p>The home page orients the viewer immediately and establishes the portfolio as a system rather than a gallery.</p>
         <div class="asset-note">actual file: index.html</div>
       </div>
 
       <div class="page-frame">
-        <iframe src="about.html" title="About page preview"></iframe>
+        <iframe src="about.html" title="About page preview" loading="lazy"></iframe>
         <h4>About</h4>
         <p>The about page connects background, disciplines, and methodology without breaking the visual system.</p>
         <div class="asset-note">actual file: about.html</div>
       </div>
 
       <div class="page-frame">
-        <iframe src="research.html" title="Research page preview"></iframe>
+        <iframe src="research.html" title="Research page preview" loading="lazy"></iframe>
         <h4>Research</h4>
         <p>The research page grounds the portfolio in evidence, method, and analytical structure.</p>
         <div class="asset-note">actual file: research.html</div>
       </div>
 
       <div class="page-frame">
-        <iframe src="strategy.html" title="Strategy page preview"></iframe>
+        <iframe src="strategy.html" title="Strategy page preview" loading="lazy"></iframe>
         <h4>Strategy</h4>
         <p>The strategy page shows prioritization, framing, and how decisions are organized into direction.</p>
         <div class="asset-note">actual file: strategy.html</div>
       </div>
 
       <div class="page-frame">
-        <iframe src="writing.html" title="Writing page preview"></iframe>
+        <iframe src="writing.html" title="Writing page preview" loading="lazy"></iframe>
         <h4>Writing &amp; Voice</h4>
         <p>The writing page shows language as a structural design tool rather than a decorative afterthought.</p>
         <div class="asset-note">actual file: writing.html</div>
       </div>
 
       <div class="page-frame">
-        <iframe src="design.html" title="Design page preview"></iframe>
+        <iframe src="design.html" title="Design page preview" loading="lazy"></iframe>
         <h4>Product Design</h4>
         <p>The design page presents interface reasoning, interaction choices, and visual hierarchy inside the same shell.</p>
         <div class="asset-note">actual file: design.html</div>
       </div>
 
       <div class="page-frame">
-        <iframe src="botanic-elixir.html" title="Botanic Elixir page preview"></iframe>
+        <iframe src="botanic-elixir.html" title="Botanic Elixir page preview" loading="lazy"></iframe>
         <h4>Botanic Elixir</h4>
         <p>This project extends the system into an experience-led environment, showing how digital and spatial logic connect.</p>
         <div class="asset-note">actual file: botanic-elixir.html</div>
@@ -586,53 +655,53 @@ footer{
       <span class="sec-eyebrow">Process Evidence</span>
     </div>
     <div class="sec-title">Actual artifacts that informed the <em>system</em></div>
-    <div class="sec-sub">Research · ideation · evaluation · translation</div>
+    <div class="sec-sub">Research &middot; ideation &middot; evaluation &middot; translation</div>
 
     <div class="process-grid">
       <div class="process-card">
-        <img src="Affinity Diagram.png" alt="Affinity Diagram">
+        <img src="Affinity Diagram.png" alt="Affinity diagram showing grouped research findings" loading="lazy">
         <h4>Affinity Diagram</h4>
-        <p>This artifact shows how qualitative findings were grouped into patterns and insights. It supports the portfolio’s emphasis on structure and interpretation.</p>
+        <p>This artifact shows how qualitative findings were grouped into patterns and insights. It supports the portfolio's emphasis on structure and interpretation.</p>
       </div>
 
       <div class="process-card">
-        <img src="Crazy 8s- Apple Watch.png" alt="Crazy Eights">
+        <img src="Crazy 8s- Apple Watch.png" alt="Crazy 8s ideation sketches for Apple Watch concepts" loading="lazy">
         <h4>Crazy 8s</h4>
         <p>This ideation board shows rapid concept development and how problem framing begins to move toward interface direction.</p>
       </div>
 
       <div class="process-card">
-        <img src="Assignment 2- Micro Interactions-Button.jpg" alt="Micro Interactions assignment">
+        <img src="Assignment 2- Micro Interactions-Button.jpg" alt="Micro-interaction button timing assignment" loading="lazy">
         <h4>Micro-interactions</h4>
         <p>This work shows attention to interaction timing, feedback, and interface behavior beyond static layout alone.</p>
       </div>
 
       <div class="process-card">
-        <img src="hueristics_image_5.png" alt="Heuristic analysis visual">
+        <img src="hueristics_image_5.png" alt="Heuristic analysis board with usability findings" loading="lazy">
         <h4>Heuristic Analysis Visual</h4>
         <p>This visual demonstrates how interface critique was translated into clearer structure and more explicit recommendations.</p>
       </div>
 
       <div class="process-card">
-        <img src="page5-flexibility-minimal.png" alt="Heuristic page 5 visual">
+        <img src="page5-flexibility-minimal.png" alt="Heuristic recommendation board for flexibility and minimalist design" loading="lazy">
         <h4>Heuristic Recommendation Board</h4>
-        <p>This board shows before-and-after reasoning, hierarchy, and recommendation framing — all of which influenced the case-study logic of the portfolio.</p>
+        <p>This board shows before-and-after reasoning, hierarchy, and recommendation framing - all of which influenced the case-study logic of the portfolio.</p>
       </div>
 
       <div class="process-card">
-        <iframe src="Connection%20to%20Projects.pdf" title="Connection to Projects PDF"></iframe>
+        <iframe src="Connection%20to%20Projects.pdf" title="Connection to Projects PDF" loading="lazy"></iframe>
         <h4>Connection to Projects</h4>
         <p>This document explicitly traces the relationship between research, interface structure, and the evolution toward larger experiential systems.</p>
       </div>
 
       <div class="process-card">
-        <iframe src="AffinityDiagrams-User%20Interview%20Data.pdf" title="Affinity diagram interview data PDF"></iframe>
+        <iframe src="AffinityDiagrams-User%20Interview%20Data.pdf" title="Affinity diagram interview data PDF" loading="lazy"></iframe>
         <h4>Interview Data</h4>
-        <p>The interview data shows the raw material behind synthesis and helps demonstrate that the portfolio’s logic is grounded in actual process.</p>
+        <p>The interview data shows the raw material behind synthesis and helps demonstrate that the portfolio's logic is grounded in actual process.</p>
       </div>
 
       <div class="process-card">
-        <iframe src="Website-Heuristic-Analysis.pdf" title="Website Heuristic Analysis PDF"></iframe>
+        <iframe src="Website%20Heuristic%20Analysis.pdf" title="Website Heuristic Analysis PDF" loading="lazy"></iframe>
         <h4>Website Heuristic Analysis</h4>
         <p>This analysis reflects how critique, grouping, and redesign logic influenced later page structure and project framing.</p>
       </div>
@@ -651,7 +720,7 @@ footer{
     <div class="compare-grid">
       <div class="compare-panel">
         <div class="compare-label">Raw process / source material</div>
-        <img src="Affinity Diagram.png" alt="Affinity Diagram source material">
+        <img src="Affinity Diagram.png" alt="Affinity diagram source material" loading="lazy">
         <p class="compare-copy">
           The source material is rich, but by itself it does not yet explain how all the work belongs together inside a portfolio.
         </p>
@@ -659,7 +728,7 @@ footer{
 
       <div class="compare-panel">
         <div class="compare-label">Structured portfolio outcome</div>
-        <iframe src="index.html" title="Structured portfolio home"></iframe>
+        <iframe src="index.html" title="Structured portfolio home" loading="lazy"></iframe>
         <p class="compare-copy">
           The portfolio translates that material into a legible system: first orientation, then categorized pages, then deeper case-study access.
         </p>
@@ -678,7 +747,7 @@ footer{
       <span class="sec-eyebrow">Decision Mapping</span>
     </div>
     <div class="sec-title">Why these design decisions were <em>made</em></div>
-    <div class="sec-sub">Decision · intended effect</div>
+    <div class="sec-sub">Decision &middot; intended effect</div>
 
     <div class="decision-map">
       <div class="decision-row">
@@ -734,7 +803,7 @@ footer{
       <span class="sec-eyebrow">Outcome</span>
     </div>
     <div class="sec-title">What this project <em>demonstrates</em></div>
-    <div class="sec-sub">Structure · translation · proof</div>
+    <div class="sec-sub">Structure &middot; translation &middot; proof</div>
 
     <div class="two-col wide">
       <div>
@@ -761,7 +830,7 @@ footer{
           <p>The portfolio itself becomes evidence of the method.</p>
         </div>
 
-        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:14px">
+        <div class="action-row">
           <a class="wp-link" href="index.html">Back to Home &#8594;</a>
           <a class="wp-link" href="botanic-elixir.html">Next Case Study: Botanic Elixir &#8594;</a>
         </div>
@@ -773,7 +842,7 @@ footer{
 
 <footer>
   <div class="ft-logo">Head<sup>&#174;</sup></div>
-  <div class="ft-copy">Making of the Portfolio · Case Study</div>
+  <div class="ft-copy">Making of the Portfolio &middot; Case Study</div>
 </footer>
 
 <script>
@@ -814,32 +883,20 @@ document.addEventListener('click', () => {
   sideButtons.forEach(btn => btn.classList.remove('open'));
 });
 
-if (window.innerWidth > 900) {
-  const cursor = document.createElement('div');
-  cursor.className = 'g-cursor';
-  document.body.appendChild(cursor);
-
-  window.addEventListener('mousemove', (e) => {
-    cursor.classList.add('visible');
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-
-  window.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-  window.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
-}
 </script>
 
 <script>
 var _c=document.getElementById('cur'),_cr=document.getElementById('curr');
-var _cx=0,_cy=0,_rx=0,_ry=0;
-window.addEventListener('mousemove',function(e){_cx=e.clientX;_cy=e.clientY;});
-(function _cl(){requestAnimationFrame(_cl);_rx+=(_cx-_rx)*.11;_ry+=(_cy-_ry)*.11;
-_c.style.left=_cx+'px';_c.style.top=_cy+'px';_cr.style.left=_rx+'px';_cr.style.top=_ry+'px';})();
-var _hh=document.querySelectorAll('a,button,.sn-btn,.card,.project,.signal-card,.list-item');
-for(var _i=0;_i<_hh.length;_i++){
-  _hh[_i].addEventListener('mouseenter',function(){_c.style.width='14px';_c.style.height='14px';_cr.style.width='48px';_cr.style.height='48px';});
-  _hh[_i].addEventListener('mouseleave',function(){_c.style.width='6px';_c.style.height='6px';_cr.style.width='28px';_cr.style.height='28px';});
+if (_c && _cr && window.matchMedia('(min-width: 901px) and (hover: hover)').matches) {
+  var _cx=0,_cy=0,_rx=0,_ry=0;
+  window.addEventListener('mousemove',function(e){_cx=e.clientX;_cy=e.clientY;});
+  (function _cl(){requestAnimationFrame(_cl);_rx+=(_cx-_rx)*.11;_ry+=(_cy-_ry)*.11;
+  _c.style.left=_cx+'px';_c.style.top=_cy+'px';_cr.style.left=_rx+'px';_cr.style.top=_ry+'px';})();
+  var _hh=document.querySelectorAll('a,button,.sn-btn,.card,.project,.signal-card,.list-item,.page-frame,.process-card,.usecase-card');
+  for(var _i=0;_i<_hh.length;_i++){
+    _hh[_i].addEventListener('mouseenter',function(){_c.style.width='14px';_c.style.height='14px';_cr.style.width='48px';_cr.style.height='48px';});
+    _hh[_i].addEventListener('mouseleave',function(){_c.style.width='6px';_c.style.height='6px';_cr.style.width='28px';_cr.style.height='28px';});
+  }
 }
 </script>
 </body>
