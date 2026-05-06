@@ -757,7 +757,7 @@ button{font-family:inherit}
 .carousel-controls{display:none}
 .evidence-viewer-layout{
   display:grid;
-  grid-template-columns:minmax(230px,300px) minmax(0,1fr);
+  grid-template-columns:minmax(250px,330px) minmax(0,1fr);
   gap:18px;
   padding-top:18px;
 }
@@ -768,7 +768,7 @@ button{font-family:inherit}
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  min-height:640px;
+  min-height:760px;
 }
 .evidence-side-copy h3{
   font-family:var(--serif);
@@ -800,15 +800,18 @@ button{font-family:inherit}
 }
 .document-stage{
   position:relative;
-  min-height:640px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 56px;
+  height:min(78vh,860px);
+  min-height:760px;
   border:1px solid rgba(184,150,90,.14);
   background:rgba(0,0,0,.3);
   overflow:hidden;
-  padding-right:54px;
 }
 .evidence-track{
-  position:absolute;
-  inset:0 54px 0 0;
+  position:relative;
+  min-width:0;
+  height:100%;
   overflow:hidden;
 }
 .evidence-card{
@@ -831,6 +834,17 @@ button{font-family:inherit}
   pointer-events:auto;
 }
 .evidence-card.exiting-up{transform:translateY(38px)}
+.document-frame,
+.evidence-card iframe{
+  display:block;
+  width:100%;
+  height:100%;
+  min-width:100%;
+  min-height:0;
+  border:0;
+  border-bottom:1px solid var(--hair);
+  background:rgba(255,255,255,.94);
+}
 .evidence-card img,.doc-visual{
   width:100%;
   height:100%;
@@ -888,13 +902,17 @@ button{font-family:inherit}
 }
 .evidence-body a:hover{opacity:1}
 .carousel-dots{
-  position:absolute;
-  right:14px;
-  top:50%;
+  position:relative;
   z-index:5;
-  transform:translateY(-50%);
   display:grid;
   gap:9px;
+  align-self:start;
+  justify-self:center;
+  margin-top:88px;
+  padding:10px 7px;
+  border:1px solid rgba(184,150,90,.18);
+  background:rgba(5,5,7,.68);
+  backdrop-filter:blur(10px);
 }
 .carousel-dot{
   width:12px;
@@ -1557,33 +1575,29 @@ footer{
       <p class="section-lede">The files work better as a vertical document viewer because they are supporting evidence, not four more competing project cards. One document appears at a time, with a side index showing where the viewer is in the stack.</p>
       <div class="evidence-carousel" aria-label="Evidence document carousel">
         <div class="evidence-carousel-head">
-          <span>Vertical document carousel &middot; method proof</span>
-          <div class="carousel-controls" aria-label="Evidence carousel controls">
-            <button class="carousel-btn" type="button" data-carousel="prev" aria-label="Previous evidence document">&#8593;</button>
-            <button class="carousel-btn" type="button" data-carousel="next" aria-label="Next evidence document">&#8595;</button>
-          </div>
+          <span>Scrollable document viewer &middot; dot-controlled source switcher</span>
         </div>
         <div class="evidence-viewer-layout">
           <aside class="evidence-side-copy">
             <div>
               <h3>Documents sit beside the argument.</h3>
-              <p>The carousel reads like a proof stack. The vertical dots on the side work as a compact index: each position is a different kind of evidence behind the portfolio system.</p>
+              <p>The carousel reads like a proof stack. The file itself scrolls inside the large document pane, while the vertical dots switch between the separate source files behind the portfolio system.</p>
             </div>
             <div class="side-stat" aria-label="Document carousel facts">
               <span><strong>4</strong> method documents</span>
               <span><strong>1</strong> document visible</span>
-              <span><strong>vertical</strong> dot position</span>
+              <span><strong>dots</strong> source switch</span>
             </div>
           </aside>
           <div class="document-stage">
             <div class="evidence-track">
               <article class="evidence-card active" style="--accent:var(--gold)" data-doc-card>
-                <iframe src="about:blank" title="Connection to Projects PDF" loading="lazy" data-doc-frame></iframe>
+                <iframe class="document-frame" src="Connection%20to%20Projects.pdf#view=FitH&zoom=page-width" title="Connection to Projects PDF" loading="eager" data-doc-frame></iframe>
                 <div class="evidence-body">
                   <div class="label" data-doc-label>Portfolio Integration</div>
                   <h3 data-doc-title>Connection logic</h3>
-                  <p data-doc-copy>This document directly supports the page's argument: the portfolio is a connected system, not a set of unrelated examples.</p>
-                  <a href="Connection%20to%20Projects.pdf" data-doc-link>Open document &#8594;</a>
+                  <p data-doc-copy>This document directly supports the page's argument: the portfolio is a connected system, not a set of unrelated examples. The viewer can scroll the file itself, while the dots switch to a different source.</p>
+                  <a href="Connection%20to%20Projects.pdf" data-doc-link>Open full file &#8594;</a>
                 </div>
               </article>
             </div>
@@ -1878,8 +1892,6 @@ mapTabs.forEach(tab => {
 });
 renderLens('featured');
 
-const evidenceTrack = document.querySelector('.evidence-track');
-const evidenceCarouselButtons = document.querySelectorAll('[data-carousel]');
 const evidenceDots = document.querySelectorAll('[data-doc-dot]');
 const documentCard = document.querySelector('[data-doc-card]');
 const documentFrame = document.querySelector('[data-doc-frame]');
@@ -1890,35 +1902,39 @@ const documentLink = document.querySelector('[data-doc-link]');
 const evidenceCarousel = document.querySelector('.evidence-carousel');
 const evidenceDocs = [
   {
-    src:'Connection%20to%20Projects.pdf',
+    src:'Connection%20to%20Projects.pdf#view=FitH&zoom=page-width',
+    href:'Connection%20to%20Projects.pdf',
     title:'Connection to Projects PDF',
     label:'Portfolio Integration',
     heading:'Connection logic',
-    copy:"This document directly supports the page's argument: the portfolio is a connected system, not a set of unrelated examples.",
+    copy:"This document directly supports the page's argument: the portfolio is a connected system, not a set of unrelated examples. The viewer can scroll the file itself, while the dots switch to a different source.",
     accent:'gold'
   },
   {
-    src:'HCI%20510-%20Writing%20Requirements.pdf',
+    src:'HCI%20510-%20Writing%20Requirements.pdf#view=FitH&zoom=page-width',
+    href:'HCI%20510-%20Writing%20Requirements.pdf',
     title:'HCI 510 Writing Requirements PDF',
     label:'Requirements Writing',
     heading:'Writing into structure',
-    copy:'Requirements work shows how language becomes interface direction: constraints, user needs, and system expectations are made traceable before design begins.',
+    copy:'Requirements work shows how language becomes interface direction: constraints, user needs, and system expectations are made traceable before design begins. The full requirements file stays scrollable in the viewer.',
     accent:'blue'
   },
   {
-    src:'AffinityDiagrams-User%20Interview%20Data.pdf',
+    src:'AffinityDiagrams-User%20Interview%20Data.pdf#view=FitH&zoom=page-width',
+    href:'AffinityDiagrams-User%20Interview%20Data.pdf',
     title:'Affinity Diagrams User Interview Data PDF',
     label:'Research Synthesis',
     heading:'Interview data into patterns',
-    copy:'Raw observations become clusters, labels, themes, and design implications that can guide page architecture.',
+    copy:'Raw observations become clusters, labels, themes, and design implications that can guide page architecture. The dot jump keeps the research source separate from the writing and evaluation sources.',
     accent:'green'
   },
   {
-    src:'Website%20Heuristic%20Analysis.pdf',
+    src:'Website%20Heuristic%20Analysis.pdf#view=FitH&zoom=page-width',
+    href:'Website%20Heuristic%20Analysis.pdf',
     title:'Website Heuristic Analysis PDF',
     label:'Evaluation',
     heading:'Critique into direction',
-    copy:'The heuristic analysis shows how usability critique becomes recommendations, redesign priorities, and clearer interface decisions.',
+    copy:'The heuristic analysis shows how usability critique becomes recommendations, redesign priorities, and clearer interface decisions. It stays readable as a full document instead of a cropped thumbnail.',
     accent:'copper'
   }
 ];
@@ -1938,7 +1954,8 @@ function showEvidenceSlide(nextIndex){
     if (documentLabel) documentLabel.textContent = doc.label;
     if (documentTitle) documentTitle.textContent = doc.heading;
     if (documentCopy) documentCopy.textContent = doc.copy;
-    if (documentLink) documentLink.href = doc.src;
+    if (documentLink) documentLink.href = doc.href || doc.src;
+    if (documentLink) documentLink.textContent = 'Open full file \u2192';
     documentCard.classList.add('active');
     documentCard.classList.remove('exiting-up');
   }, 120);
@@ -1948,13 +1965,13 @@ function showEvidenceSlide(nextIndex){
   });
   evidenceIndex = bounded;
 }
-evidenceCarouselButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    showEvidenceSlide(button.dataset.carousel === 'next' ? evidenceIndex + 1 : evidenceIndex - 1);
-  });
-});
 evidenceDots.forEach(dot => {
-  dot.addEventListener('click', () => showEvidenceSlide(Number(dot.dataset.docDot)));
+  const chooseDocument = event => {
+    event.preventDefault();
+    showEvidenceSlide(Number(dot.dataset.docDot));
+  };
+  dot.addEventListener('pointerdown', chooseDocument);
+  dot.addEventListener('click', chooseDocument);
 });
 function hydrateEvidenceCarousel(){
   if (!evidenceLoaded) showEvidenceSlide(evidenceIndex);
