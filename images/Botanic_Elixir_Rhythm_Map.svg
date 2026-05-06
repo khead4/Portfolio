@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Botanic Elixir interface rhythm map</title>
+  <desc id="desc">A dark visual map showing entry signal, navigation rhythm, section cadence, and module repeatability across the Botanic Elixir interface.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08070b"/>
+      <stop offset=".58" stop-color="#111015"/>
+      <stop offset="1" stop-color="#17110e"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,.07)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,.02)"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#d4b078" stroke-opacity=".045" stroke-width="1"/>
+    </pattern>
+    <style>
+      .bg{fill:url(#bg)}
+      .grid{fill:url(#grid)}
+      .panel{fill:url(#panel);stroke:#f0ece4;stroke-opacity:.13}
+      .dark{fill:#0d0b10;stroke:#d4b078;stroke-opacity:.20}
+      .gold{fill:#c49a52}
+      .sage{fill:#516a4b}
+      .plum{fill:#9b2f66}
+      .cream{fill:#f4eee6}
+      .muted{fill:#aaa19a}
+      .kicker{font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;letter-spacing:5px;fill:#d4b078}
+      .title{font-family:Georgia,'Times New Roman',serif;font-size:58px;font-weight:400;fill:#f7f1e8}
+      .h{font-family:Arial,Helvetica,sans-serif;font-size:19px;font-weight:700;fill:#f7f1e8}
+      .small{font-family:Arial,Helvetica,sans-serif;font-size:14px;fill:#bdb3aa}
+      .mono{font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:2px;fill:#d4b078}
+      .num{font-family:Georgia,'Times New Roman',serif;font-size:34px;fill:#d4b078}
+    </style>
+  </defs>
+
+  <rect class="bg" width="1400" height="760"/>
+  <rect class="grid" width="1400" height="760"/>
+  <path d="M90 155 C230 58 384 54 540 136 S796 276 1020 142" fill="none" stroke="#d4b078" stroke-opacity=".16" stroke-width="2"/>
+  <path d="M86 620 C240 522 398 530 548 602 S782 720 1042 610" fill="none" stroke="#516a4b" stroke-opacity=".16" stroke-width="2"/>
+
+  <g transform="translate(64 60)">
+    <text class="kicker" x="0" y="0">BOTANIC ELIXIR / INTERFACE RHYTHM</text>
+    <text class="title" x="0" y="76">The page reads as a sequence, not a poster.</text>
+    <text class="small" x="4" y="112">A motif map for how the live fragment stages attention, navigation, breathing room, and repeated modules.</text>
+  </g>
+
+  <g transform="translate(64 218)">
+    <rect class="panel" x="0" y="0" width="826" height="438" rx="20"/>
+    <text class="mono" x="34" y="42">ABOVE-FOLD STRUCTURE</text>
+
+    <rect class="dark" x="34" y="76" width="320" height="250" rx="12"/>
+    <path d="M72 256 C150 168 202 130 318 102" fill="none" stroke="#516a4b" stroke-opacity=".34" stroke-width="2"/>
+    <path d="M72 126 C164 92 244 88 322 118" fill="none" stroke="#d4b078" stroke-opacity=".34" stroke-width="2"/>
+    <text class="kicker" x="105" y="166">BOTANIC ELIXIR</text>
+    <text class="small" x="130" y="198">entry atmosphere</text>
+
+    <rect class="dark" x="392" y="76" width="400" height="250" rx="12"/>
+    <g transform="translate(426 104)">
+      <rect x="0" y="0" width="76" height="30" rx="2" fill="rgba(212,176,120,.10)" stroke="#d4b078" stroke-opacity=".32"/>
+      <rect x="92" y="0" width="76" height="30" rx="2" fill="rgba(212,176,120,.10)" stroke="#d4b078" stroke-opacity=".32"/>
+      <rect x="184" y="0" width="76" height="30" rx="2" fill="rgba(212,176,120,.10)" stroke="#d4b078" stroke-opacity=".32"/>
+      <rect x="276" y="0" width="76" height="30" rx="2" fill="rgba(212,176,120,.10)" stroke="#d4b078" stroke-opacity=".32"/>
+      <text class="small" x="11" y="20">Research</text>
+      <text class="small" x="108" y="20">Writing</text>
+      <text class="small" x="202" y="20">Design</text>
+      <text class="small" x="294" y="20">Build</text>
+    </g>
+    <rect x="426" y="238" width="124" height="38" rx="2" class="gold"/>
+    <rect x="570" y="238" width="124" height="38" rx="2" fill="rgba(212,176,120,.08)" stroke="#d4b078" stroke-opacity=".28"/>
+    <rect x="714" y="238" width="54" height="38" rx="2" fill="rgba(212,176,120,.08)" stroke="#d4b078" stroke-opacity=".20"/>
+
+    <g transform="translate(34 356)">
+      <rect x="0" y="0" width="196" height="46" rx="8" fill="rgba(212,176,120,.14)" stroke="#d4b078" stroke-opacity=".28"/>
+      <rect x="216" y="0" width="196" height="46" rx="8" fill="rgba(81,106,75,.18)" stroke="#516a4b" stroke-opacity=".36"/>
+      <rect x="432" y="0" width="196" height="46" rx="8" fill="rgba(155,47,102,.18)" stroke="#9b2f66" stroke-opacity=".38"/>
+      <rect x="648" y="0" width="144" height="46" rx="8" fill="rgba(255,255,255,.045)" stroke="#f0ece4" stroke-opacity=".13"/>
+      <text class="small" x="18" y="29">entry signal</text>
+      <text class="small" x="234" y="29">navigation rhythm</text>
+      <text class="small" x="450" y="29">section cadence</text>
+      <text class="small" x="666" y="29">repeatability</text>
+    </g>
+  </g>
+
+  <g transform="translate(934 218)">
+    <rect class="panel" x="0" y="0" width="402" height="438" rx="20"/>
+    <text class="mono" x="30" y="42">READING LOGIC</text>
+
+    <g transform="translate(30 76)">
+      <circle class="gold" cx="22" cy="22" r="22"/>
+      <text x="22" y="31" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#0d0b10">1</text>
+      <text class="h" x="62" y="14">Entry signal</text>
+      <text class="small" x="62" y="38">The first screen names the world.</text>
+    </g>
+
+    <g transform="translate(30 158)">
+      <circle class="sage" cx="22" cy="22" r="22"/>
+      <text x="22" y="31" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#f7f1e8">2</text>
+      <text class="h" x="62" y="14">Navigation rhythm</text>
+      <text class="small" x="62" y="38">Pills repeat a calm route grammar.</text>
+    </g>
+
+    <g transform="translate(30 240)">
+      <circle class="plum" cx="22" cy="22" r="22"/>
+      <text x="22" y="31" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#f7f1e8">3</text>
+      <text class="h" x="62" y="14">Section cadence</text>
+      <text class="small" x="62" y="38">Spacing keeps atmosphere readable.</text>
+    </g>
+
+    <g transform="translate(30 322)">
+      <circle class="cream" cx="22" cy="22" r="22"/>
+      <text x="22" y="31" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#0d0b10">4</text>
+      <text class="h" x="62" y="14">Module repeatability</text>
+      <text class="small" x="62" y="38">The same logic returns across surfaces.</text>
+    </g>
+
+    <line x1="52" y1="120" x2="52" y2="382" stroke="#d4b078" stroke-opacity=".22"/>
+  </g>
+</svg>

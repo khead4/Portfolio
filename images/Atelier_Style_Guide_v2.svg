@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Cognitive Atelier visual system style guide</title>
+  <desc id="desc">A readable visual style guide showing palette, typography, components, accessibility rules, imagery direction, and an applied interface example.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08070b"/>
+      <stop offset=".56" stop-color="#111016"/>
+      <stop offset="1" stop-color="#171210"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,.07)"/>
+      <stop offset="1" stop-color="rgba(255,255,255,.025)"/>
+    </linearGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d3a064"/>
+      <stop offset="1" stop-color="#b87333"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity=".32"/>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#d4b078" stroke-opacity=".045" stroke-width="1"/>
+    </pattern>
+    <style>
+      .bg{fill:url(#bg)}
+      .grid{fill:url(#grid)}
+      .rule{stroke:#d4b078;stroke-opacity:.22;stroke-width:1}
+      .hair{stroke:#f0ece4;stroke-opacity:.12;stroke-width:1}
+      .panel{fill:url(#panel);stroke:#f0ece4;stroke-opacity:.13;stroke-width:1}
+      .panelDark{fill:#100d12;stroke:#f0ece4;stroke-opacity:.12;stroke-width:1}
+      .chip{fill:rgba(255,255,255,.045);stroke:#d4b078;stroke-opacity:.22;stroke-width:1}
+      .kicker{font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:700;letter-spacing:5px;fill:#d4b078}
+      .micro{font-family:Arial, Helvetica, sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;fill:#a99166}
+      .h1{font-family:Georgia, 'Times New Roman', serif;font-size:78px;font-weight:400;fill:#f7f1e8}
+      .h2{font-family:Georgia, 'Times New Roman', serif;font-size:38px;font-weight:400;fill:#f7f1e8}
+      .panelTitle{font-family:Georgia, 'Times New Roman', serif;font-size:30px;font-weight:400;fill:#f7f1e8}
+      .h3{font-family:Arial, Helvetica, sans-serif;font-size:22px;font-weight:700;fill:#f7f1e8}
+      .copy{font-family:Arial, Helvetica, sans-serif;font-size:16px;line-height:1.5;fill:#c9c0b8}
+      .small{font-family:Arial, Helvetica, sans-serif;font-size:13px;fill:#aaa19a}
+      .mono{font-family:'Courier New', monospace;font-size:14px;letter-spacing:1.5px;fill:#d4b078}
+      .num{font-family:Georgia, 'Times New Roman', serif;font-size:34px;fill:#d4b078}
+      .label{font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;fill:#f7f1e8}
+      .muted{fill:#8e8580}
+      .copperText{fill:#d4b078}
+      .plumText{fill:#d4849a}
+      .greenText{fill:#79d6a7}
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="1600"/>
+  <rect class="grid" width="1200" height="1600"/>
+  <path d="M96 148 C244 54 422 48 574 130 S838 248 1052 144" fill="none" stroke="#d4b078" stroke-opacity=".18" stroke-width="2"/>
+  <path d="M162 1326 C312 1210 510 1212 660 1310 S890 1484 1060 1358" fill="none" stroke="#9b2f66" stroke-opacity=".18" stroke-width="2"/>
+
+  <g transform="translate(72 66)">
+    <text class="kicker" x="0" y="0">COGNITIVE ATELIER</text>
+    <text class="h1" x="0" y="86">Visual System</text>
+    <text class="copy" x="4" y="126">A governed interface language for calm, structured thinking environments.</text>
+    <line class="rule" x1="0" y1="172" x2="1056" y2="172"/>
+    <text class="mono" x="0" y="210">STYLE GUIDE v2 / working rules, not moodboard decoration</text>
+  </g>
+
+  <g transform="translate(72 330)" filter="url(#softShadow)">
+    <rect class="panel" x="0" y="0" width="1056" height="276" rx="18"/>
+    <text class="num" x="32" y="54">01</text>
+    <text class="kicker" x="92" y="46">PALETTE SYSTEM</text>
+    <text class="h2" x="32" y="104">Color creates hierarchy</text>
+    <text class="h2" x="32" y="150">before it creates atmosphere.</text>
+    <text class="copy" x="34" y="184">Dark neutrals hold depth. Warm white carries copy.</text>
+    <text class="copy" x="34" y="210">Copper marks action. Plum and graphite support quieter states.</text>
+
+    <g transform="translate(34 228)">
+      <rect x="0" y="0" width="170" height="42" rx="8" fill="#0b080d" stroke="#f0ece4" stroke-opacity=".12"/>
+      <rect x="186" y="0" width="170" height="42" rx="8" fill="#f7f1e8"/>
+      <rect x="372" y="0" width="170" height="42" rx="8" fill="#b87333"/>
+      <rect x="558" y="0" width="170" height="42" rx="8" fill="#9b2f66"/>
+      <rect x="744" y="0" width="170" height="42" rx="8" fill="#2a2a2e"/>
+      <text class="mono" x="0" y="66">ONYX</text>
+      <text class="mono" x="186" y="66">WARM WHITE</text>
+      <text class="mono" x="372" y="66">COPPER</text>
+      <text class="mono" x="558" y="66">PLUM</text>
+      <text class="mono" x="744" y="66">GRAPHITE</text>
+    </g>
+  </g>
+
+  <g transform="translate(72 640)" filter="url(#softShadow)">
+    <rect class="panel" x="0" y="0" width="510" height="398" rx="18"/>
+    <text class="num" x="32" y="54">02</text>
+    <text class="kicker" x="92" y="46">TYPOGRAPHY</text>
+    <text class="panelTitle" x="32" y="98">Hierarchy should feel editorial,</text>
+    <text class="panelTitle" x="32" y="132">then usable.</text>
+    <line class="hair" x1="32" y1="158" x2="478" y2="158"/>
+
+    <text class="h2" x="32" y="216">Display / editorial voice</text>
+    <text class="small" x="34" y="242">Serif display sets claims, openings, and reflective emphasis.</text>
+
+    <text class="h3" x="32" y="302">Interface / navigation / labels</text>
+    <text class="small" x="34" y="326">Sans labels support fast recognition and interface control.</text>
+
+    <text class="mono" x="34" y="372">SYSTEM MICROCOPY / ANNOTATION ONLY</text>
+  </g>
+
+  <g transform="translate(618 640)" filter="url(#softShadow)">
+    <rect class="panel" x="0" y="0" width="510" height="398" rx="18"/>
+    <text class="num" x="32" y="54">03</text>
+    <text class="kicker" x="92" y="46">COMPONENT GRAMMAR</text>
+    <text class="panelTitle" x="32" y="98">Repeat the structure so</text>
+    <text class="panelTitle" x="32" y="132">the mood becomes learnable.</text>
+
+    <g transform="translate(32 170)">
+      <rect class="chip" x="0" y="0" width="132" height="46" rx="23"/>
+      <text class="label" x="31" y="30">PILL</text>
+      <rect class="chip" x="152" y="0" width="164" height="46" rx="4"/>
+      <text class="label" x="179" y="30">TEXT LINK</text>
+      <rect x="336" y="0" width="132" height="46" rx="4" fill="url(#copper)"/>
+      <text class="label" x="370" y="30" fill="#100d0a">CTA</text>
+    </g>
+
+    <g transform="translate(32 250)">
+      <rect class="panelDark" x="0" y="0" width="206" height="108" rx="14"/>
+      <text class="micro" x="18" y="30">MODULE CARD</text>
+      <text class="small" x="18" y="58">fixed rhythm</text>
+      <text class="small" x="18" y="82">single action point</text>
+      <rect class="panelDark" x="238" y="0" width="206" height="108" rx="14"/>
+      <text class="micro" x="256" y="30">DATA BOARD</text>
+      <text class="small" x="256" y="58">structured claim</text>
+      <text class="small" x="256" y="82">evidence visible</text>
+    </g>
+  </g>
+
+  <g transform="translate(72 1074)" filter="url(#softShadow)">
+    <rect class="panel" x="0" y="0" width="336" height="318" rx="18"/>
+    <text class="num" x="28" y="50">04</text>
+    <text class="kicker" x="88" y="43">ACCESS</text>
+    <text class="h3" x="30" y="98">Rules protect readability</text>
+    <line class="hair" x1="30" y1="124" x2="306" y2="124"/>
+    <text class="copy" x="32" y="166">- Contrast first, color second</text>
+    <text class="copy" x="32" y="206">- Copper marks action only</text>
+    <text class="copy" x="32" y="246">- Labels stay visible on dark</text>
+    <text class="copy" x="32" y="286">- Focus states use warm outlines</text>
+  </g>
+
+  <g transform="translate(432 1074)" filter="url(#softShadow)">
+    <rect class="panel" x="0" y="0" width="336" height="318" rx="18"/>
+    <text class="num" x="28" y="50">05</text>
+    <text class="kicker" x="88" y="43">IMAGERY</text>
+    <text class="h3" x="30" y="98">Visuals interpret the idea</text>
+    <line class="hair" x1="30" y1="124" x2="306" y2="124"/>
+    <circle cx="92" cy="206" r="48" fill="none" stroke="#d4b078" stroke-opacity=".38"/>
+    <circle cx="168" cy="182" r="54" fill="none" stroke="#9b2f66" stroke-opacity=".38"/>
+    <circle cx="218" cy="230" r="40" fill="none" stroke="#79d6a7" stroke-opacity=".26"/>
+    <path d="M62 248 C128 178 180 154 266 164" fill="none" stroke="#f0ece4" stroke-opacity=".2"/>
+      <text class="small" x="30" y="286">Use networks, constellations, and research surfaces.</text>
+  </g>
+
+  <g transform="translate(792 1074)" filter="url(#softShadow)">
+    <rect class="panel" x="0" y="0" width="336" height="318" rx="18"/>
+    <text class="num" x="28" y="50">06</text>
+    <text class="kicker" x="88" y="43">APPLICATION</text>
+    <text class="h3" x="30" y="98">System survives real screens</text>
+    <rect x="30" y="130" width="276" height="144" rx="12" fill="#0b080d" stroke="#f0ece4" stroke-opacity=".12"/>
+    <rect x="48" y="150" width="72" height="18" rx="9" fill="rgba(212,176,120,.18)" stroke="#d4b078" stroke-opacity=".36"/>
+    <rect x="132" y="150" width="72" height="18" rx="9" fill="rgba(212,176,120,.08)" stroke="#d4b078" stroke-opacity=".18"/>
+    <text class="mono" x="48" y="200">DESIGNED FOR FOCUS</text>
+      <text class="small" x="48" y="228">A calm system for thinking,</text>
+      <text class="small" x="48" y="252">reflection, and action.</text>
+  </g>
+
+  <g transform="translate(72 1440)">
+    <rect x="0" y="0" width="1056" height="80" rx="18" fill="#0f0d0a" stroke="#d4b078" stroke-opacity=".22"/>
+    <text class="kicker" x="32" y="34">GOVERNING PRINCIPLE</text>
+    <text class="h3" x="32" y="64">Atmosphere should invite attention, but hierarchy must always tell the user where to go next.</text>
+  </g>
+</svg>
