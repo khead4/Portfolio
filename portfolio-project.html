@@ -729,6 +729,7 @@ button{font-family:inherit}
 .discipline-row p{font-size:12px;line-height:1.85;color:var(--dim)}
 
 .evidence-carousel{
+  --doc-stage-height:clamp(680px,78vh,860px);
   margin-top:40px;
   border:1px solid var(--hair2);
   background:
@@ -757,7 +758,7 @@ button{font-family:inherit}
 .carousel-controls{display:none}
 .evidence-viewer-layout{
   display:grid;
-  grid-template-columns:minmax(250px,330px) minmax(0,1fr);
+  grid-template-columns:minmax(220px,280px) minmax(0,1fr);
   gap:18px;
   padding-top:18px;
 }
@@ -768,7 +769,8 @@ button{font-family:inherit}
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  min-height:760px;
+  height:var(--doc-stage-height);
+  min-height:0;
 }
 .evidence-side-copy h3{
   font-family:var(--serif);
@@ -801,9 +803,9 @@ button{font-family:inherit}
 .document-stage{
   position:relative;
   display:grid;
-  grid-template-columns:minmax(0,1fr) 56px;
-  height:min(78vh,860px);
-  min-height:760px;
+  grid-template-columns:minmax(0,1fr) 48px;
+  height:var(--doc-stage-height);
+  min-height:0;
   border:1px solid rgba(184,150,90,.14);
   background:rgba(0,0,0,.3);
   overflow:hidden;
@@ -820,7 +822,7 @@ button{font-family:inherit}
   height:100%;
   width:100%;
   display:grid;
-  grid-template-rows:minmax(0,1fr) auto;
+  grid-template-rows:minmax(0,1fr) minmax(126px,auto);
   position:absolute;
   inset:0;
   opacity:0;
@@ -844,6 +846,7 @@ button{font-family:inherit}
   border:0;
   border-bottom:1px solid var(--hair);
   background:rgba(255,255,255,.94);
+  overflow:hidden;
 }
 .evidence-card img,.doc-visual{
   width:100%;
@@ -1067,6 +1070,7 @@ footer{
   .object-stat-row{grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-preview-grid{grid-template-columns:1fr}
   .map-preview-tabs{grid-template-columns:repeat(3,1fr)}
+  .evidence-viewer-layout{grid-template-columns:minmax(210px,250px) minmax(0,1fr)}
 }
 @media(max-width:900px){
   .main{padding:0 32px 110px}
@@ -1085,6 +1089,9 @@ footer{
   .stage-label{left:20px}
   .stage-note{left:20px;right:20px}
   .cur,.cur-r{display:none}
+  .evidence-viewer-layout{grid-template-columns:1fr}
+  .evidence-side-copy{height:auto;min-height:0}
+  .document-stage{height:clamp(620px,78vh,820px)}
 }
 @media(max-width:640px){
   :root{--sw:0px}
@@ -1097,11 +1104,11 @@ footer{
   .section-title{font-size:30px}
   .thesis-grid,.project-system,.impact-strip{grid-template-columns:1fr}
   .object-stat-row,.map-preview-cards{grid-template-columns:1fr}
-  .evidence-carousel{padding:14px}
+  .evidence-carousel{padding:14px;--doc-stage-height:clamp(560px,76vh,720px)}
   .evidence-carousel-head{align-items:flex-start;flex-direction:column}
   .evidence-viewer-layout{grid-template-columns:1fr}
   .evidence-side-copy{min-height:0}
-  .document-stage{min-height:640px}
+  .document-stage{min-height:0}
   .evidence-card img,.evidence-card iframe,.doc-visual{height:100%}
   .outcome-panel,.transformation-board{padding:24px}
   footer{margin-left:0;padding:26px 20px;flex-direction:column}
@@ -1592,7 +1599,7 @@ footer{
           <div class="document-stage">
             <div class="evidence-track">
               <article class="evidence-card active" style="--accent:var(--gold)" data-doc-card>
-                <iframe class="document-frame" src="Connection%20to%20Projects.pdf#view=FitH&zoom=page-width" title="Connection to Projects PDF" loading="eager" data-doc-frame></iframe>
+                <iframe class="document-frame" src="Connection%20to%20Projects.pdf#view=Fit" title="Connection to Projects PDF" loading="eager" data-doc-frame></iframe>
                 <div class="evidence-body">
                   <div class="label" data-doc-label>Portfolio Integration</div>
                   <h3 data-doc-title>Connection logic</h3>
@@ -1902,7 +1909,7 @@ const documentLink = document.querySelector('[data-doc-link]');
 const evidenceCarousel = document.querySelector('.evidence-carousel');
 const evidenceDocs = [
   {
-    src:'Connection%20to%20Projects.pdf#view=FitH&zoom=page-width',
+    src:'Connection%20to%20Projects.pdf#view=Fit',
     href:'Connection%20to%20Projects.pdf',
     title:'Connection to Projects PDF',
     label:'Portfolio Integration',
@@ -1911,7 +1918,7 @@ const evidenceDocs = [
     accent:'gold'
   },
   {
-    src:'HCI%20510-%20Writing%20Requirements.pdf#view=FitH&zoom=page-width',
+    src:'HCI%20510-%20Writing%20Requirements.pdf#view=Fit',
     href:'HCI%20510-%20Writing%20Requirements.pdf',
     title:'HCI 510 Writing Requirements PDF',
     label:'Requirements Writing',
@@ -1920,7 +1927,7 @@ const evidenceDocs = [
     accent:'blue'
   },
   {
-    src:'AffinityDiagrams-User%20Interview%20Data.pdf#view=FitH&zoom=page-width',
+    src:'AffinityDiagrams-User%20Interview%20Data.pdf#view=Fit',
     href:'AffinityDiagrams-User%20Interview%20Data.pdf',
     title:'Affinity Diagrams User Interview Data PDF',
     label:'Research Synthesis',
@@ -1929,7 +1936,7 @@ const evidenceDocs = [
     accent:'green'
   },
   {
-    src:'Website%20Heuristic%20Analysis.pdf#view=FitH&zoom=page-width',
+    src:'Website%20Heuristic%20Analysis.pdf#view=Fit',
     href:'Website%20Heuristic%20Analysis.pdf',
     title:'Website Heuristic Analysis PDF',
     label:'Evaluation',
@@ -1966,13 +1973,17 @@ function showEvidenceSlide(nextIndex){
   evidenceIndex = bounded;
 }
 evidenceDots.forEach(dot => {
-  const chooseDocument = event => {
+  dot.addEventListener('click', event => {
     event.preventDefault();
     showEvidenceSlide(Number(dot.dataset.docDot));
-  };
-  dot.addEventListener('pointerdown', chooseDocument);
-  dot.addEventListener('click', chooseDocument);
+  });
 });
+document.addEventListener('pointerdown', event => {
+  const dot = event.target.closest('[data-doc-dot]');
+  if (!dot) return;
+  event.preventDefault();
+  showEvidenceSlide(Number(dot.dataset.docDot));
+}, true);
 function hydrateEvidenceCarousel(){
   if (!evidenceLoaded) showEvidenceSlide(evidenceIndex);
 }
