@@ -192,6 +192,27 @@ a{color:inherit;text-decoration:none}
 .comp-item{padding:12px 14px;border:1px solid rgba(196,123,43,.14);background:rgba(196,123,43,.04);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--cream)}
 .comp-use{font-size:10px;color:var(--dim)}
 
+/* Live platform preview */
+.live-platform-shell{border:1px solid rgba(196,123,43,.22);background:rgba(4,12,20,.82);overflow:hidden}
+.live-platform-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 20px;border-bottom:1px solid rgba(196,123,43,.12)}
+.live-url-group{display:flex;align-items:center;gap:12px;min-width:0}
+.live-lights{display:flex;gap:6px;flex:0 0 auto}
+.live-light{width:10px;height:10px;border-radius:50%}
+.live-url{font-size:10px;font-family:var(--mono);color:var(--dim);background:rgba(240,236,228,.04);border:1px solid rgba(240,236,228,.07);padding:4px 12px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.live-open{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc2);opacity:.78;text-decoration:none;white-space:nowrap}
+.live-open:hover{opacity:1}
+.live-platform-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);border-bottom:1px solid rgba(196,123,43,.12)}
+.live-preview-link{display:block;min-height:420px;padding:28px;background:linear-gradient(135deg,rgba(196,123,43,.08),rgba(4,12,20,.92));border-right:1px solid rgba(196,123,43,.12)}
+.live-preview-link svg{width:100%;height:100%;min-height:360px;display:block}
+.live-platform-copy{padding:32px;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.live-platform-copy .pk{margin-bottom:14px}
+.live-feature-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+.live-feature-list span{border:1px solid rgba(196,123,43,.13);background:rgba(196,123,43,.04);padding:9px 10px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,228,.5)}
+.live-embed-frame{width:100%;height:760px;border:none;display:block;background:#fff}
+.live-bottom-link{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 20px;border-top:1px solid rgba(196,123,43,.12);background:linear-gradient(90deg,rgba(196,123,43,.1),rgba(4,12,20,.82));font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc2);text-decoration:none}
+.live-bottom-link span{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:none;color:rgba(240,236,228,.45)}
+.live-bottom-link:hover{background:linear-gradient(90deg,rgba(196,123,43,.16),rgba(4,12,20,.86));color:var(--cream)}
+
 /* Cursor */
 .cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--acc);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
 .cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(196,123,43,.45);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
@@ -204,6 +225,8 @@ a{color:inherit;text-decoration:none}
   .c8-grid{grid-template-columns:1fr 1fr}
   .heuristic-row{grid-template-columns:1fr 1fr}
   .style-cols{grid-template-columns:1fr}
+  .live-platform-grid{grid-template-columns:1fr}
+  .live-preview-link{border-right:0;border-bottom:1px solid rgba(196,123,43,.12)}
 }
 @media(max-width:700px){
   :root{--sw:0px}
@@ -214,6 +237,11 @@ a{color:inherit;text-decoration:none}
   .c8-grid{grid-template-columns:1fr}
   .miro-cluster-grid{grid-template-columns:repeat(2,1fr)}
   .sticky-grid{grid-template-columns:1fr 1fr}
+  .live-platform-bar,.live-bottom-link{align-items:flex-start;flex-direction:column}
+  .live-feature-list{grid-template-columns:1fr}
+  .live-preview-link{padding:18px;min-height:320px}
+  .live-preview-link svg{min-height:280px}
+  .live-embed-frame{height:620px}
 }
 
 /* Real persona photos */
@@ -1337,20 +1365,83 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
     <div class="sec-div"></div>
-    <div style="border:1px solid rgba(196,123,43,.22);background:rgba(4,12,20,.82);overflow:hidden">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(196,123,43,.12)">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div style="display:flex;gap:6px">
-            <div style="width:10px;height:10px;border-radius:50%;background:rgba(240,100,80,.5)"></div>
-            <div style="width:10px;height:10px;border-radius:50%;background:rgba(240,180,60,.45)"></div>
-            <div style="width:10px;height:10px;border-radius:50%;background:rgba(60,200,100,.45)"></div>
+    <div class="live-platform-shell">
+      <div class="live-platform-bar">
+        <div class="live-url-group">
+          <div class="live-lights" aria-hidden="true">
+            <div class="live-light" style="background:rgba(240,100,80,.5)"></div>
+            <div class="live-light" style="background:rgba(240,180,60,.45)"></div>
+            <div class="live-light" style="background:rgba(60,200,100,.45)"></div>
           </div>
-          <div style="font-size:10px;font-family:monospace;color:var(--dim);background:rgba(240,236,228,.04);border:1px solid rgba(240,236,228,.07);padding:4px 12px;border-radius:4px">flood-ivory.vercel.app</div>
+          <div class="live-url">https://flood-ivory.vercel.app/</div>
         </div>
-        <a href="https://flood-ivory.vercel.app/" target="_blank" style="font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc2);opacity:.7;text-decoration:none">Open in new tab &#8599;</a>
+        <a class="live-open" href="https://flood-ivory.vercel.app/" target="_blank" rel="noopener">Open live site &#8599;</a>
       </div>
-      <iframe src="https://flood-ivory.vercel.app/" title="Macomb Flood Response Platform — live" style="width:100%;height:800px;border:none;display:block;background:#fff" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
-      <div style="padding:12px 20px;font-size:10px;color:var(--muted);line-height:1.6;border-top:1px solid rgba(196,123,43,.1)">Start with the intake form to generate a personalised help plan, or use the issue router to jump to GIS maps, insurance guidance, or the packet builder. All features are live in the embed. If it does not load, open in a new tab above.</div>
+      <div class="live-platform-grid">
+        <a class="live-preview-link" href="https://flood-ivory.vercel.app/" target="_blank" rel="noopener" aria-label="Open the live Macomb Flood Response Platform">
+          <svg viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Preview of Macomb Flood Response Platform">
+            <defs>
+              <linearGradient id="liveBg" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#071521"/>
+                <stop offset=".52" stop-color="#061019"/>
+                <stop offset="1" stop-color="#140b05"/>
+              </linearGradient>
+              <linearGradient id="liveAcc" x1="0" x2="1">
+                <stop offset="0" stop-color="#c47b2b"/>
+                <stop offset="1" stop-color="#d4b078"/>
+              </linearGradient>
+            </defs>
+            <rect width="980" height="560" rx="18" fill="url(#liveBg)" stroke="rgba(196,123,43,.42)"/>
+            <rect x="28" y="28" width="924" height="52" rx="10" fill="rgba(0,0,0,.36)" stroke="rgba(196,123,43,.18)"/>
+            <circle cx="56" cy="54" r="7" fill="rgba(240,100,80,.65)"/>
+            <circle cx="80" cy="54" r="7" fill="rgba(240,180,60,.55)"/>
+            <circle cx="104" cy="54" r="7" fill="rgba(60,200,100,.5)"/>
+            <rect x="138" y="43" width="300" height="22" rx="11" fill="rgba(240,236,228,.06)" stroke="rgba(240,236,228,.09)"/>
+            <text x="154" y="58" font-family="monospace" font-size="13" fill="rgba(240,236,228,.65)">flood-ivory.vercel.app</text>
+            <text x="62" y="128" font-family="serif" font-size="45" fill="#f0ece4">Macomb Flood</text>
+            <text x="62" y="170" font-family="serif" font-size="45" fill="#d4b078" font-style="italic">Response Platform</text>
+            <text x="64" y="214" font-family="sans-serif" font-size="15" fill="rgba(240,236,228,.6)">Intake, coverage routing, documentation, maps, and recovery packet tools.</text>
+            <rect x="62" y="254" width="250" height="178" rx="8" fill="rgba(240,236,228,.055)" stroke="rgba(196,123,43,.2)"/>
+            <text x="84" y="292" font-family="sans-serif" font-size="12" letter-spacing="2" fill="#c47b2b">ISSUE ROUTER</text>
+            <rect x="84" y="318" width="186" height="28" rx="4" fill="rgba(196,123,43,.22)"/>
+            <rect x="84" y="360" width="146" height="10" rx="5" fill="rgba(240,236,228,.22)"/>
+            <rect x="84" y="384" width="176" height="10" rx="5" fill="rgba(240,236,228,.15)"/>
+            <rect x="340" y="254" width="250" height="178" rx="8" fill="rgba(240,236,228,.045)" stroke="rgba(196,123,43,.18)"/>
+            <text x="362" y="292" font-family="sans-serif" font-size="12" letter-spacing="2" fill="#c47b2b">COVERAGE ENGINE</text>
+            <path d="M376 380c42-78 88 22 140-58" fill="none" stroke="url(#liveAcc)" stroke-width="7" stroke-linecap="round"/>
+            <circle cx="376" cy="380" r="10" fill="#c47b2b"/>
+            <circle cx="516" cy="322" r="10" fill="#d4b078"/>
+            <rect x="618" y="254" width="250" height="178" rx="8" fill="rgba(240,236,228,.04)" stroke="rgba(196,123,43,.16)"/>
+            <text x="640" y="292" font-family="sans-serif" font-size="12" letter-spacing="2" fill="#c47b2b">PACKET BUILDER</text>
+            <path d="M646 330h82M646 358h132M646 386h104" stroke="rgba(240,236,228,.34)" stroke-width="10" stroke-linecap="round"/>
+            <rect x="58" y="468" width="810" height="40" rx="20" fill="rgba(196,123,43,.16)" stroke="rgba(196,123,43,.26)"/>
+            <text x="86" y="493" font-family="sans-serif" font-size="13" letter-spacing="2" fill="#f0ece4">OPEN LIVE PLATFORM</text>
+            <text x="778" y="493" font-family="sans-serif" font-size="18" fill="#d4b078">&#8599;</text>
+          </svg>
+        </a>
+        <div class="live-platform-copy">
+          <div>
+            <div class="pk">Live build preview</div>
+            <h3 class="pt">A visible preview now anchors the Vercel link.</h3>
+            <p class="pb">The live project may not always render inside an iframe on every browser, so this preview acts as a stable visual doorway. The link opens the deployed platform directly.</p>
+            <div class="live-feature-list" aria-label="Live platform features">
+              <span>Intake form</span>
+              <span>GIS maps</span>
+              <span>Coverage engine</span>
+              <span>Photo checklist</span>
+              <span>Damage inventory</span>
+              <span>Packet builder</span>
+            </div>
+          </div>
+          <a class="live-open" href="https://flood-ivory.vercel.app/" target="_blank" rel="noopener">Launch platform &#8599;</a>
+        </div>
+      </div>
+      <iframe class="live-embed-frame" src="https://flood-ivory.vercel.app/" title="Macomb Flood Response Platform live" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
+      <div style="padding:12px 20px;font-size:10px;color:var(--muted);line-height:1.6;border-top:1px solid rgba(196,123,43,.1)">Start with the intake form to generate a personalised help plan, or use the issue router to jump to GIS maps, insurance guidance, or the packet builder. If the embed does not load, use the live platform link below.</div>
+      <a class="live-bottom-link" href="https://flood-ivory.vercel.app/" target="_blank" rel="noopener">
+        <strong>Open the live Macomb Flood Response Platform &#8599;</strong>
+        <span>https://flood-ivory.vercel.app/</span>
+      </a>
     </div>
   </section>
 
