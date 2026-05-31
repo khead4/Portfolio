@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Two Languages, One View · Head®</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&amp;family=Jost:wght@200;300;400;500&amp;family=DM+Mono:wght@300;400&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#000;
+  --gold:#b8965a;
+  --gold2:#d4b078;
+  --cream:rgba(240,236,228,.92);
+  --dim:rgba(240,236,228,.58);
+  --muted:rgba(240,236,228,.34);
+  --border:rgba(240,236,228,.08);
+  --border2:rgba(184,150,90,.18);
+  --panel:rgba(8,8,11,.72);
+  --panel2:rgba(12,12,17,.88);
+  --acc:#a892eb;
+  --acc2:#7ed6c4;
+  --acc3:#d4b078;
+  --plum:#9b2f66;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Jost',Arial,sans-serif;
+  --mono:'DM Mono',Consolas,monospace;
+  --sw:64px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  min-height:100vh;
+  background:
+    linear-gradient(90deg,rgba(168,146,235,.045) 1px,transparent 1px),
+    linear-gradient(180deg,#000 0%,#050507 44%,#000 100%);
+  background-size:88px 88px,auto;
+  color:var(--cream);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.7;
+  padding-left:var(--sw);
+  overflow-x:hidden;
+  cursor:none;
+}
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:.024;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit;text-decoration:none}
+
+.cur{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--acc);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.cur-r{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(168,146,235,.45);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+.sidenav{position:fixed;left:0;top:0;bottom:0;width:var(--sw);z-index:200;display:flex;flex-direction:column;align-items:center;padding:32px 0;background:rgba(5,5,7,.72);backdrop-filter:blur(24px);border-right:1px solid var(--border)}
+.sn-logo{font-family:var(--serif);font-size:11px;letter-spacing:.12em;color:var(--cream);writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:auto}
+.sn-logo sup{font-size:7px;opacity:.4}
+.sn-links{display:flex;flex-direction:column;align-items:center;gap:4px;list-style:none;margin:auto 0}
+.sn-links li{position:relative}
+.sn-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:var(--muted);font-size:14px;transition:.25s;border:1px solid transparent;background:transparent;cursor:pointer;padding:0}
+.sn-btn:hover,.sn-btn.open{background:rgba(184,150,90,.07);color:var(--gold);border-color:rgba(184,150,90,.15)}
+.sn-flyout{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(-6px);background:rgba(5,5,7,.96);border:1px solid var(--border2);border-radius:6px;padding:6px 0;min-width:194px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;z-index:300}
+.sn-flyout::before{content:'';position:absolute;right:100%;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:var(--border2)}
+.sn-btn.open + .sn-flyout,.sn-links li:hover .sn-flyout{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+.sn-flyout-label{display:block;font-size:8px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.55;padding:4px 16px 6px}
+.sn-flyout a{display:block;font-size:10px;font-weight:300;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);padding:6px 16px;transition:color .18s,background .18s}
+.sn-flyout a:hover{color:var(--cream);background:rgba(184,150,90,.07)}
+.sn-rule{width:1px;height:32px;background:linear-gradient(to bottom,transparent,rgba(184,150,90,.32),transparent);margin-top:auto}
+
+.top-nav{position:sticky;top:0;z-index:150;background:rgba(0,0,0,.9);backdrop-filter:blur(24px);border-bottom:1px solid rgba(168,146,235,.16);padding:0 80px;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}
+.top-nav::-webkit-scrollbar{display:none}
+.nav-link{padding:16px 14px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,228,.38);white-space:nowrap;border-bottom:2px solid transparent;transition:.2s;cursor:pointer}
+.nav-link:hover{color:rgba(240,236,228,.72)}
+.nav-link.active{color:var(--acc);border-bottom-color:var(--acc)}
+
+.main{position:relative;z-index:2;padding:0 80px 150px}
+.page-hero{min-height:640px;padding:88px 0 68px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1.08fr .92fr;gap:52px;align-items:end}
+.hero-kicker{font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);opacity:.82;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.hero-kicker::before{content:'';width:32px;height:1px;background:var(--acc)}
+.hero-h{font-family:var(--serif);font-size:68px;line-height:.98;font-weight:400;letter-spacing:0;margin-bottom:22px}
+.hero-h em{font-style:italic;color:var(--gold2)}
+.hero-sub{font-size:14px;color:var(--dim);line-height:1.94;max-width:650px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:11px 16px;border:1px solid rgba(168,146,235,.32);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);transition:.2s}
+.btn:hover{background:rgba(168,146,235,.08);color:var(--cream);transform:translateY(-1px)}
+.btn.primary{background:var(--acc);color:#050507;border-color:var(--acc)}
+
+.prototype-frame{border:1px solid rgba(168,146,235,.24);background:linear-gradient(180deg,rgba(9,9,14,.92),rgba(5,5,8,.86));padding:18px;box-shadow:0 24px 80px rgba(0,0,0,.32)}
+.proto-top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:16px}
+.proto-brand{font-family:var(--serif);font-size:24px;line-height:1.08}
+.proto-brand em{font-style:italic;color:var(--acc)}
+.proto-status{font:10px/1 var(--mono);color:rgba(126,214,196,.82);border:1px solid rgba(126,214,196,.20);padding:7px 9px;background:rgba(126,214,196,.045)}
+.proto-stage{position:relative;aspect-ratio:16/9;background:#020203;border:1px solid rgba(240,236,228,.08);overflow:hidden}
+.proto-stage::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(168,146,235,.12),transparent 38%),linear-gradient(180deg,transparent 44%,rgba(0,0,0,.82) 100%)}
+.video-lines{position:absolute;left:34px;right:34px;top:32px;bottom:120px;border:1px solid rgba(240,236,228,.06);display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:18px}
+.video-lines span{border:1px solid rgba(240,236,228,.06);background:rgba(240,236,228,.025)}
+.subtitle-stack{position:absolute;left:9%;right:9%;bottom:58px;display:grid;gap:10px}
+.sub-lane{padding:10px 18px;text-align:center;border:1px solid rgba(168,146,235,.52);background:rgba(0,0,0,.58);backdrop-filter:blur(14px);font-size:13px;color:rgba(240,236,228,.9)}
+.sub-lane.secondary{width:92%;margin:0 auto;border-color:rgba(126,214,196,.46);color:rgba(126,214,196,.9)}
+.proto-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.proto-control{border:1px solid rgba(240,236,228,.08);background:rgba(240,236,228,.035);padding:12px}
+.proto-control small{display:block;font:8px/1.2 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.proto-control strong{font-size:14px;font-weight:400;color:var(--cream)}
+
+.ux-section{padding:84px 0 0;scroll-margin-top:68px}
+.sec-top{display:grid;grid-template-columns:170px 1fr;gap:42px;align-items:start;margin-bottom:34px}
+.sec-tag{font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:var(--acc);opacity:.78}
+.sec-num{font-family:var(--serif);font-size:54px;line-height:1;color:rgba(168,146,235,.18);margin-top:7px}
+.sec-h{font-family:var(--serif);font-size:38px;font-weight:400;line-height:1.1;margin-bottom:12px}
+.sec-h em{font-style:italic;color:var(--gold2)}
+.sec-intro{max-width:720px;color:var(--dim);font-size:14px;line-height:1.9}
+.sec-rule{height:1px;background:linear-gradient(to right,rgba(168,146,235,.24),transparent);margin-bottom:34px}
+
+.panel{border:1px solid var(--border);background:var(--panel);padding:30px;margin-bottom:2px}
+.panel.accent{border-color:rgba(168,146,235,.22);background:linear-gradient(180deg,rgba(14,12,24,.82),rgba(8,8,11,.76))}
+.panel-k{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);opacity:.78;margin-bottom:12px}
+.panel-h{font-family:var(--serif);font-size:28px;font-weight:400;line-height:1.16;margin-bottom:12px}
+.panel-h em{font-style:italic;color:var(--gold2)}
+.panel-p{font-size:13px;color:var(--dim);line-height:1.88;max-width:870px}
+.panel-p + .panel-p{margin-top:12px}
+
+.split-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.triple-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.quad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.mini-card{border:1px solid var(--border);background:rgba(8,8,11,.7);padding:24px}
+.mini-card .label{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);opacity:.75;margin-bottom:9px}
+.mini-card h3{font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.15;margin-bottom:10px}
+.mini-card p{font-size:12px;color:var(--dim);line-height:1.78}
+.mini-card strong{font-weight:400;color:var(--cream)}
+.participant-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:26px}
+.participant-card{--person:var(--acc);--person-soft:rgba(168,146,235,.1);--person-border:rgba(168,146,235,.36);padding:0;overflow:hidden;border-color:var(--person-border);background:linear-gradient(180deg,var(--person-soft),rgba(8,8,11,.74))}
+.participant-card.xiayu{--person:#a892eb;--person-soft:rgba(168,146,235,.12);--person-border:rgba(168,146,235,.42)}
+.participant-card.zach{--person:#7ed6c4;--person-soft:rgba(126,214,196,.11);--person-border:rgba(126,214,196,.42)}
+.participant-card.kim{--person:#6fa3e8;--person-soft:rgba(111,163,232,.11);--person-border:rgba(111,163,232,.42)}
+.participant-photo{aspect-ratio:1/1;border-bottom:1px solid var(--person-border);background:var(--person-soft);overflow:hidden}
+.participant-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.participant-card.xiayu .participant-photo img{object-position:center 30%}
+.participant-card.zach .participant-photo img{object-position:38% center}
+.participant-card.kim .participant-photo img{object-position:center 36%}
+.participant-body{padding:22px}
+.participant-card .label{color:var(--person);opacity:1}
+.participant-meta{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 12px}
+.participant-meta span,.person-chip{display:inline-flex;align-items:center;min-height:22px;border:1px solid var(--person-border);background:var(--person-soft);color:var(--cream);font:8px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:5px 8px}
+.person-chip{--person-soft:rgba(168,146,235,.1);--person-border:rgba(168,146,235,.36);white-space:nowrap}
+.person-chip.xiayu{--person-soft:rgba(168,146,235,.13);--person-border:rgba(168,146,235,.42)}
+.person-chip.zach{--person-soft:rgba(126,214,196,.12);--person-border:rgba(126,214,196,.42)}
+.person-chip.kim{--person-soft:rgba(111,163,232,.12);--person-border:rgba(111,163,232,.42)}
+.participant-lens{display:grid;grid-template-columns:minmax(320px,.92fr) minmax(0,1.08fr);gap:14px;margin:28px 0}
+.lens-collage{position:relative;min-height:430px;border:1px solid rgba(240,236,228,.1);background:linear-gradient(135deg,rgba(168,146,235,.08),rgba(126,214,196,.035) 48%,rgba(184,150,90,.06));overflow:hidden}
+.lens-photo{position:absolute;width:42%;aspect-ratio:1/1.12;border:1px solid rgba(240,236,228,.16);background:#050507;overflow:hidden;box-shadow:0 26px 60px rgba(0,0,0,.4)}
+.lens-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.lens-photo.xiayu{left:6%;top:30px;border-color:rgba(168,146,235,.48)}
+.lens-photo.zach{right:7%;top:76px;border-color:rgba(126,214,196,.48)}
+.lens-photo.kim{left:31%;bottom:104px;border-color:rgba(111,163,232,.48)}
+.lens-photo.xiayu img{object-position:center 30%}.lens-photo.zach img{object-position:38% center}.lens-photo.kim img{object-position:center 36%}
+.lens-caption{position:absolute;left:18px;right:18px;bottom:18px;border:1px solid rgba(240,236,228,.12);background:rgba(0,0,0,.72);backdrop-filter:blur(14px);padding:13px;font-size:12px;color:var(--dim);line-height:1.55}
+.lens-caption b{display:block;color:var(--cream);font-weight:400;margin-bottom:4px}
+.lens-map{border:1px solid rgba(240,236,228,.1);background:rgba(8,8,11,.7);padding:24px;display:grid;gap:12px;align-content:start}
+.lens-map h3{font-family:var(--serif);font-size:28px;font-weight:400;line-height:1.08}
+.lens-map p{font-size:13px;color:var(--dim);line-height:1.72}
+.lens-lane{display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;border:1px solid rgba(240,236,228,.09);background:rgba(0,0,0,.2);padding:13px}
+.lens-lane i{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:10px/1 var(--mono);font-style:normal;color:#050507;background:var(--person)}
+.lens-lane strong{display:block;font-size:14px;font-weight:500;color:var(--cream);line-height:1.2;margin-bottom:4px}
+.lens-lane span{display:block;font-size:11px;color:var(--dim);line-height:1.45}
+.lens-lane.xiayu{--person:#a892eb}.lens-lane.zach{--person:#7ed6c4}.lens-lane.kim{--person:#6fa3e8}
+.tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.tag{font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,228,.64);border:1px solid rgba(184,150,90,.16);background:rgba(184,150,90,.035);padding:5px 9px}
+
+.compare-table{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.compare-col{border:1px solid var(--border);background:rgba(8,8,11,.7)}
+.compare-head{padding:20px 22px;border-bottom:1px solid var(--border)}
+.compare-head h3{font-family:var(--serif);font-size:24px;font-weight:400}
+.compare-head span{display:block;margin-top:4px;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+.task-list{display:grid}
+.task-item{padding:15px 20px;border-bottom:1px solid rgba(240,236,228,.055);font-size:13px;color:var(--dim)}
+.task-item:last-child{border-bottom:0}
+.task-item b{display:block;color:var(--cream);font-weight:400;margin-bottom:4px}
+
+.transformation-map{border:1px solid rgba(184,150,90,.18);background:linear-gradient(135deg,rgba(184,150,90,.055),rgba(168,146,235,.04));padding:24px;margin:28px 0;display:grid;gap:14px}
+.trans-lane{border:1px solid rgba(240,236,228,.09);background:rgba(0,0,0,.22);padding:18px}
+.trans-lane.future{border-color:rgba(126,214,196,.22);background:rgba(126,214,196,.035)}
+.lane-label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.lane-label h3{font-family:var(--serif);font-size:24px;font-weight:400;line-height:1.12}
+.lane-label span{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.flow-chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.flow-node{position:relative;border:1px solid rgba(240,236,228,.1);background:rgba(8,8,11,.68);padding:14px;min-height:128px}
+.flow-node:not(:last-child)::after{content:'>';position:absolute;right:-12px;top:50%;transform:translateY(-50%);width:22px;height:22px;border:1px solid rgba(184,150,90,.25);background:#07070a;display:flex;align-items:center;justify-content:center;color:var(--gold2);font:11px/1 var(--mono);z-index:2}
+.flow-node small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.flow-node strong{display:block;font-size:14px;font-weight:500;line-height:1.22;color:var(--cream);margin-bottom:7px}
+.flow-node span{display:block;font-size:11px;color:var(--dim);line-height:1.5}
+.flow-node.break{border-color:rgba(226,160,63,.24);background:rgba(226,160,63,.045)}
+.flow-node.win{border-color:rgba(126,214,196,.3);background:rgba(126,214,196,.055)}
+.shared-outcome{border:1px solid rgba(168,146,235,.2);background:rgba(168,146,235,.045);padding:18px;display:grid;grid-template-columns:.7fr 1.3fr;gap:18px;align-items:center}
+.shared-outcome strong{font-family:var(--serif);font-size:28px;font-weight:400;line-height:1.08}
+.shared-outcome p{font-size:13px;color:var(--dim);line-height:1.72}
+
+.research-protocol{border:1px solid rgba(126,214,196,.18);background:linear-gradient(135deg,rgba(126,214,196,.055),rgba(8,8,11,.76));padding:24px;margin:28px 0;display:grid;grid-template-columns:.88fr 1.12fr;gap:16px}
+.protocol-core{position:relative;min-height:330px;border:1px solid rgba(240,236,228,.09);background:radial-gradient(circle at center,rgba(168,146,235,.14),rgba(0,0,0,.12) 42%,rgba(0,0,0,.35));display:grid;place-items:center;padding:22px}
+.core-card{width:min(240px,78%);aspect-ratio:1/1;border-radius:50%;border:1px solid rgba(126,214,196,.36);background:rgba(0,0,0,.42);display:grid;place-items:center;text-align:center;padding:28px}
+.core-card small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc2)}
+.core-card strong{display:block;font-family:var(--serif);font-size:25px;font-weight:400;line-height:1.05;margin-top:8px}
+.orbit-chip{position:absolute;border:1px solid rgba(240,236,228,.12);background:rgba(5,5,8,.78);padding:9px 11px;font:8px/1.25 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.orbit-chip.one{left:18px;top:22px}.orbit-chip.two{right:18px;top:82px}.orbit-chip.three{left:30px;bottom:64px}.orbit-chip.four{right:28px;bottom:24px}
+.protocol-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.protocol-stage{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:16px;display:grid;gap:12px}
+.protocol-stage h3{font-size:17px;font-weight:500;line-height:1.2;color:var(--cream)}
+.q-range{width:max-content;border:1px solid rgba(126,214,196,.32);background:rgba(126,214,196,.055);padding:6px 8px;font:8px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc2)}
+.probe-tags{display:flex;flex-wrap:wrap;gap:6px}
+.probe-tags span{border:1px solid rgba(184,150,90,.18);background:rgba(184,150,90,.035);padding:5px 7px;font-size:10px;color:var(--dim);line-height:1.2}
+.protocol-stage p{font-size:11px;color:var(--dim);line-height:1.55}
+.schedule-timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:24px 0}
+.schedule-stop{position:relative;border:1px solid rgba(240,236,228,.1);background:rgba(8,8,11,.7);padding:18px;min-height:160px}
+.schedule-stop::before{content:'';position:absolute;left:18px;right:18px;top:48px;height:1px;background:linear-gradient(to right,var(--person-border),transparent)}
+.schedule-stop b{display:inline-flex;margin-bottom:28px}
+.schedule-stop h3{font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.12;margin-bottom:8px}
+.schedule-stop p{font-size:12px;color:var(--dim);line-height:1.55}
+
+.evidence-bridge{border:1px solid rgba(168,146,235,.18);background:linear-gradient(180deg,rgba(168,146,235,.045),rgba(8,8,11,.78));padding:24px;margin:28px 0;display:grid;gap:10px}
+.evidence-row{display:grid;grid-template-columns:minmax(0,.9fr) 42px minmax(0,1fr) 42px minmax(0,1.05fr);gap:8px;align-items:stretch}
+.evidence-cell{border:1px solid rgba(240,236,228,.09);background:rgba(0,0,0,.22);padding:14px;min-height:102px}
+.evidence-cell.person-evidence{display:grid;grid-template-columns:68px 1fr;gap:12px;align-items:start}
+.evidence-cell.person-evidence img{width:68px;height:82px;object-fit:cover;border:1px solid var(--person-border);background:var(--person-soft)}
+.evidence-cell.person-evidence.xiayu{--person-soft:rgba(168,146,235,.12);--person-border:rgba(168,146,235,.42)}
+.evidence-cell.person-evidence.zach{--person-soft:rgba(126,214,196,.11);--person-border:rgba(126,214,196,.42)}
+.evidence-cell.person-evidence.kim{--person-soft:rgba(111,163,232,.11);--person-border:rgba(111,163,232,.42)}
+.evidence-cell.person-evidence.xiayu img{object-position:center 30%}.evidence-cell.person-evidence.zach img{object-position:38% center}.evidence-cell.person-evidence.kim img{object-position:center 36%}
+.evidence-cell small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.evidence-cell strong{display:block;font-size:14px;font-weight:500;color:var(--cream);line-height:1.25;margin-bottom:5px}
+.evidence-cell span{display:block;font-size:11px;color:var(--dim);line-height:1.5}
+.evidence-cell .person-chip{display:inline-flex;margin-right:4px}
+.evidence-arrow{display:flex;align-items:center;justify-content:center;color:var(--gold2);font:16px/1 var(--mono)}
+.evidence-row.summary .evidence-cell{border-color:rgba(126,214,196,.2);background:rgba(126,214,196,.04)}
+
+.prototype-task-flow{border:1px solid rgba(111,163,232,.18);background:linear-gradient(135deg,rgba(111,163,232,.05),rgba(8,8,11,.78));padding:24px;margin:28px 0}
+.prototype-task-flow h3,.measure-board h3,.session-map h3{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.12;margin-bottom:10px}
+.prototype-task-flow>p,.measure-board>p,.session-map>p{font-size:13px;color:var(--dim);line-height:1.7;max-width:880px}
+.task-flow-main{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:10px;margin-top:18px;align-items:stretch}
+.task-phase,.output-fork{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:16px}
+.task-phase small,.fork-label{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc3);display:block;margin-bottom:10px}
+.task-phase strong{display:block;font-size:16px;font-weight:500;color:var(--cream);line-height:1.25;margin-bottom:8px}
+.task-phase p,.fork-branch span{font-size:11px;color:var(--dim);line-height:1.5}
+.output-fork{display:grid;gap:9px}
+.fork-branch{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;border:1px solid rgba(240,236,228,.09);background:rgba(240,236,228,.025);padding:10px}
+.fork-branch i{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:10px/1 var(--mono);font-style:normal;color:#050507;background:var(--acc2)}
+.fork-branch:nth-child(3) i{background:var(--gold2)}.fork-branch:nth-child(4) i{background:#6fa3e8}
+.fork-branch strong{display:block;font-size:13px;font-weight:500;color:var(--cream);line-height:1.2}
+
+.measure-board{border:1px solid rgba(126,214,196,.18);background:linear-gradient(135deg,rgba(126,214,196,.05),rgba(168,146,235,.04));padding:24px;margin:28px 0}
+.measure-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;margin-top:18px;align-items:stretch}
+.measure-core{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.28);display:grid;place-items:center;min-height:260px;padding:20px}
+.measure-ring{width:190px;aspect-ratio:1/1;border-radius:50%;background:conic-gradient(var(--acc2) 0 26%,var(--acc) 26% 51%,var(--gold2) 51% 76%,#6fa3e8 76% 100%);display:grid;place-items:center}
+.measure-ring div{width:118px;aspect-ratio:1/1;border-radius:50%;background:#050507;border:1px solid rgba(240,236,228,.14);display:grid;place-items:center;text-align:center;padding:16px;font:10px/1.35 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cream)}
+.measure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.measure-tile{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:14px;display:grid;gap:8px}
+.measure-tile small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc2)}
+.measure-tile strong{font-size:14px;font-weight:500;color:var(--cream);line-height:1.2}
+.measure-tile span{font-size:11px;color:var(--dim);line-height:1.45}
+.meter{height:4px;background:rgba(240,236,228,.08);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--acc2)}
+.measure-tile .meter i{width:76%}
+.measure-tile:nth-child(2) .meter i{width:68%;background:var(--acc)}.measure-tile:nth-child(3) .meter i{width:82%;background:var(--gold2)}.measure-tile:nth-child(4) .meter i{width:74%;background:#6fa3e8}.measure-tile:nth-child(5) .meter i{width:62%;background:var(--acc2)}.measure-tile:nth-child(6) .meter i{width:80%;background:var(--acc)}.measure-tile:nth-child(7) .meter i{width:58%;background:var(--gold2)}
+.session-map{border:1px solid rgba(184,150,90,.18);background:linear-gradient(180deg,rgba(184,150,90,.05),rgba(8,8,11,.78));padding:24px;margin:28px 0}
+.session-lanes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+.session-lane{position:relative;border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:16px;min-height:178px}
+.session-lane:not(:last-child)::after{content:'>';position:absolute;right:-12px;top:22px;width:22px;height:22px;border:1px solid rgba(184,150,90,.25);background:#07070a;display:flex;align-items:center;justify-content:center;color:var(--gold2);font:11px/1 var(--mono);z-index:2}
+.session-lane small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc3);display:block;margin-bottom:10px}
+.session-lane strong{font-size:15px;font-weight:500;color:var(--cream);line-height:1.25;display:block;margin-bottom:8px}
+.session-lane span{display:block;font-size:11px;color:var(--dim);line-height:1.5}
+
+.journey-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin:26px 0}
+.journey-step{position:relative;min-height:150px;border:1px solid rgba(168,146,235,.16);background:rgba(168,146,235,.035);padding:18px}
+.journey-step::after{content:'>';position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:rgba(184,150,90,.55);font-family:var(--mono)}
+.journey-step:last-child::after{display:none}
+.journey-step small{display:block;font:8px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:12px}
+.journey-step strong{display:block;font-family:var(--serif);font-weight:400;font-size:18px;margin-bottom:8px}
+.journey-step span{display:block;font-size:12px;color:var(--dim);line-height:1.65}
+
+.issue-table{display:grid;gap:2px;margin-top:26px}
+.issue-row{display:grid;grid-template-columns:210px 1fr 1fr;gap:18px;padding:18px 20px;border:1px solid var(--border);background:rgba(8,8,11,.68)}
+.issue-row.header{background:rgba(168,146,235,.07);border-color:rgba(168,146,235,.18)}
+.issue-row.header div{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.issue-row div{font-size:12px;color:var(--dim);line-height:1.7}
+.issue-row strong{font-weight:400;color:var(--cream)}
+.walkthrough-sequence{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;margin:28px 0}
+.walk-step{position:relative;min-height:300px;border:1px solid rgba(168,146,235,.16);background:linear-gradient(180deg,rgba(168,146,235,.04),rgba(8,8,11,.72));padding:18px;display:flex;flex-direction:column;gap:13px}
+.walk-step::after{content:'>';position:absolute;right:-8px;top:36px;color:rgba(184,150,90,.56);font-family:var(--mono);z-index:2}
+.walk-step:last-child::after{display:none}
+.walk-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--acc);color:#050507;font:12px/1 var(--mono)}
+.walk-step:nth-child(2) .walk-num{background:#e2a03f}
+.walk-step:nth-child(3) .walk-num{background:var(--acc2)}
+.walk-step:nth-child(4) .walk-num{background:#6fa3e8}
+.walk-step:nth-child(5) .walk-num{background:var(--gold2)}
+.walk-step:nth-child(6) .walk-num{background:#9e7de0}
+.walk-step h3{font-family:var(--serif);font-size:20px;font-weight:400;line-height:1.12}
+.walk-step p{font-size:11px;color:var(--dim);line-height:1.58}
+.walk-detail{border-top:1px solid rgba(240,236,228,.08);padding-top:10px}
+.walk-detail b{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+.walk-detail.fix b{color:var(--acc2)}
+
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:24px 0}
+.metric{border:1px solid rgba(126,214,196,.16);background:rgba(126,214,196,.035);padding:18px}
+.metric small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc2);margin-bottom:9px}
+.metric p{font-size:12px;color:var(--dim);line-height:1.65}
+
+.doc-band{border:1px solid rgba(184,150,90,.16);background:linear-gradient(180deg,rgba(184,150,90,.055),rgba(8,8,11,.72));padding:24px;margin:26px 0}
+.doc-band h3{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.14;margin-bottom:10px}
+.doc-band p{font-size:13px;color:var(--dim);line-height:1.86}
+.doc-band p + p{margin-top:10px}
+.doc-list{display:grid;gap:9px;margin-top:14px;list-style:none}
+.doc-list li{position:relative;padding-left:18px;font-size:12px;color:var(--dim);line-height:1.68}
+.doc-list li::before{content:'';position:absolute;left:0;top:.72em;width:6px;height:6px;border-radius:50%;background:var(--acc)}
+.question-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:26px}
+.question-card{border:1px solid var(--border);background:rgba(8,8,11,.68);padding:22px}
+.question-card h3{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:12px}
+.question-card ol{display:grid;gap:8px;list-style-position:inside}
+.question-card li{font-size:12px;color:var(--dim);line-height:1.66}
+.data-table{display:grid;gap:2px;margin-top:24px}
+.data-row{display:grid;gap:18px;padding:16px 18px;border:1px solid var(--border);background:rgba(8,8,11,.68)}
+.data-row.th{background:rgba(168,146,235,.07);border-color:rgba(168,146,235,.18)}
+.data-row.th div{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.data-row div{font-size:12px;color:var(--dim);line-height:1.7}
+.data-row strong{font-weight:400;color:var(--cream)}
+.schedule-table .data-row{grid-template-columns:1fr 90px 1fr 1fr}
+.metrics-table .data-row{grid-template-columns:220px 1fr}
+.log-table .data-row{grid-template-columns:150px repeat(5,1fr)}
+.procedure-list{counter-reset:step;display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:24px;list-style:none}
+.procedure-list li{counter-increment:step;position:relative;min-height:74px;border:1px solid var(--border);background:rgba(8,8,11,.68);padding:18px 18px 18px 54px;font-size:12px;color:var(--dim);line-height:1.62}
+.procedure-list li::before{content:counter(step, decimal-leading-zero);position:absolute;left:18px;top:18px;font:10px/1 var(--mono);color:var(--acc)}
+.prompt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:24px}
+.prompt-card{border:1px solid rgba(126,214,196,.16);background:rgba(126,214,196,.035);padding:20px}
+.prompt-card h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:9px}
+.prompt-card p{font-size:12px;color:var(--dim);line-height:1.72}
+
+.flow-map{border:1px solid rgba(126,214,196,.18);background:linear-gradient(135deg,rgba(126,214,196,.07),rgba(168,146,235,.045) 54%,rgba(184,150,90,.055));padding:28px;margin:28px 0}
+.flow-map-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1.35fr);gap:28px;align-items:start}
+.flow-map h3{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1.12;margin-bottom:9px}
+.flow-map p{font-size:13px;color:var(--dim);line-height:1.76}
+.flow-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+.flow-step{position:relative;min-height:142px;border:1px solid rgba(240,236,228,.09);background:rgba(5,5,8,.58);padding:16px 14px 14px}
+.flow-step::after{content:'>';position:absolute;right:-9px;top:34px;color:rgba(240,236,228,.42);font-family:var(--mono);z-index:2}
+.flow-step:last-child::after{display:none}
+.flow-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:12px;background:var(--acc);color:#050507;font:14px/1 var(--mono)}
+.flow-step:nth-child(2) .flow-dot{background:var(--acc2)}
+.flow-step:nth-child(3) .flow-dot{background:#e2a03f}
+.flow-step:nth-child(4) .flow-dot{background:#6fa3e8}
+.flow-step:nth-child(5) .flow-dot{background:#9e7de0}
+.flow-step strong{display:block;font-size:14px;font-weight:500;color:var(--cream);line-height:1.22;margin-bottom:7px}
+.flow-step span{display:block;font-size:11px;color:var(--dim);line-height:1.55}
+
+.journey-board{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}
+.journey-card{--tone:rgba(168,146,235,.42);--wash:rgba(168,146,235,.055);border:1px solid var(--tone);background:linear-gradient(180deg,var(--wash),rgba(8,8,11,.74));padding:18px;display:grid;grid-template-columns:minmax(180px,.92fr) minmax(0,1.08fr);gap:16px;min-height:338px}
+.journey-card.green{--tone:rgba(126,214,196,.42);--wash:rgba(126,214,196,.055)}
+.journey-card.gold{--tone:rgba(226,160,63,.42);--wash:rgba(226,160,63,.055)}
+.journey-card.blue{--tone:rgba(111,163,232,.42);--wash:rgba(111,163,232,.055)}
+.journey-title{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.journey-badge{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:1px solid var(--tone);background:rgba(0,0,0,.24);font:13px/1 var(--mono);color:var(--cream);flex:0 0 auto}
+.journey-title h3{font-size:15px;font-weight:500;line-height:1.25;color:var(--cream)}
+.journey-title small{display:block;font:8px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:5px}
+.mock-screen{border:1px solid rgba(240,236,228,.12);background:rgba(2,2,4,.86);min-height:230px;padding:12px;display:grid;gap:10px}
+.mock-top{height:18px;border:1px solid rgba(240,236,228,.11);background:rgba(240,236,228,.035)}
+.mock-layout{display:grid;grid-template-columns:80px 1fr;gap:8px;min-height:168px}
+.mock-side,.mock-main{border:1px solid rgba(240,236,228,.09);background:rgba(240,236,228,.025);padding:8px;display:grid;gap:7px;align-content:start}
+.mock-pill{height:17px;border:1px solid var(--tone);background:rgba(0,0,0,.22)}
+.mock-drop{height:32px;border:1px dashed rgba(240,236,228,.18);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--dim)}
+.mock-preview{position:relative;min-height:88px;border:1px solid rgba(240,236,228,.1);background:linear-gradient(135deg,rgba(168,146,235,.16),rgba(126,214,196,.035))}
+.mock-sub{position:absolute;left:12px;right:12px;height:16px;border:1px solid var(--tone);background:rgba(0,0,0,.48)}
+.mock-sub.one{bottom:34px}
+.mock-sub.two{bottom:12px;border-color:rgba(184,150,90,.46)}
+.mock-progress{height:8px;border:1px solid var(--tone);background:linear-gradient(90deg,var(--tone) 65%,rgba(240,236,228,.035) 65%)}
+.journey-notes{display:grid;gap:8px;align-content:start}
+.note-line{border:1px solid rgba(240,236,228,.085);background:rgba(0,0,0,.20);padding:10px 11px;font-size:11px;color:var(--dim);line-height:1.55}
+.note-line b{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--cream);margin-bottom:5px}
+.progress-row{display:flex;align-items:center;gap:7px;margin-top:auto}
+.progress-row span{width:21px;height:21px;border-radius:50%;border:1px solid var(--tone);display:flex;align-items:center;justify-content:center;font:10px/1 var(--mono);color:var(--dim)}
+.progress-row span.active{background:var(--tone);color:#050507}
+.insight-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:26px 0}
+.insight-card{border:1px solid rgba(184,150,90,.18);background:rgba(184,150,90,.045);padding:18px;min-height:144px}
+.insight-card:nth-child(2){border-color:rgba(126,214,196,.18);background:rgba(126,214,196,.04)}
+.insight-card:nth-child(3){border-color:rgba(168,146,235,.2);background:rgba(168,146,235,.045)}
+.insight-card:nth-child(4){border-color:rgba(111,163,232,.18);background:rgba(111,163,232,.04)}
+.insight-card small{display:block;font:8px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.insight-card h3{font-family:var(--serif);font-size:20px;font-weight:400;line-height:1.16;margin-bottom:9px}
+.insight-card p,.insight-card li{font-size:11px;color:var(--dim);line-height:1.58}
+.insight-card ul{display:grid;gap:5px;padding-left:15px}
+
+.sketch-board{border:1px solid rgba(240,236,228,.12);background:linear-gradient(180deg,rgba(240,236,228,.045),rgba(8,8,11,.74));padding:22px;margin:30px 0}
+.sketch-head{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;margin-bottom:18px}
+.sketch-title{border:1px solid rgba(184,150,90,.24);background:rgba(184,150,90,.065);padding:18px}
+.sketch-title small{display:block;font:8px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.sketch-title h3{font-family:var(--serif);font-size:32px;font-weight:400;line-height:1.05;margin-bottom:9px}
+.sketch-title p,.primary-flow li{font-size:12px;color:var(--dim);line-height:1.62}
+.primary-flow{border:1px solid rgba(111,163,232,.2);background:rgba(111,163,232,.045);padding:18px}
+.primary-flow h4{font-size:15px;font-weight:500;margin-bottom:8px;color:var(--cream)}
+.primary-flow ol{display:grid;gap:4px;padding-left:17px}
+.sketch-scenario{display:grid;grid-template-columns:230px minmax(0,1fr);gap:12px;margin-top:12px}
+.scenario-panel{border:1px solid rgba(240,236,228,.12);background:rgba(0,0,0,.22);padding:16px}
+.scenario-panel strong{display:block;font-size:16px;font-weight:500;color:var(--cream);line-height:1.25;margin-bottom:8px}
+.scenario-panel small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.scenario-panel p,.scenario-panel li{font-size:11px;color:var(--dim);line-height:1.58}
+.scenario-panel ol{display:grid;gap:5px;padding-left:16px;margin-top:10px}
+.sketch-window{border:1px solid rgba(240,236,228,.16);background:rgba(3,3,5,.84);padding:12px}
+.sketch-window h4{font-size:15px;font-weight:500;line-height:1.25;margin-bottom:10px}
+.lofi-browser{border:1px solid rgba(240,236,228,.13);background:rgba(240,236,228,.025);padding:10px}
+.lofi-bar{height:20px;border:1px solid rgba(240,236,228,.16);border-radius:10px;margin-bottom:10px;background:rgba(0,0,0,.22)}
+.lofi-body{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lofi-zone{border:1px dashed rgba(240,236,228,.2);min-height:138px;padding:10px;display:grid;gap:7px;align-content:start}
+.lofi-button{height:25px;border:1px solid rgba(126,214,196,.45);background:rgba(126,214,196,.06);font-size:10px;color:var(--cream);display:flex;align-items:center;justify-content:center;text-align:center}
+.lofi-button.gold{border-color:rgba(184,150,90,.46);background:rgba(184,150,90,.08)}
+.lofi-file{height:38px;border:1px solid rgba(184,150,90,.44);background:rgba(184,150,90,.08);font-size:10px;color:var(--dim);display:flex;align-items:center;padding:0 10px}
+.lofi-preview{position:relative;min-height:138px;border:1px solid rgba(111,163,232,.22);background:linear-gradient(135deg,rgba(111,163,232,.12),rgba(240,236,228,.02))}
+.lofi-caption{position:absolute;left:18px;right:18px;height:20px;border:1px solid rgba(126,214,196,.45);background:rgba(0,0,0,.48)}
+.lofi-caption.first{bottom:42px}
+.lofi-caption.second{bottom:17px;border-color:rgba(184,150,90,.46)}
+.sketch-journey-note{grid-column:1/-1;border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.18);padding:14px;margin-bottom:10px}
+.sketch-journey-note h4{font-size:14px;font-weight:500;margin-bottom:8px}
+.sketch-journey-note p{font-size:11px;color:var(--dim);line-height:1.58}
+.success-strip{border:1px solid rgba(126,214,196,.26);background:rgba(126,214,196,.045);padding:10px 12px;font-size:11px;color:var(--cream);line-height:1.55}
+
+.output-map{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:28px 0}
+.output-card{border:1px solid rgba(168,146,235,.2);background:linear-gradient(180deg,rgba(168,146,235,.055),rgba(8,8,11,.74));padding:18px;min-height:270px;display:grid;gap:14px}
+.output-card.teal{border-color:rgba(126,214,196,.22);background:linear-gradient(180deg,rgba(126,214,196,.055),rgba(8,8,11,.74))}
+.output-card.gold{border-color:rgba(184,150,90,.24);background:linear-gradient(180deg,rgba(184,150,90,.065),rgba(8,8,11,.74))}
+.output-card h3{font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.15}
+.output-card p{font-size:12px;color:var(--dim);line-height:1.66}
+.output-ui{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.28);padding:12px;display:grid;gap:8px;align-content:start;min-height:126px}
+.output-button{height:28px;border:1px solid rgba(126,214,196,.42);background:rgba(126,214,196,.055);display:flex;align-items:center;justify-content:center;text-align:center;font:9px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cream)}
+.output-button.muted{border-color:rgba(240,236,228,.14);color:var(--muted);background:rgba(240,236,228,.025)}
+.output-file{border:1px solid rgba(184,150,90,.38);background:rgba(184,150,90,.07);padding:10px;font:10px/1.35 var(--mono);color:var(--cream)}
+.output-preview{position:relative;min-height:92px;border:1px solid rgba(111,163,232,.2);background:linear-gradient(135deg,rgba(111,163,232,.12),rgba(240,236,228,.02))}
+.output-preview::before{content:'';position:absolute;left:50%;top:34%;width:32px;height:32px;border-radius:50%;transform:translate(-50%,-50%);border:1px solid rgba(240,236,228,.4);background:rgba(0,0,0,.28)}
+.output-preview span{position:absolute;left:16px;right:16px;height:17px;border:1px solid rgba(126,214,196,.46);background:rgba(0,0,0,.5)}
+.output-preview span:first-child{bottom:34px}
+.output-preview span:last-child{bottom:12px;border-color:rgba(184,150,90,.46)}
+.output-question{border-top:1px solid rgba(240,236,228,.08);padding-top:10px;font-size:11px;color:var(--dim);line-height:1.58}
+.output-question b{color:var(--cream);font-weight:400}
+
+.eval-lens{display:grid;grid-template-columns:1.05fr .95fr;gap:10px;margin:28px 0}
+.walkthrough-lens{border:1px solid rgba(168,146,235,.22);background:linear-gradient(180deg,rgba(168,146,235,.055),rgba(8,8,11,.75));padding:22px}
+.walkthrough-lens h3,.state-flow h3,.wireframe-blueprint h3,.summative-map h3,.summative-journey h3{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.12;margin-bottom:10px}
+.lens-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:16px}
+.lens-card{border:1px solid rgba(240,236,228,.09);background:rgba(0,0,0,.22);padding:14px}
+.lens-card small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.lens-card strong{display:block;font-size:14px;font-weight:500;color:var(--cream);line-height:1.24;margin-bottom:6px}
+.lens-card span{display:block;font-size:11px;color:var(--dim);line-height:1.55}
+.state-flow{border:1px solid rgba(126,214,196,.2);background:linear-gradient(180deg,rgba(126,214,196,.05),rgba(8,8,11,.75));padding:22px}
+.state-rail{display:grid;gap:8px;margin-top:16px}
+.state-step{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;border:1px solid rgba(240,236,228,.09);background:rgba(0,0,0,.22);padding:11px}
+.state-step i{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:10px/1 var(--mono);font-style:normal;border:1px solid rgba(240,236,228,.18);color:var(--dim)}
+.state-step.active i{background:var(--acc2);color:#050507;border-color:var(--acc2)}
+.state-step strong{font-size:13px;font-weight:500;color:var(--cream)}
+.state-step span{font-size:10px;color:var(--dim);line-height:1.45}
+.state-pill{font:8px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(240,236,228,.12);padding:6px 8px;color:var(--muted)}
+.state-step.active .state-pill{border-color:rgba(126,214,196,.4);color:var(--acc2);background:rgba(126,214,196,.055)}
+
+.wireframe-blueprint{border:1px solid rgba(111,163,232,.2);background:linear-gradient(180deg,rgba(111,163,232,.05),rgba(8,8,11,.78));padding:24px;margin:28px 0}
+.wireframe-shell{border:1px solid rgba(240,236,228,.12);background:rgba(0,0,0,.28);padding:12px;margin-top:16px}
+.wireframe-bar{height:24px;border:1px solid rgba(240,236,228,.14);border-radius:12px;background:rgba(240,236,228,.025);margin-bottom:12px}
+.wireframe-grid{display:grid;grid-template-columns:190px minmax(0,1fr) 210px;gap:10px}
+.wire-col{border:1px dashed rgba(240,236,228,.18);padding:12px;display:grid;gap:9px;align-content:start;min-height:294px}
+.wire-col h4{font-size:13px;font-weight:500;color:var(--cream);line-height:1.2}
+.wire-box{border:1px solid rgba(240,236,228,.1);background:rgba(240,236,228,.025);padding:10px;font-size:11px;color:var(--dim);line-height:1.45}
+.wire-box.accent{border-color:rgba(126,214,196,.34);background:rgba(126,214,196,.05);color:var(--cream)}
+.wire-video{position:relative;min-height:238px;border:1px solid rgba(111,163,232,.24);background:linear-gradient(135deg,rgba(111,163,232,.13),rgba(0,0,0,.2))}
+.wire-video::before{content:'Preview player';position:absolute;left:14px;top:12px;font:9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.wire-sub{position:absolute;left:12%;right:12%;height:22px;border:1px solid rgba(126,214,196,.46);background:rgba(0,0,0,.55)}
+.wire-sub.one{bottom:58px}
+.wire-sub.two{bottom:28px;border-color:rgba(184,150,90,.48)}
+.wire-legend{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.wire-legend span{border:1px solid rgba(240,236,228,.1);padding:8px;font:9px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);background:rgba(0,0,0,.18)}
+
+.summative-map{border:1px solid rgba(184,150,90,.22);background:linear-gradient(180deg,rgba(184,150,90,.055),rgba(8,8,11,.76));padding:24px;margin:28px 0}
+.test-lenses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:28px 0}
+.test-lens{--person:#a892eb;--person-soft:rgba(168,146,235,.1);--person-border:rgba(168,146,235,.38);display:grid;grid-template-columns:92px 1fr;gap:14px;border:1px solid var(--person-border);background:linear-gradient(180deg,var(--person-soft),rgba(8,8,11,.74));padding:12px;min-height:148px}
+.test-lens.zach{--person:#7ed6c4;--person-soft:rgba(126,214,196,.1);--person-border:rgba(126,214,196,.38)}
+.test-lens.kim{--person:#6fa3e8;--person-soft:rgba(111,163,232,.1);--person-border:rgba(111,163,232,.38)}
+.test-lens img{width:92px;height:124px;object-fit:cover;border:1px solid var(--person-border);background:#050507}
+.test-lens.xiayu img{object-position:center 30%}.test-lens.zach img{object-position:38% center}.test-lens.kim img{object-position:center 36%}
+.test-lens small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--person);display:block;margin-bottom:8px}
+.test-lens strong{display:block;font-size:15px;font-weight:500;color:var(--cream);line-height:1.22;margin-bottom:6px}
+.test-lens span{display:block;font-size:11px;color:var(--dim);line-height:1.48}
+.test-flow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
+.test-task{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:16px;display:grid;gap:12px}
+.test-task small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);display:block}
+.test-task h4{font-size:16px;font-weight:500;line-height:1.25;color:var(--cream)}
+.test-screen{border:1px solid rgba(240,236,228,.1);background:rgba(240,236,228,.025);min-height:112px;padding:10px;display:grid;gap:7px;align-content:start}
+.test-screen .bar{height:12px;border:1px solid rgba(240,236,228,.12)}
+.test-screen .action{height:26px;border:1px solid rgba(126,214,196,.4);background:rgba(126,214,196,.055)}
+.test-screen .action.gold{border-color:rgba(184,150,90,.45);background:rgba(184,150,90,.07)}
+.test-measures{display:flex;flex-wrap:wrap;gap:6px}
+.test-measures span{border:1px solid rgba(240,236,228,.1);padding:5px 7px;font:8px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.success-matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:18px}
+.success-cell{border:1px solid rgba(240,236,228,.09);background:rgba(0,0,0,.2);padding:14px}
+.success-cell small{display:block;font:8px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.success-cell p{font-size:11px;color:var(--dim);line-height:1.55}
+.summative-journey{border:1px solid rgba(111,163,232,.2);background:linear-gradient(180deg,rgba(111,163,232,.05),rgba(8,8,11,.78));padding:24px;margin:28px 0}
+.summative-journey>p{max-width:900px;font-size:13px;color:var(--dim);line-height:1.7}
+.summative-journey-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.summative-step{position:relative;border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:16px;display:grid;gap:14px;align-content:start}
+.summative-step::after{content:'>';position:absolute;right:-10px;top:24px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(111,163,232,.32);background:#08080b;color:var(--acc3);font:11px/1 var(--mono);z-index:2}
+.summative-step:last-child::after{display:none}
+.summative-step-head{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.summative-step-head i{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:10px/1 var(--mono);font-style:normal;color:#050507;background:var(--acc3)}
+.summative-step-head small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+.summative-step-head h4{font-size:16px;font-weight:500;line-height:1.25;color:var(--cream)}
+.journey-observation{display:grid;gap:7px}
+.journey-observation div{border-top:1px solid rgba(240,236,228,.08);padding-top:8px}
+.journey-observation b{display:block;font:8px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.journey-observation span{display:block;font-size:11px;color:var(--dim);line-height:1.45}
+.journey-observation .recommendation span{color:var(--cream)}
+
+.live-shell{border:1px solid rgba(168,146,235,.22);background:rgba(5,5,8,.9);overflow:hidden}
+.live-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;border-bottom:1px solid rgba(168,146,235,.14)}
+.live-url{font:10px/1 var(--mono);color:rgba(240,236,228,.55);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.live-open{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
+.live-frame{display:block;width:100%;height:780px;border:0;background:#000}
+
+footer{padding:80px 0 0}
+.foot{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--border);padding-top:28px;color:var(--muted);font-size:12px}
+
+@media(max-width:1100px){
+  .main{padding:0 40px 120px}
+  .top-nav{padding:0 40px}
+  .page-hero,.sec-top,.split-grid,.triple-grid,.compare-table,.research-protocol,.measure-layout,.task-flow-main,.participant-lens{grid-template-columns:1fr}
+  .page-hero{min-height:auto}
+  .participant-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .quad-grid,.metric-grid,.question-grid,.procedure-list,.prompt-grid,.journey-board,.insight-grid,.flow-chain,.protocol-grid,.schedule-timeline,.session-lanes,.test-lenses{grid-template-columns:1fr 1fr}
+  .flow-map-head,.sketch-head{grid-template-columns:1fr}
+  .walkthrough-sequence{grid-template-columns:1fr 1fr}
+  .walk-step::after,.flow-node::after,.session-lane::after{display:none}
+  .success-matrix{grid-template-columns:1fr 1fr}
+  .schedule-table .data-row{grid-template-columns:1.1fr 88px .95fr .95fr}
+  .metrics-table .data-row,.log-table .data-row{grid-template-columns:1fr}
+  .journey-strip{grid-template-columns:1fr}
+  .journey-step::after{display:none}
+  .issue-row{grid-template-columns:1fr}
+  .evidence-row{grid-template-columns:1fr}
+  .evidence-arrow{display:none}
+  .shared-outcome{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  :root{--sw:0px}
+  body{cursor:auto}
+  .sidenav,.cur,.cur-r{display:none}
+  .main{padding:0 20px 100px}
+  .top-nav{padding:0 20px}
+  .page-hero{padding-top:78px}
+  .hero-h{font-size:46px}
+  .sec-h{font-size:30px}
+  .participant-grid{grid-template-columns:1fr}
+  .schedule-table .data-row{grid-template-columns:1fr}
+  .output-map,.eval-lens,.lens-grid,.wireframe-grid,.wire-legend,.test-flow,.success-matrix,.walkthrough-sequence,.summative-journey-strip,.flow-chain,.protocol-grid,.schedule-timeline,.measure-grid,.session-lanes,.test-lenses{grid-template-columns:1fr}
+  .summative-step::after{display:none}
+  .quad-grid,.metric-grid,.proto-controls,.question-grid,.procedure-list,.prompt-grid,.journey-board,.journey-card,.insight-grid,.flow-steps,.sketch-scenario,.lofi-body{grid-template-columns:1fr}
+  .flow-step::after{display:none}
+  .flow-map,.sketch-board,.transformation-map,.research-protocol,.prototype-task-flow,.measure-board,.session-map,.evidence-bridge{padding:18px}
+  .lens-photo{position:static;width:100%;aspect-ratio:4/3}
+  .lens-collage{display:grid;gap:10px;padding:10px;min-height:auto}
+  .lens-caption{position:static}
+  .test-lens{grid-template-columns:78px 1fr}
+  .test-lens img{width:78px;height:108px}
+  .protocol-core{min-height:300px}
+  .orbit-chip{position:static;margin:4px}
+  .live-frame{height:640px}
+}
+
+
+/* --- Edited visual system: assignment-specific diagrams and reduced repeated persona imagery --- */
+.course-map{
+  border:1px solid rgba(168,146,235,.22);
+  background:linear-gradient(135deg,rgba(168,146,235,.06),rgba(126,214,196,.035) 42%,rgba(184,150,90,.045));
+  padding:26px;
+  margin:34px 0;
+}
+.course-map-head{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:26px;align-items:start;margin-bottom:20px}
+.course-map h3{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1.12;margin-bottom:9px}
+.course-map p{font-size:13px;color:var(--dim);line-height:1.72}
+.assignment-chain{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.assignment-node{position:relative;border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:14px;min-height:154px}
+.assignment-node:not(:last-child)::after{content:'>';position:absolute;right:-12px;top:34px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(184,150,90,.24);background:#07070a;color:var(--gold2);font:11px/1 var(--mono);z-index:2}
+.assignment-node small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.assignment-node strong{display:block;font-size:14px;font-weight:500;color:var(--cream);line-height:1.22;margin-bottom:7px}
+.assignment-node span{display:block;font-size:11px;color:var(--dim);line-height:1.45}
+.visual-module{
+  border:1px solid rgba(240,236,228,.12);
+  background:linear-gradient(180deg,rgba(240,236,228,.035),rgba(8,8,11,.72));
+  padding:24px;
+  margin:28px 0;
+}
+.visual-module h3{font-family:var(--serif);font-size:28px;font-weight:400;line-height:1.12;margin-bottom:8px}
+.visual-module>p{font-size:13px;color:var(--dim);line-height:1.72;max-width:900px}
+.persona-constraint-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.constraint-card{--tone:rgba(168,146,235,.42);--wash:rgba(168,146,235,.06);border:1px solid var(--tone);background:linear-gradient(180deg,var(--wash),rgba(0,0,0,.2));padding:16px;display:grid;gap:12px;min-height:245px}
+.constraint-card.zach{--tone:rgba(126,214,196,.42);--wash:rgba(126,214,196,.055)}
+.constraint-card.kim{--tone:rgba(111,163,232,.42);--wash:rgba(111,163,232,.055)}
+.constraint-card small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.constraint-card h4{font-size:17px;font-weight:500;color:var(--cream);line-height:1.22}
+.language-stack{display:grid;gap:7px}
+.lang-pill{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:9px 10px;font:10px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.lang-pill.source{border-color:rgba(184,150,90,.34);color:var(--gold2)}
+.lang-pill.output{border-color:var(--tone);color:var(--cream)}
+.need-arrow{height:26px;display:flex;align-items:center;justify-content:center;color:var(--gold2);font:16px/1 var(--mono)}
+.constraint-card p{font-size:11px;color:var(--dim);line-height:1.55}
+.affinity-visual{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:18px}
+.affinity-cluster{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:14px;min-height:176px}
+.affinity-cluster:nth-child(1){border-color:rgba(168,146,235,.32);background:rgba(168,146,235,.045)}
+.affinity-cluster:nth-child(2){border-color:rgba(126,214,196,.28);background:rgba(126,214,196,.04)}
+.affinity-cluster:nth-child(3){border-color:rgba(184,150,90,.3);background:rgba(184,150,90,.045)}
+.affinity-cluster:nth-child(4){border-color:rgba(111,163,232,.28);background:rgba(111,163,232,.04)}
+.affinity-cluster:nth-child(5){border-color:rgba(226,160,63,.3);background:rgba(226,160,63,.04)}
+.affinity-cluster small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+.affinity-cluster strong{display:block;font-size:14px;font-weight:500;color:var(--cream);line-height:1.2;margin-bottom:8px}
+.affinity-cluster span{display:block;font-size:11px;color:var(--dim);line-height:1.52}
+.requirement-bridge{display:grid;grid-template-columns:1fr 48px 1fr 48px 1fr;gap:8px;margin-top:18px;align-items:stretch}
+.req-cell{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:14px;min-height:116px}
+.req-cell small{display:block;font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.req-cell strong{display:block;font-size:14px;font-weight:500;color:var(--cream);line-height:1.24;margin-bottom:7px}
+.req-cell span{display:block;font-size:11px;color:var(--dim);line-height:1.52}
+.req-arrow{display:flex;align-items:center;justify-content:center;color:var(--gold2);font:18px/1 var(--mono)}
+.sketch-visual-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+.sketch-flow-card{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:14px;display:grid;gap:12px;min-height:245px}
+.sketch-flow-card:nth-child(1){border-color:rgba(168,146,235,.32)}
+.sketch-flow-card:nth-child(2){border-color:rgba(126,214,196,.28)}
+.sketch-flow-card:nth-child(3){border-color:rgba(184,150,90,.3)}
+.sketch-flow-card:nth-child(4){border-color:rgba(111,163,232,.28)}
+.sketch-flow-card small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.sketch-flow-card h4{font-size:15px;font-weight:500;color:var(--cream);line-height:1.22}
+.tiny-ui{border:1px solid rgba(240,236,228,.12);background:rgba(2,2,4,.7);padding:9px;display:grid;gap:7px;min-height:110px}
+.tiny-bar{height:14px;border:1px solid rgba(240,236,228,.12);background:rgba(240,236,228,.035)}
+.tiny-main{border:1px dashed rgba(240,236,228,.16);min-height:62px;position:relative;background:linear-gradient(135deg,rgba(168,146,235,.08),rgba(126,214,196,.025))}
+.tiny-sub{position:absolute;left:12px;right:12px;height:12px;border:1px solid rgba(126,214,196,.42);background:rgba(0,0,0,.5)}
+.tiny-sub.a{bottom:26px}.tiny-sub.b{bottom:10px;border-color:rgba(184,150,90,.44)}
+.tiny-progress{height:7px;border:1px solid rgba(126,214,196,.35);background:linear-gradient(90deg,rgba(126,214,196,.55) 62%,rgba(240,236,228,.035) 62%)}
+.sketch-flow-card p{font-size:11px;color:var(--dim);line-height:1.52}
+.testing-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.testing-card{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.22);padding:16px;display:grid;gap:12px;min-height:210px}
+.testing-card small{font:8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.testing-card h4{font-size:16px;font-weight:500;color:var(--cream);line-height:1.22}
+.testing-mini{border:1px solid rgba(240,236,228,.1);background:rgba(240,236,228,.025);padding:10px;display:grid;gap:7px}
+.testing-action{height:24px;border:1px solid rgba(126,214,196,.38);background:rgba(126,214,196,.055)}
+.testing-action.gold{border-color:rgba(184,150,90,.42);background:rgba(184,150,90,.06)}
+.testing-action.blue{border-color:rgba(111,163,232,.38);background:rgba(111,163,232,.055)}
+.testing-card p{font-size:11px;color:var(--dim);line-height:1.52}
+@media (max-width:1100px){
+  .assignment-chain,.affinity-visual,.sketch-visual-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .persona-constraint-grid,.testing-board{grid-template-columns:1fr}
+  .requirement-bridge{grid-template-columns:1fr}
+  .req-arrow{min-height:22px}
+}
+
+
+/* --- Proposal section: distinctive visual cards for the Word-doc categories --- */
+.proposal-visual-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px;margin-bottom:12px}
+.proposal-card{position:relative;overflow:hidden;border:1px solid rgba(240,236,228,.12);background:linear-gradient(180deg,rgba(240,236,228,.035),rgba(8,8,11,.74));padding:22px;min-height:330px;display:grid;grid-template-rows:auto auto 1fr auto;gap:14px}
+.proposal-card::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.7;background:radial-gradient(circle at 12% 12%,var(--wash),transparent 38%)}
+.proposal-card>*{position:relative;z-index:1}
+.proposal-card.interface{--tone:rgba(168,146,235,.48);--wash:rgba(168,146,235,.13);border-color:var(--tone)}
+.proposal-card.problem{--tone:rgba(226,160,63,.48);--wash:rgba(226,160,63,.12);border-color:var(--tone)}
+.proposal-card.solution{--tone:rgba(126,214,196,.48);--wash:rgba(126,214,196,.12);border-color:var(--tone)}
+.proposal-card.priorities{--tone:rgba(111,163,232,.48);--wash:rgba(111,163,232,.12);border-color:var(--tone)}
+.proposal-card.languages{--tone:rgba(184,150,90,.52);--wash:rgba(184,150,90,.13);border-color:var(--tone)}
+.proposal-label{font:8px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--tone)}
+.proposal-card h3{font-family:var(--serif);font-size:27px;font-weight:400;line-height:1.12;color:var(--cream)}
+.proposal-card p{font-size:12px;color:var(--dim);line-height:1.72;max-width:680px}
+.proposal-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.proposal-tags span{border:1px solid var(--tone);background:var(--wash);font:8px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cream);padding:7px 9px}
+.interface-visual{border:1px solid rgba(240,236,228,.11);background:rgba(0,0,0,.28);padding:12px;display:grid;grid-template-columns:1fr .72fr;gap:10px;min-height:140px}
+.interface-screen{position:relative;border:1px solid rgba(168,146,235,.32);background:linear-gradient(135deg,rgba(168,146,235,.13),rgba(0,0,0,.25));min-height:136px;overflow:hidden}
+.interface-screen::before{content:'Video player';position:absolute;left:12px;top:10px;font:8px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.interface-sub{position:absolute;left:12%;right:12%;height:17px;border:1px solid rgba(126,214,196,.5);background:rgba(0,0,0,.62)}
+.interface-sub.one{bottom:42px}.interface-sub.two{bottom:18px;border-color:rgba(184,150,90,.55)}
+.interface-controls{display:grid;gap:8px;align-content:start}
+.interface-control{border:1px solid rgba(240,236,228,.1);background:rgba(240,236,228,.035);padding:10px;font:9px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.problem-visual{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:stretch}
+.problem-node{position:relative;border:1px solid rgba(226,160,63,.28);background:rgba(226,160,63,.045);padding:13px;min-height:132px;display:grid;align-content:start;gap:8px}
+.problem-node:not(:last-child)::after{content:'×';position:absolute;right:-15px;top:48%;transform:translateY(-50%);width:22px;height:22px;border:1px solid rgba(226,160,63,.34);background:#08080b;color:#e2a03f;display:flex;align-items:center;justify-content:center;font:12px/1 var(--mono);z-index:2}
+.problem-node small{font:8px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#e2a03f}
+.problem-node strong{font-size:13px;font-weight:500;color:var(--cream);line-height:1.2}
+.problem-node span{font-size:10px;color:var(--dim);line-height:1.42}
+.solution-visual{display:grid;grid-template-columns:1fr 54px 1fr;gap:8px;align-items:center}
+.solution-track{border:1px solid rgba(126,214,196,.28);background:rgba(126,214,196,.045);padding:14px;min-height:142px;display:grid;gap:9px;align-content:center}
+.solution-track small{font:8px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc2)}
+.solution-track strong{font-size:14px;font-weight:500;color:var(--cream)}
+.solution-track span{border:1px solid rgba(240,236,228,.1);background:rgba(0,0,0,.26);height:22px}
+.sync-icon{width:54px;height:54px;border-radius:50%;border:1px solid rgba(126,214,196,.42);background:rgba(126,214,196,.06);display:flex;align-items:center;justify-content:center;color:var(--acc2);font:20px/1 var(--mono)}
+.priority-visual{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.priority-tile{border:1px solid rgba(111,163,232,.28);background:rgba(111,163,232,.045);padding:12px;min-height:130px;display:grid;gap:8px;align-content:start}
+.priority-tile i{font-style:normal;width:30px;height:30px;border-radius:50%;background:rgba(111,163,232,.18);border:1px solid rgba(111,163,232,.42);display:flex;align-items:center;justify-content:center;font:12px/1 var(--mono);color:var(--cream)}
+.priority-tile strong{font-size:13px;font-weight:500;color:var(--cream);line-height:1.15}
+.priority-tile span{font-size:10px;color:var(--dim);line-height:1.42}
+.language-visual{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:2px}
+.language-cell{border:1px solid rgba(184,150,90,.28);background:rgba(184,150,90,.045);padding:12px 8px;min-height:92px;display:flex;align-items:center;justify-content:center;text-align:center;font:10px/1.35 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--cream)}
+.language-cell.more{border-style:dashed;color:var(--gold2)}
+@media (max-width:1100px){.proposal-visual-grid{grid-template-columns:1fr}.problem-visual,.priority-visual,.language-visual{grid-template-columns:1fr 1fr}.solution-visual{grid-template-columns:1fr}.sync-icon{margin:auto}.problem-node::after{display:none}}
+
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curr"></div>
+<nav class="sidenav">
+<a class="sn-logo" href="index.html">Head<sup>®</sup></a>
+<ul class="sn-links">
+<li>
+<button class="sn-btn" id="sn0">◇</button>
+<div class="sn-flyout">
+<span class="sn-flyout-label">Portfolio</span>
+<a href="index.html">Home</a>
+<a href="index.html#projects">Projects</a>
+<a href="index.html#disciplines">Approach</a>
+<a href="index.html#about">About</a>
+<a href="All_Projects.html">All Projects</a>
+</div>
+</li>
+<li>
+<button class="sn-btn act">◆</button>
+<div class="sn-flyout">
+<span class="sn-flyout-label">Projects</span>
+<a href="botanic-elixir.html">Botanic Elixir</a>
+<a href="two-languages-one-view.html">Two Languages- One View</a>
+<a href="hydrogen-field-guide.html">Hydrogen Field Guide</a>
+<a href="macomb-flood.html">Macomb Flood Platform</a>
+<a href="All_Projects.html">All Projects</a>
+<a href="portfolio-project.html">Making of the Portfolio</a>
+</div>
+</li>
+<li>
+<button class="sn-btn">⬢</button>
+<div class="sn-flyout">
+<span class="sn-flyout-label">Disciplines</span>
+<a href="research.html">Research</a>
+<a href="writing.html">Writing &amp; Voice</a>
+<a href="design.html">Product Design</a>
+<a href="strategy.html">Strategy</a>
+</div>
+</li>
+<li>
+<button class="sn-btn">◯</button>
+<div class="sn-flyout">
+<span class="sn-flyout-label">About</span>
+<a href="about.html">About Kaitlyn</a>
+<a href="resume.html">Résumé</a>
+<a href="https://linkedin.com/in/kaitlyn-head" target="_blank">LinkedIn ↗</a>
+</div>
+</li>
+</ul>
+<div class="sn-rule"></div>
+</nav>
+<nav class="top-nav">
+<a class="nav-link active" href="#overview">Overview</a>
+<a class="nav-link" href="#proposal">Proposal</a>
+<a class="nav-link" href="#inquiry">Inquiry</a>
+<a class="nav-link" href="#analysis">Analysis</a>
+<a class="nav-link" href="#sketches">Sketches</a>
+<a class="nav-link" href="#formative">Formative</a>
+<a class="nav-link" href="#wireframes">Wireframes</a>
+<a class="nav-link" href="#summative">Summative</a>
+<a class="nav-link" href="#reiteration">Reiteration</a>
+</nav>
+<main class="main">
+<header class="page-hero" id="overview">
+<div>
+<div class="hero-kicker">Dual Subtitle Platform</div>
+<h1 class="hero-h">Two Languages- <br/><em>One View</em></h1>
+<p class="hero-sub">A multilingual dual-subtitle video platform designed for shared understanding across languages. The project reframes subtitles from a single-user accessibility setting into a shared cognitive system for multicultural households, bilingual relationships, language learners, and global audiences.</p>
+<div class="hero-actions">
+<a class="btn primary" href="https://two-languages-one-view.onrender.com/?v=5e9c1dd" target="_blank">Open Prototype ↗</a>
+<a class="btn" href="#summative">View Evaluation Plan</a>
+</div>
+</div>
+<aside aria-label="Dual subtitle interface preview" class="prototype-frame">
+<div class="proto-top">
+<div class="proto-brand">Two <em>languages</em>,<br/>one experience</div>
+<div class="proto-status">Connected</div>
+</div>
+<div class="proto-stage">
+<div aria-hidden="true" class="video-lines"><span></span><span></span></div>
+<div class="subtitle-stack">
+<div class="sub-lane">I didn't know stories could feel this close.</div>
+<div class="sub-lane secondary">我不知道故事也可以让人感觉这么接近。</div>
+</div>
+</div>
+<div class="proto-controls">
+<div class="proto-control"><small>1 · Source</small><strong>Upload file or paste link</strong></div>
+<div class="proto-control"><small>2 · Languages</small><strong>You + partner tracks</strong></div>
+<div class="proto-control"><small>3 · Process</small><strong>Transcribe and translate</strong></div>
+<div class="proto-control"><small>4 · Output</small><strong>Watch, download, or export SRT</strong></div>
+</div>
+</aside>
+</header>
+<div aria-label="HCI 510 assignment structure map" class="course-map">
+<div class="course-map-head">
+<div>
+<h3>Seven deliverables become one UX case study.</h3>
+<p>The page now follows the Word document sequence while using different visual systems for each assignment. Persona photos stay where they support research and identity; later sections shift toward diagrams, wireframes, task flows, testing models, and final journey logic.</p>
+</div>
+<div class="assignment-chain">
+<div class="assignment-node"><small>01</small><strong>Proposal</strong><span>Problem, users, tasks, benefits.</span></div>
+<div class="assignment-node"><small>02</small><strong>Inquiry Plan</strong><span>Participants, interviews, observation.</span></div>
+<div class="assignment-node"><small>03</small><strong>Analysis</strong><span>Affinity themes, personas, requirements.</span></div>
+<div class="assignment-node"><small>04</small><strong>Sketches</strong><span>Low-fidelity screens and scenarios.</span></div>
+<div class="assignment-node"><small>05</small><strong>Formative</strong><span>Walkthrough and early usability risks.</span></div>
+<div class="assignment-node"><small>06</small><strong>Prototype</strong><span>Wireframe structure and task flow.</span></div>
+<div class="assignment-node"><small>07</small><strong>Summative</strong><span>Final test plan and success measures.</span></div>
+</div>
+</div>
+</div>
+
+<section class="ux-section" id="proposal">
+<div class="sec-top">
+<div><div class="sec-tag">Project Proposal</div><div class="sec-num">01</div></div>
+<div>
+<h2 class="sec-h">The subtitle model was built for <em>one viewer.</em></h2>
+<p class="sec-intro">The uploaded document defines the interface as both a media player and a subtitle transformation system. Its core problem is that most video platforms assume one primary language at a time, even when the viewing moment is shared.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div class="proposal-visual-grid">
+<article class="proposal-card interface">
+<div class="proposal-label">User Interface</div>
+<h3>A web-based platform for simultaneous dual-language subtitles.</h3>
+<p>Users can upload a video file or supported link, upload or generate subtitle/transcript files, and select two subtitle output languages from a flexible language list. The player renders the subtitle tracks as stacked, spaced, non-overlapping lanes.</p>
+<div class="interface-visual" aria-label="Dual subtitle interface diagram">
+<div class="interface-screen"><span class="interface-sub one"></span><span class="interface-sub two"></span></div>
+<div class="interface-controls">
+<div class="interface-control">Video player</div>
+<div class="interface-control">Subtitle overlay</div>
+<div class="interface-control">Language controls</div>
+<div class="interface-control">Layout customization</div>
+</div>
+</div>
+<div class="proposal-tags"><span>Input</span><span>Player</span><span>Two subtitle lanes</span></div>
+</article>
+<article class="proposal-card problem">
+<div class="proposal-label">Problem Statement</div>
+<h3>Switching languages interrupts comprehension.</h3>
+<p>Current systems usually display one subtitle language at a time. Users may need browser extensions, separate translation tools, or manual language switching, which fragments understanding and reduces immersion during shared viewing.</p>
+<div class="problem-visual" aria-label="Fragmented viewing problem diagram">
+<div class="problem-node"><small>Platform</small><strong>One caption track</strong><span>Only one viewer's language need is visible.</span></div>
+<div class="problem-node"><small>Workaround</small><strong>External tools</strong><span>Users leave the viewing moment to translate or search.</span></div>
+<div class="problem-node"><small>Outcome</small><strong>Reduced immersion</strong><span>Shared watching becomes fragmented and unequal.</span></div>
+</div>
+<div class="proposal-tags"><span>Fragmented understanding</span><span>Reduced immersion</span><span>Separated viewing</span></div>
+</article>
+</div>
+<div class="proposal-visual-grid">
+<article class="proposal-card solution">
+<div class="proposal-label">Proposed Solution</div>
+<h3>Two subtitle tracks stay synchronized in one player.</h3>
+<p>The platform translates subtitle cues into two selected target languages, synchronizes both tracks in real time, and uses a custom renderer instead of default browser captions.</p>
+<div class="solution-visual" aria-label="Synchronized dual track solution diagram">
+<div class="solution-track"><small>Track 1</small><strong>English</strong><span></span><span></span></div>
+<div class="sync-icon">↔</div>
+<div class="solution-track"><small>Track 2</small><strong>Chinese / Mongolian / More</strong><span></span><span></span></div>
+</div>
+<div class="proposal-tags"><span>Translate</span><span>Synchronize</span><span>Render together</span></div>
+</article>
+<article class="proposal-card priorities">
+<div class="proposal-label">Design Priorities</div>
+<h3>Legibility, clarity, stability, and flexibility.</h3>
+<p>Padded high-contrast containers, stacked non-overlapping lanes, consistent timing, and user-controlled display modes keep the shared viewing moment readable.</p>
+<div class="priority-visual" aria-label="Design priority tiles">
+<div class="priority-tile"><i>01</i><strong>Legibility</strong><span>High contrast, readable spacing, clear line separation.</span></div>
+<div class="priority-tile"><i>02</i><strong>Clarity</strong><span>Language labels make each subtitle lane identifiable.</span></div>
+<div class="priority-tile"><i>03</i><strong>Stability</strong><span>Consistent timing prevents jumping or overlap.</span></div>
+<div class="priority-tile"><i>04</i><strong>Flexibility</strong><span>Users adjust modes, size, and display layout.</span></div>
+</div>
+<div class="proposal-tags"><span>Readable</span><span>Stable</span><span>Customizable</span></div>
+</article>
+</div>
+<article class="proposal-card languages">
+<div class="proposal-label">Output Languages</div>
+<h3>Flexible subtitle selection supports multiple shared-viewing contexts.</h3>
+<p>The document calls out support for Chinese Simplified, Chinese Traditional, English, Japanese, and other language options depending on user needs. The visual system now represents languages as selectable outputs instead of treating every proposal card with the same text-box structure.</p>
+<div class="language-visual" aria-label="Output language examples">
+<div class="language-cell">Chinese<br>Simplified</div>
+<div class="language-cell">Chinese<br>Traditional</div>
+<div class="language-cell">English</div>
+<div class="language-cell">Japanese</div>
+<div class="language-cell more">More language<br>options</div>
+</div>
+<div class="proposal-tags"><span>Viewer 1 language</span><span>Viewer 2 language</span><span>Flexible list</span></div>
+</article>
+<div class="doc-band">
+<h3>The target audience is shared, not singular.</h3>
+<p>The concept serves multicultural households, bilingual couples and families, language learners, international students, global audiences, and educational environments such as language-learning or discussion-based classes.</p>
+<ul class="doc-list">
+<li>Enables shared viewing across language barriers.</li>
+<li>Improves comprehension for multiple users at the same time.</li>
+<li>Reduces constant subtitle switching and separate translation work.</li>
+<li>Supports language learning through parallel comparison.</li>
+<li>Creates a more inclusive, collaborative, and immersive experience.</li>
+</ul>
+</div>
+<div class="doc-band">
+<h3>Portfolio insight: subtitles become a shared cognitive system.</h3>
+<p>Rather than optimizing for individual comprehension alone, the interface supports simultaneous interpretation, comparative understanding, and co-experienced media consumption.</p>
+</div>
+<div aria-label="Current to future subtitle task transformation" class="transformation-map">
+<div class="trans-lane">
+<div class="lane-label"><h3>Current Task Model</h3><span>Existing systems</span></div>
+<div class="flow-chain">
+<div class="flow-node"><small>Start</small><strong>Select one subtitle language</strong><span>Only one track can be visible at a time.</span></div>
+<div class="flow-node break"><small>Interrupt</small><strong>Switch manually</strong><span>One viewer gains comprehension while another loses context.</span></div>
+<div class="flow-node break"><small>Workaround</small><strong>Use separate translation tools</strong><span>Attention leaves the movie and shifts into platform management.</span></div>
+<div class="flow-node break"><small>Outcome</small><strong>Watch separately</strong><span>The shared media moment becomes fragmented.</span></div>
+</div>
+</div>
+<div class="trans-lane future">
+<div class="lane-label"><h3>Future Task Model</h3><span>Proposed UI</span></div>
+<div class="flow-chain">
+<div class="flow-node win"><small>Setup</small><strong>Upload and translate subtitles</strong><span>Source, transcript, and two output languages live in one flow.</span></div>
+<div class="flow-node win"><small>View</small><strong>Display two languages together</strong><span>Stacked subtitle lanes keep both viewers in the same scene.</span></div>
+<div class="flow-node win"><small>Control</small><strong>Adjust layout and display modes</strong><span>Size, spacing, position, and single/stacked modes support readability.</span></div>
+<div class="flow-node win"><small>Export</small><strong>Choose the right output</strong><span>Watch now, download the movie, or export Language 1 and Language 2 SRT files.</span></div>
+</div>
+</div>
+<div class="shared-outcome">
+<strong>Design shift: from personal caption setting to shared cognitive layer.</strong>
+<p>The proposal is not only adding another subtitle line. It changes the task structure so simultaneous interpretation, comparative understanding, and co-experienced media consumption happen inside one player.</p>
+</div>
+</div>
+</section>
+<section class="ux-section" id="inquiry">
+<div class="sec-top">
+<div><div class="sec-tag">Contextual Inquiry Plan</div><div class="sec-num">02</div></div>
+<div>
+<h2 class="sec-h">Research focused on <em>shared viewing fatigue.</em></h2>
+<p class="sec-intro">The contextual inquiry plan asks how multilingual users currently watch together, what workarounds they use, and where subtitle systems create communication, accessibility, comprehension, cognitive fatigue, or social friction.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div class="triple-grid participant-grid">
+<article class="mini-card participant-card xiayu">
+<figure class="participant-photo">
+<img alt="Photo of Xiayu Li" src="a1.png"/>
+</figure>
+<div class="participant-body">
+<div class="label">Participant 01</div>
+<h3>Xiayu Li</h3>
+<div class="participant-meta"><span>Age 28</span><span>Chinese support</span></div>
+<p>Watches English and Japanese shows with her girlfriend. Chinese subtitles help reduce cognitive fatigue because English is her second language.</p>
+</div>
+</article>
+<article class="mini-card participant-card zach">
+<figure class="participant-photo">
+<img alt="Photo of Zach Turner" src="a2.png"/>
+</figure>
+<div class="participant-body">
+<div class="label">Participant 02</div>
+<h3>Zach Turner</h3>
+<div class="participant-meta"><span>Age 33</span><span>Learning bridge</span></div>
+<p>Watches anime with his Mongolian partner and wants both English improvement and native-language comprehension while watching Japanese media.</p>
+</div>
+</article>
+<article class="mini-card participant-card kim">
+<figure class="participant-photo">
+<img alt="Photo of Kim Sanders" src="a3.webp"/>
+</figure>
+<div class="participant-body">
+<div class="label">Participant 03</div>
+<h3>Kim Sanders</h3>
+<div class="participant-meta"><span>Age 54</span><span>Family viewing</span></div>
+<p>Wants to watch foreign films with her Chinese daughter-in-law and family members using multilingual subtitle support.</p>
+</div>
+</article>
+</div>
+
+<div aria-label="Participant constraints as design input" class="visual-module">
+<h3>Participant needs become interface constraints.</h3>
+<p>This replaces repeated participant imagery with a visual map of how each person’s situation shapes the product. The photos remain in the participant cards, while this section translates their needs into language, cognitive, and interface requirements.</p>
+<div class="persona-constraint-grid">
+<div class="constraint-card">
+<small>Xiayu · fatigue reduction</small>
+<h4>Chinese support while watching English, Japanese, Korean, French, and Spanish media.</h4>
+<div class="language-stack">
+<div class="lang-pill source">Source audio: Japanese / English / Korean</div>
+<div class="need-arrow">↓</div>
+<div class="lang-pill output">Lane 1: English</div>
+<div class="lang-pill output">Lane 2: Chinese</div>
+</div>
+<p>Design implication: the subtitle lanes must remain readable without making the viewer choose between comprehension and immersion.</p>
+</div>
+<div class="constraint-card zach">
+<small>Zach · learning bridge</small>
+<h4>Anime viewing with a Mongolian partner who is also improving English.</h4>
+<div class="language-stack">
+<div class="lang-pill source">Source audio: Japanese</div>
+<div class="need-arrow">↓</div>
+<div class="lang-pill output">Lane 1: English</div>
+<div class="lang-pill output">Lane 2: Mongolian</div>
+</div>
+<p>Design implication: language labels and export names must prevent confusion between learning support and native-language support.</p>
+</div>
+<div class="constraint-card kim">
+<small>Kim · family comprehension</small>
+<h4>International film nights with Chinese-speaking family members.</h4>
+<div class="language-stack">
+<div class="lang-pill source">Source audio: French / German / Portuguese / Spanish</div>
+<div class="need-arrow">↓</div>
+<div class="lang-pill output">Lane 1: English</div>
+<div class="lang-pill output">Lane 2: Chinese</div>
+</div>
+<p>Design implication: the interface must make shared understanding feel simple, especially for family viewing rather than technical subtitle editing.</p>
+</div>
+</div>
+</div>
+
+<div aria-label="Contextual inquiry research protocol map" class="research-protocol">
+<div class="protocol-core">
+<div class="core-card">
+<small>Inquiry Focus</small>
+<strong>Where does shared viewing break down?</strong>
+</div>
+<div class="orbit-chip one">communication</div>
+<div class="orbit-chip two">accessibility</div>
+<div class="orbit-chip three">cognitive fatigue</div>
+<div class="orbit-chip four">social connection</div>
+</div>
+<div class="protocol-grid">
+<article class="protocol-stage">
+<div class="q-range">Questions 1-5</div>
+<h3>Viewing habits and context</h3>
+<div class="probe-tags"><span>alone vs together</span><span>shared content</span><span>different primary language</span><span>choice changes</span></div>
+<p>These probes locate the real viewing situation before asking about solutions.</p>
+</article>
+<article class="protocol-stage">
+<div class="q-range">Questions 6-10</div>
+<h3>Language barriers and cognitive load</h3>
+<div class="probe-tags"><span>mental fatigue</span><span>visual attention</span><span>immersion</span><span>avoidance</span></div>
+<p>This stage identifies where subtitles support comprehension and where they interrupt the story.</p>
+</article>
+<article class="protocol-stage">
+<div class="q-range">Questions 11-18</div>
+<h3>Current solutions and workarounds</h3>
+<div class="probe-tags"><span>extra apps</span><span>extensions</span><span>translation gaps</span><span>dual-subtitle searches</span></div>
+<p>Workaround behavior reveals missing platform features and hidden effort.</p>
+</article>
+<article class="protocol-stage">
+<div class="q-range">Questions 19-22</div>
+<h3>Shared viewing and emotional experience</h3>
+<div class="probe-tags"><span>shared understanding</span><span>connection</span><span>social viewing</span><span>accessibility + learning + immersion</span></div>
+<p>The final stage connects feature needs to the emotional value of watching together.</p>
+</article>
+</div>
+</div>
+<div class="split-grid">
+<article class="panel">
+<div class="panel-k">Optional Observation Tasks</div>
+<h3 class="panel-h">The study watches current behavior, not only stated preference.</h3>
+<p class="panel-p">Participants may open a streaming platform, enable subtitles, search for multilingual subtitle options, explain when subtitles become tiring, show how they compensate for language barriers, or demonstrate how they search for translated subtitle resources outside the platform.</p>
+</article>
+<article class="panel accent">
+<div class="panel-k">Observation Targets</div>
+<h3 class="panel-h">The watchpoints become design requirements.</h3>
+<p class="panel-p">The inquiry looks for navigation difficulty, accessibility barriers, cognitive overload, workaround behavior, hesitation, frustration, and interruption during viewing.</p>
+</article>
+</div>
+<div aria-label="Contextual inquiry schedule" class="schedule-timeline">
+<article class="schedule-stop" style="--person-border:rgba(168,146,235,.42)">
+<b class="person-chip xiayu">Xiayu Li</b>
+<h3>May 01, 2026</h3>
+<p>Virtual interview on Zoom, focused on second-language fatigue while watching English and Japanese shows.</p>
+</article>
+<article class="schedule-stop" style="--person-border:rgba(126,214,196,.42)">
+<b class="person-chip zach">Zach Turner</b>
+<h3>May 03, 2026</h3>
+<p>Virtual interview on Zoom, focused on anime, learning, and native-language comprehension with a partner.</p>
+</article>
+<article class="schedule-stop" style="--person-border:rgba(111,163,232,.42)">
+<b class="person-chip kim">Kim Sanders</b>
+<h3>May 04, 2026</h3>
+<p>In-person interview at a local coffee shop, focused on family viewing and mixed-language needs.</p>
+</article>
+</div>
+<div class="doc-band">
+<h3>Interview logistics keep the research lightweight but observable.</h3>
+<p>Each interview is expected to last 30 to 45 minutes. Notes are recorded during the interview process, and optional screen observation may be conducted during streaming-related tasks if participants agree.</p>
+</div>
+</section>
+<section class="ux-section" id="analysis">
+<div class="sec-top">
+<div><div class="sec-tag">Contextual Analysis Report</div><div class="sec-num">03</div></div>
+<div>
+<h2 class="sec-h">The inquiry points to a <em>shared comprehension gap.</em></h2>
+<p class="sec-intro">The contextual analysis translates the participant commitments and research goals into design findings. The recurring pattern is that current subtitle systems make multilingual viewing feel individual, even when the entertainment experience is supposed to be shared.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div class="quad-grid">
+<article class="mini-card">
+<div class="label">Finding 01</div>
+<h3>Cognitive fatigue accumulates.</h3>
+<p>Second-language viewers may understand the content, but effort rises over time when captions are not in the language that supports comfort and nuance.</p>
+</article>
+<article class="mini-card">
+<div class="label">Finding 02</div>
+<h3>Shared viewing becomes negotiation.</h3>
+<p>Couples, families, and multilingual groups must choose whose comprehension gets priority when only one subtitle language can appear.</p>
+</article>
+<article class="mini-card">
+<div class="label">Finding 03</div>
+<h3>Workarounds break immersion.</h3>
+<p>External tools, separate translation searches, and browser extensions move attention away from the movie and into platform management.</p>
+</article>
+<article class="mini-card">
+<div class="label">Finding 04</div>
+<h3>Output labels need memory support.</h3>
+<p>Language 1 and Language 2 are easy to confuse once users reach export actions, so the selected language summary must stay visible.</p>
+</article>
+</div>
+
+<div aria-label="Contextual analysis affinity and requirements map" class="visual-module">
+<h3>Affinity findings connect directly to design requirements.</h3>
+<p>The contextual analysis now uses a visual evidence chain instead of repeated participant photos. Each cluster summarizes what appeared across the interviews, then translates that evidence into interface decisions.</p>
+<div class="affinity-visual">
+<div class="affinity-cluster"><small>Theme 01</small><strong>Language fatigue</strong><span>Users lose energy when they must read, translate, and watch at the same time.</span></div>
+<div class="affinity-cluster"><small>Theme 02</small><strong>Shared compromise</strong><span>Groups choose easier content instead of preferred content when subtitle support is weak.</span></div>
+<div class="affinity-cluster"><small>Theme 03</small><strong>Workarounds</strong><span>Users rely on browser extensions, subtitle files, rewinding, and informal translation.</span></div>
+<div class="affinity-cluster"><small>Theme 04</small><strong>Output ambiguity</strong><span>Generated videos, transcripts, and SRT files need distinct labels and clear purposes.</span></div>
+<div class="affinity-cluster"><small>Theme 05</small><strong>Immersion loss</strong><span>Subtitle effort can pull attention away from acting, cinematography, and emotional scenes.</span></div>
+</div>
+<div class="requirement-bridge">
+<div class="req-cell"><small>User Need</small><strong>Watch together across languages.</strong><span>Participants want shared viewing without one person doing all the translation work.</span></div>
+<div class="req-arrow">→</div>
+<div class="req-cell"><small>Requirement</small><strong>Keep two subtitle lanes visible and understandable.</strong><span>Language pairings must remain attached to setup, preview, playback, and export.</span></div>
+<div class="req-arrow">→</div>
+<div class="req-cell"><small>Feature Direction</small><strong>Dual-lane preview, labeled outputs, and progress feedback.</strong><span>The interface reduces cognitive load by showing what is happening and what each output is for.</span></div>
+</div>
+</div>
+
+<div class="split-grid">
+<article class="panel accent">
+<div class="panel-k">Opportunity</div>
+<h3 class="panel-h">Make language support visible at every decision point.</h3>
+<p class="panel-p">The interface should keep both selected languages visible during setup, processing, playback, and export. This reduces uncertainty and helps users trust which video or subtitle file they are choosing.</p>
+</article>
+<article class="panel">
+<div class="panel-k">Design Direction</div>
+<h3 class="panel-h">Turn subtitle display into a configurable shared layer.</h3>
+<p class="panel-p">Controls for stacked layout, size, spacing, position, and display mode become part of comprehension rather than decoration. The layout itself is the shared-viewing support system.</p>
+</article>
+</div>
+</section>
+<section class="ux-section" id="sketches">
+<div class="sec-top">
+<div><div class="sec-tag">Design Sketches</div><div class="sec-num">04</div></div>
+<div>
+<h2 class="sec-h">The sketches map the dual-subtitle <em>output path.</em></h2>
+<p class="sec-intro">The design sketch section organizes the prototype around three post-generation scenarios: watching the movie, downloading the movie, and downloading one of the SRT subtitle files.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div aria-label="Dual subtitle output journey" class="journey-strip">
+<div class="journey-step"><small>01</small><strong>Add Source</strong><span>Upload a file or paste a supported video link.</span></div>
+<div class="journey-step"><small>02</small><strong>Choose Languages</strong><span>Select two subtitle languages and keep the summary visible.</span></div>
+<div class="journey-step"><small>03</small><strong>Generate</strong><span>Transcribe, translate, and show progress while the user waits.</span></div>
+<div class="journey-step"><small>04</small><strong>Review</strong><span>Play the generated movie in the browser preview/player.</span></div>
+<div class="journey-step"><small>05</small><strong>Export</strong><span>Download the video or choose Language 1 or Language 2 SRT.</span></div>
+</div>
+<div class="split-grid">
+<article class="panel accent">
+<div class="panel-k">Sketch Structure</div>
+<h3 class="panel-h">Scenario, sketch, and journey stay grouped.</h3>
+<p class="panel-p">Each sketch block pairs the user situation with the screen state and the next decision. That keeps the artifact readable as a journey instead of a loose set of interface pieces.</p>
+</article>
+<article class="panel">
+<div class="panel-k">Sketch Focus</div>
+<h3 class="panel-h">The output screen needs distinct actions.</h3>
+<p class="panel-p">Watch Now, Download Video, and Download SRT appear as separate results because they support different goals and should not be collapsed into one vague download area.</p>
+</article>
+</div>
+<div aria-label="Output decision map" class="output-map">
+<article class="output-card">
+<div>
+<h3>Watch Now</h3>
+<p>The browser player answers whether the generated subtitles look correct before the user commits to a download.</p>
+</div>
+<div class="output-ui">
+<div class="output-preview"><span></span><span></span></div>
+<div class="output-button">Play in browser</div>
+</div>
+<div class="output-question"><b>User question:</b> Can I check the dual subtitles immediately?</div>
+</article>
+<article class="output-card gold">
+<div>
+<h3>Download Video</h3>
+<p>The completed movie file needs confirmation that both subtitle languages are packaged with the video result.</p>
+</div>
+<div class="output-ui">
+<div class="output-file">dual-subtitle-video.mp4</div>
+<div class="tag-row"><span class="tag">Language 1</span><span class="tag">Language 2</span></div>
+<div class="output-button">Download movie</div>
+</div>
+<div class="output-question"><b>User question:</b> Does this file include both subtitle tracks?</div>
+</article>
+<article class="output-card teal">
+<div>
+<h3>Export SRT Files</h3>
+<p>Separate subtitle downloads require persistent language labels so Language 1 and Language 2 do not become abstract.</p>
+</div>
+<div class="output-ui">
+<div class="output-file">language-1-subtitle.srt</div>
+<div class="output-file">language-2-subtitle.srt</div>
+<div class="output-button muted">Keep summary visible</div>
+</div>
+<div class="output-question"><b>User question:</b> Which subtitle file belongs to which language?</div>
+</article>
+</div>
+
+<div aria-label="Design sketches scenario map" class="visual-module">
+<h3>Four usage scenarios show how the sketches support task completion.</h3>
+<p>The design sketches section now presents a varied visual system: source intake, language configuration, generation progress, and export review are each shown with a different low-fidelity screen logic.</p>
+<div class="sketch-visual-grid">
+<div class="sketch-flow-card">
+<small>Scenario 01</small><h4>Upload or link a video source.</h4>
+<div class="tiny-ui"><div class="tiny-bar"></div><div class="tiny-main"></div><div class="tiny-progress"></div></div>
+<p>The user provides the media source. The system validates it before language setup becomes available.</p>
+</div>
+<div class="sketch-flow-card">
+<small>Scenario 02</small><h4>Configure two subtitle languages.</h4>
+<div class="tiny-ui"><div class="tiny-bar"></div><div class="tiny-main"><span class="tiny-sub a"></span><span class="tiny-sub b"></span></div></div>
+<p>The user selects the source language and two subtitle lanes, then checks the preview before generation.</p>
+</div>
+<div class="sketch-flow-card">
+<small>Scenario 03</small><h4>Generate multilingual subtitles.</h4>
+<div class="tiny-ui"><div class="tiny-progress"></div><div class="tiny-progress"></div><div class="tiny-progress"></div></div>
+<p>The system communicates transcription, translation, synchronization, and output preparation as visible stages.</p>
+</div>
+<div class="sketch-flow-card">
+<small>Scenario 04</small><h4>Review, play, and export results.</h4>
+<div class="tiny-ui"><div class="tiny-main"><span class="tiny-sub a"></span><span class="tiny-sub b"></span></div><div class="tiny-bar"></div></div>
+<p>The user verifies playback, then chooses whether to watch, download the video, or export SRT files.</p>
+</div>
+</div>
+</div>
+<div aria-label="Design sketches infographic" class="sketch-board">
+<div class="sketch-head">
+<div class="sketch-title">
+<small>Design Sketches</small>
+<h3>Dual Subtitle Studio</h3>
+<p>Low-fidelity visual sketches for a web interface that lets users upload or link a video, choose the original language, select two subtitle languages, generate the result, and play or download the dual-subtitle video.</p>
+</div>
+<div class="primary-flow">
+<h4>Primary Flow</h4>
+<ol>
+<li>Add a video source.</li>
+<li>Pick the original language.</li>
+<li>Pick two subtitle languages.</li>
+<li>Generate the video.</li>
+<li>Choose Watch Now, SRT downloads, or video download.</li>
+</ol>
+</div>
+</div>
+<div class="sketch-scenario">
+<aside class="scenario-panel">
+<small>Scenario 1</small>
+<strong>Watch the Movie</strong>
+<p>The user wants to immediately review the generated dual-subtitle movie in the browser before saving any files.</p>
+<ol>
+<li>The source video and two subtitle languages are already selected.</li>
+<li>The progress card says the generated video is ready.</li>
+<li>The Watch Now action is enabled.</li>
+</ol>
+</aside>
+<div class="sketch-window">
+<h4>Sketch 1: Watch Now Result State</h4>
+<div class="lofi-browser">
+<div class="lofi-bar"></div>
+<div class="lofi-body">
+<div class="lofi-zone">
+<div class="lofi-button">Watch Now</div>
+<div class="lofi-button">Language 1 SRT</div>
+<div class="lofi-button">Language 2 SRT</div>
+<div class="lofi-button gold">Download Video</div>
+</div>
+<div class="lofi-preview">
+<div class="lofi-caption first"></div>
+<div class="lofi-caption second"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sketch-journey-note">
+<h4>Journey 1</h4>
+<p>Wait until the progress card says the generated video is ready, click Watch Now, use the player controls, check that Language 1 and Language 2 appear as separate subtitle lanes, and continue watching in the browser.</p>
+</div>
+<div class="success-strip">Success state: the movie plays in the web app with both subtitle languages visible and synchronized.</div>
+</div>
+<div class="sketch-scenario">
+<aside class="scenario-panel">
+<small>Scenario 2</small>
+<strong>Download the Movie</strong>
+<p>The user wants to save the full generated movie file so it can be watched offline or shared outside the web app.</p>
+<ol>
+<li>The finalize step is complete.</li>
+<li>The Download Video button is enabled.</li>
+<li>The app has a completed video artifact ready to save.</li>
+</ol>
+</aside>
+<div class="sketch-window">
+<h4>Sketch 2: Download Video Result State</h4>
+<div class="lofi-browser">
+<div class="lofi-bar"></div>
+<div class="lofi-body">
+<div class="lofi-zone">
+<div class="lofi-button">Watch Now</div>
+<div class="lofi-button">Language 1 SRT</div>
+<div class="lofi-button">Language 2 SRT</div>
+<div class="lofi-button gold">Download Video</div>
+</div>
+<div class="lofi-zone">
+<div class="lofi-file">dual-subtitle-video.mp4</div>
+<div class="tag-row"><span class="tag">Movie</span><span class="tag">Language 1 subtitles</span><span class="tag">Language 2 subtitles</span></div>
+<div class="success-strip">The completed video can now be saved from the browser.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sketch-journey-note">
+<h4>Journey 2</h4>
+<p>Wait until Finalize is complete, confirm that Download Video is active, click Download Video, let the browser save the file, and open the downloaded file to confirm both subtitle lanes are included.</p>
+</div>
+<div class="success-strip">Success state: the user has a playable downloaded movie file with dual subtitles included.</div>
+</div>
+<div class="sketch-scenario">
+<aside class="scenario-panel">
+<small>Scenario 3</small>
+<strong>Download Language 1 or Language 2 SRT</strong>
+<p>The user wants one subtitle track as a separate SRT file without downloading the full movie again.</p>
+<ol>
+<li>The Language 1 SRT and Language 2 SRT buttons are enabled.</li>
+<li>The language summary identifies which track belongs to each button.</li>
+<li>The user chooses the subtitle file they need.</li>
+</ol>
+</aside>
+<div class="sketch-window">
+<h4>Sketch 3: SRT Download Result State</h4>
+<div class="lofi-browser">
+<div class="lofi-bar"></div>
+<div class="lofi-body">
+<div class="lofi-zone">
+<div class="tag-row"><span class="tag">Language 1: Chinese</span><span class="tag">Language 2: English</span></div>
+<div class="lofi-button">Watch Now</div>
+<div class="lofi-button">Language 1 SRT</div>
+<div class="lofi-button">Language 2 SRT</div>
+<div class="lofi-button gold">Download Video</div>
+</div>
+<div class="lofi-zone">
+<div class="lofi-file">language-1-subtitle.srt</div>
+<div class="lofi-file">language-2-subtitle.srt</div>
+<div class="success-strip">Each SRT can be downloaded separately for another player or editor.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sketch-journey-note">
+<h4>Journey 3</h4>
+<p>Wait until the SRT buttons are active, check the language summary, click the correct Language 1 or Language 2 SRT button, and save the selected .srt file.</p>
+</div>
+<div class="success-strip">Success state: the user receives the correct individual SRT file for the selected subtitle language.</div>
+</div>
+<div class="insight-grid">
+<article class="insight-card"><small>Ta-da</small><h3>Hide Transcript Complexity</h3><p>The system can manage timed transcript work internally while keeping the interface focused on source, language choices, and output.</p></article>
+<article class="insight-card"><small>Uh-oh</small><h3>Two Lanes Can Be Confusing</h3><p>Subtitle lanes need clear labels and summary chips so users know exactly which track belongs to each output.</p></article>
+<article class="insight-card"><small>Insight</small><h3>Progress Must Be Specific</h3><p>Uploading, transcribing, translating, and rendering need step labels, percent complete, and estimated time remaining.</p></article>
+<article class="insight-card"><small>Insight</small><h3>Outputs Are Result Choices</h3><p>Watch Now, Language 1 SRT, Language 2 SRT, and Download Video should stay disabled until generation succeeds.</p></article>
+</div>
+</div>
+<div class="doc-band">
+<h3>Each sketch block connects scenario, screen, and journey.</h3>
+<p>The design sketches define three post-generation moments: watching the movie, downloading the movie, and downloading one of the SRT files. The sketches make those actions visually separate because they answer different user questions.</p>
+<ul class="doc-list">
+<li><strong>Scenario:</strong> the user has a processed dual-subtitle video and needs to choose an output.</li>
+<li><strong>Sketch:</strong> the interface shows a browser preview/player, a video download action, and separate SRT export actions.</li>
+<li><strong>Journey:</strong> the user moves from source setup to language selection, processing, playback, and export.</li>
+</ul>
+</div>
+</section>
+<section class="ux-section" id="formative">
+<div class="sec-top">
+<div><div class="sec-tag">Formative Evaluation</div><div class="sec-num">05</div></div>
+<div>
+<h2 class="sec-h">The formative evaluation clarifies <em>what users might misunderstand.</em></h2>
+<p class="sec-intro">The cognitive walkthrough identified where users could lose confidence in the output flow. The recommendations focus on visible labels, readiness states, language summaries, and separating playback from download actions.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div class="split-grid">
+<article class="panel accent">
+<div class="panel-k">Chosen Evaluation</div>
+<h3 class="panel-h">A cognitive walkthrough fits the stage of the work.</h3>
+<p class="panel-p">The prototype is task-based and still low-fidelity, so the evaluation focuses on what users think at each step, whether they know the next action, and where they may get stuck.</p>
+</article>
+<article class="panel">
+<div class="panel-k">Later Evaluation</div>
+<h3 class="panel-h">A heuristic evaluation becomes useful after the path is clearer.</h3>
+<p class="panel-p">Consistency, error prevention, and feedback should be checked later. At this stage, the bigger concern is whether the scenario-sketch-journey structure makes sense to users.</p>
+</article>
+</div>
+<div aria-label="Cognitive walkthrough evaluation lens" class="eval-lens">
+<article class="walkthrough-lens">
+<h3>Cognitive Walkthrough Lens</h3>
+<p class="panel-p">The walkthrough checks the exact moment when a generated result becomes actionable. Each question maps to a specific risk in the output screen.</p>
+<div class="lens-grid">
+<div class="lens-card"><small>Goal</small><strong>Does the user know what result they need?</strong><span>Watch now, download video, or export one subtitle file.</span></div>
+<div class="lens-card"><small>Action</small><strong>Can they identify the correct button?</strong><span>Labels must separate playback, movie download, and SRT export.</span></div>
+<div class="lens-card"><small>Feedback</small><strong>Does the interface show readiness?</strong><span>Generated-video-ready status prevents premature clicking.</span></div>
+<div class="lens-card"><small>Memory</small><strong>Can they remember Language 1 and 2?</strong><span>Summary chips keep the subtitle mapping visible.</span></div>
+</div>
+</article>
+<article class="state-flow">
+<h3>Output Readiness Model</h3>
+<p class="panel-p">The key design correction is to make outputs unavailable until the system has finished transcription, translation, synchronization, and packaging.</p>
+<div class="state-rail">
+<div class="state-step active"><i>1</i><strong>Source accepted</strong><span>File/link validated</span><div class="state-pill">Ready</div></div>
+<div class="state-step active"><i>2</i><strong>Languages selected</strong><span>Two outputs named</span><div class="state-pill">Ready</div></div>
+<div class="state-step"><i>3</i><strong>Processing</strong><span>Transcribe, translate, sync</span><div class="state-pill">Disabled</div></div>
+<div class="state-step active"><i>4</i><strong>Generated video ready</strong><span>Watch and exports enabled</span><div class="state-pill">Enabled</div></div>
+</div>
+</article>
+</div>
+<div aria-label="Sequential cognitive walkthrough findings" class="walkthrough-sequence">
+<article class="walk-step">
+<div class="walk-num">01</div>
+<h3>Frame the scenario.</h3>
+<div class="walk-detail">
+<b>Risk</b>
+<p>Users may not understand that each scenario has its own sketch and journey.</p>
+</div>
+<div class="walk-detail fix">
+<b>Design fix</b>
+<p>Add clearer labels for Scenario, Sketch, and Journey inside each block.</p>
+</div>
+</article>
+<article class="walk-step">
+<div class="walk-num">02</div>
+<h3>Show processing progress.</h3>
+<div class="walk-detail">
+<b>Risk</b>
+<p>Users may not know how long transcription, translation, and rendering will take.</p>
+</div>
+<div class="walk-detail fix">
+<b>Design fix</b>
+<p>Include step-by-step progress, percent complete, and estimated time remaining.</p>
+</div>
+</article>
+<article class="walk-step">
+<div class="walk-num">03</div>
+<h3>Unlock output buttons.</h3>
+<div class="walk-detail">
+<b>Risk</b>
+<p>Users may try to click output buttons before processing is complete.</p>
+</div>
+<div class="walk-detail fix">
+<b>Design fix</b>
+<p>Keep buttons disabled until outputs are ready and show a clear Generated video ready status.</p>
+</div>
+</article>
+<article class="walk-step">
+<div class="walk-num">04</div>
+<h3>Watch in the browser.</h3>
+<div class="walk-detail">
+<b>Risk</b>
+<p>Users may wonder whether Watch Now opens a new page or plays in the current page.</p>
+</div>
+<div class="walk-detail fix">
+<b>Design fix</b>
+<p>Add a status message showing that the movie plays in the browser preview/player.</p>
+</div>
+</article>
+<article class="walk-step">
+<div class="walk-num">05</div>
+<h3>Download the movie.</h3>
+<div class="walk-detail">
+<b>Risk</b>
+<p>Users may not know whether the downloaded video includes both subtitle languages.</p>
+</div>
+<div class="walk-detail fix">
+<b>Design fix</b>
+<p>Add confirmation text: Includes Language 1 and Language 2 subtitles.</p>
+</div>
+</article>
+<article class="walk-step">
+<div class="walk-num">06</div>
+<h3>Download SRT files.</h3>
+<div class="walk-detail">
+<b>Risk</b>
+<p>Users may confuse Language 1 and Language 2 if they forget their language choices.</p>
+</div>
+<div class="walk-detail fix">
+<b>Design fix</b>
+<p>Keep the selected language summary visible near the SRT buttons.</p>
+</div>
+</article>
+</div>
+<div class="doc-band">
+<h3>The formative insight is that output actions are not interchangeable.</h3>
+<p>The walkthrough showed that Watch Now, Download Video, and Download SRT are different kinds of results, so they should not be grouped vaguely as one download step. Users need to understand what each action gives them before they click.</p>
+<p>Language 1 and Language 2 also need persistent context. If the language summary disappears, users may forget which SRT file belongs to which language. The structural fix is to connect each scenario directly to its sketch and journey, keep readiness states visible, and keep the selected language summary near every export action.</p>
+</div>
+</section>
+<section class="ux-section" id="wireframes">
+<div class="sec-top">
+<div><div class="sec-tag">Wireframes</div><div class="sec-num">06</div></div>
+<div>
+<h2 class="sec-h">The wireframes translate the concept into a <em>task flow.</em></h2>
+<p class="sec-intro">The wireframe structure keeps source intake, language selection, processing feedback, playback, video download, and SRT export visible as separate interface zones. The functioning prototype follows the same path.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div aria-label="Dual subtitle wireframe anatomy" class="wireframe-blueprint">
+<h3>Screen Anatomy: Dual Subtitle Studio</h3>
+<p class="panel-p">The wireframe separates setup, preview, and export so users can scan the workflow without confusing video playback with file downloads.</p>
+<div class="wireframe-shell">
+<div class="wireframe-bar"></div>
+<div class="wireframe-grid">
+<div class="wire-col">
+<h4>Setup Rail</h4>
+<div class="wire-box accent">1. Source Intake</div>
+<div class="wire-box">Upload file or paste link</div>
+<div class="wire-box accent">2. Language Setup</div>
+<div class="wire-box">Original, Language 1, Language 2</div>
+<div class="wire-box accent">3. Generate</div>
+</div>
+<div class="wire-col">
+<h4>Preview Player</h4>
+<div class="wire-video">
+<div class="wire-sub one"></div>
+<div class="wire-sub two"></div>
+</div>
+</div>
+<div class="wire-col">
+<h4>Output Choices</h4>
+<div class="wire-box accent">Watch Now</div>
+<div class="wire-box">Download Video</div>
+<div class="wire-box">Language 1 SRT</div>
+<div class="wire-box">Language 2 SRT</div>
+<div class="wire-box">Download Transcript</div>
+</div>
+</div>
+<div class="wire-legend">
+<span>Visible language summary</span>
+<span>Stacked subtitle lanes</span>
+<span>Disabled until ready</span>
+<span>Export paths separated</span>
+</div>
+</div>
+</div>
+<div aria-label="Functioning prototype task flow" class="prototype-task-flow">
+<h3>Prototype Task Flow: Input, Wait, Choose Output</h3>
+<p>The functioning prototype is organized as a forked task system. The first two states gather and process the material; the completed-output state splits into three clearly different user actions.</p>
+<div class="task-flow-main">
+<article class="task-phase">
+<small>Task 1</small>
+<strong>Upload file, choose language(s), Load</strong>
+<p>The user adds a local video file or supported link, selects the source language, and chooses two subtitle output languages before starting the job.</p>
+</article>
+<article class="task-phase">
+<small>Task 2</small>
+<strong>Wait for transcription and translation</strong>
+<p>The interface needs progress feedback because the system transcribes, translates, synchronizes, and prepares the generated outputs before actions unlock.</p>
+</article>
+<div class="output-fork">
+<span class="fork-label">Task 3: Completed output fork</span>
+<div class="fork-branch"><i>A</i><div><strong>Play the movie</strong><span>Review the generated result in the browser preview/player.</span></div></div>
+<div class="fork-branch"><i>B</i><div><strong>Download the movie</strong><span>Save the full completed video file with both subtitle languages confirmed.</span></div></div>
+<div class="fork-branch"><i>C</i><div><strong>Download Language 1 or 2 SRT</strong><span>Use the visible language summary to select the correct subtitle file.</span></div></div>
+</div>
+</div>
+</div>
+<div class="doc-band">
+<h3>Functioning prototype link and task coverage.</h3>
+<p>The live build at https://two-languages-one-view.onrender.com/?v=5e9c1dd covers the three documented tasks: upload a file and choose languages, wait for transcription and translation, then play the movie, download the movie, or download Language 1 or Language 2 SRT.</p>
+</div>
+<div class="live-shell">
+<div class="live-bar">
+<div class="live-url">https://two-languages-one-view.onrender.com/?v=5e9c1dd</div>
+<a class="live-open" href="https://two-languages-one-view.onrender.com/?v=5e9c1dd" target="_blank">Open live ↗</a>
+</div>
+<iframe class="live-frame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-popups allow-popups-to-escape-sandbox" src="https://two-languages-one-view.onrender.com/?v=5e9c1dd" title="Two Languages- One View live prototype"></iframe>
+</div>
+</section>
+<section class="ux-section" id="summative">
+<div class="sec-top">
+<div><div class="sec-tag">Summative Evaluation Plan</div><div class="sec-num">07</div></div>
+<div>
+<h2 class="sec-h">The final test would measure output <em>confidence.</em></h2>
+<p class="sec-intro">The summative plan evaluates whether users can tell the difference between watching the generated movie, downloading the full movie, and downloading the correct subtitle file. The central risk is confusion between Watch Now, Download Video, Language 1 SRT, and Language 2 SRT.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div class="split-grid">
+<article class="panel accent">
+<div class="panel-k">Completed-result Scenario</div>
+<h3 class="panel-h">The system has generated a dual-subtitle result.</h3>
+<p class="panel-p">The participant needs to review the movie and save the outputs they need: start playback in the browser, download the full completed video file, and identify which subtitle language belongs to Language 1 or Language 2 before downloading the correct SRT.</p>
+</article>
+<article class="panel">
+<div class="panel-k">Recruitment Frame</div>
+<h3 class="panel-h">4 to 6 users with basic website and video-player experience.</h3>
+<p class="panel-p">The target users include students, language learners, bilingual viewers, content creators, and people who need subtitle files for editing or sharing. Technical knowledge is not required.</p>
+</article>
+</div>
+<div class="doc-band">
+<h3>The research objective is output clarity.</h3>
+<p>The usability test evaluates whether users can complete the main output tasks, tell the difference between watching the generated movie, downloading the full movie, and downloading individual subtitle files, understand Language 1 and Language 2 labels, recognize when outputs are ready, and receive enough feedback during and after processing.</p>
+<p>This is framed as a summative evaluation plan: it describes the final usability test that would be conducted if there were time to run the study.</p>
+</div>
+
+<div aria-label="Summative evaluation test lenses" class="testing-board">
+<div class="testing-card">
+<small>Test lens 01</small>
+<h4>Can users confidently watch the generated result?</h4>
+<div class="testing-mini"><div class="testing-action"></div><div class="testing-action gold"></div></div>
+<p>This tests whether the playback state communicates that subtitle generation is complete and ready for viewing.</p>
+</div>
+<div class="testing-card">
+<small>Test lens 02</small>
+<h4>Can users identify the correct downloadable output?</h4>
+<div class="testing-mini"><div class="testing-action gold"></div><div class="testing-action blue"></div></div>
+<p>This tests whether users understand the difference between downloaded video, transcript, and SRT subtitle files.</p>
+</div>
+<div class="testing-card">
+<small>Test lens 03</small>
+<h4>Can users explain what each subtitle lane represents?</h4>
+<div class="testing-mini"><div class="testing-action"></div><div class="testing-action"></div><div class="testing-action blue"></div></div>
+<p>This tests whether the interface preserves language context from setup through final export.</p>
+</div>
+</div>
+
+<div aria-label="Summative evaluation test map" class="summative-map">
+<h3>Test Map: Can Users Choose the Right Output?</h3>
+<p class="panel-p">The summative plan centers on one completed-video scenario, then tests whether users can confidently choose the correct output without moderator help.</p>
+<div class="test-flow">
+<article class="test-task">
+<div><small>Task 1</small><h4>Watch the generated movie</h4></div>
+<div class="test-screen"><div class="bar"></div><div class="bar"></div><div class="action"></div></div>
+<div class="test-measures"><span>Completion</span><span>Hesitation</span><span>Confidence</span></div>
+</article>
+<article class="test-task">
+<div><small>Task 2</small><h4>Download the completed movie</h4></div>
+<div class="test-screen"><div class="bar"></div><div class="action gold"></div><div class="bar"></div></div>
+<div class="test-measures"><span>Wrong clicks</span><span>Time</span><span>File clarity</span></div>
+</article>
+<article class="test-task">
+<div><small>Task 3</small><h4>Download the correct SRT file</h4></div>
+<div class="test-screen"><div class="bar"></div><div class="action"></div><div class="action"></div></div>
+<div class="test-measures"><span>Language match</span><span>Assistance</span><span>Confidence</span></div>
+</article>
+</div>
+<div class="success-matrix">
+<div class="success-cell"><small>Success signal</small><p>User starts playback in the embedded browser player.</p></div>
+<div class="success-cell"><small>Success signal</small><p>User understands the movie download includes both subtitle languages.</p></div>
+<div class="success-cell"><small>Success signal</small><p>User selects the intended Language 1 or Language 2 SRT file.</p></div>
+<div class="success-cell"><small>Design response</small><p>Improve labels, readiness status, and visible language summary.</p></div>
+</div>
+</div>
+<div aria-label="Summative evaluation measurement model" class="measure-board">
+<h3>Measurement Model: Confidence Around Output Choice</h3>
+<p>The metrics work together as one readout. Performance signals show whether the task was completed; behavior signals show where uncertainty appears; self-report signals show whether users trust the option they chose.</p>
+<div class="measure-layout">
+<div class="measure-core">
+<div class="measure-ring"><div>Output clarity scorecard</div></div>
+</div>
+<div class="measure-grid">
+<article class="measure-tile"><small>Performance</small><strong>Task completion</strong><span>Can users finish Watch, Download Video, and Download SRT without assistance?</span><div class="meter"><i></i></div></article>
+<article class="measure-tile"><small>Performance</small><strong>Time on task</strong><span>Are output options easy to find and understand?</span><div class="meter"><i></i></div></article>
+<article class="measure-tile"><small>Behavior</small><strong>Error count</strong><span>Where do wrong clicks, confusing labels, or misunderstood actions happen?</span><div class="meter"><i></i></div></article>
+<article class="measure-tile"><small>Behavior</small><strong>Hesitations</strong><span>Where do users pause because the next action is unclear?</span><div class="meter"><i></i></div></article>
+<article class="measure-tile"><small>Independence</small><strong>Need for assistance</strong><span>Can the interface stand on its own without moderator help?</span><div class="meter"><i></i></div></article>
+<article class="measure-tile"><small>Self-report</small><strong>Post-task confidence</strong><span>Do users feel sure they selected the correct option?</span><div class="meter"><i></i></div></article>
+<article class="measure-tile"><small>Self-report</small><strong>Post-test satisfaction</strong><span>Does the system feel understandable and usable overall?</span><div class="meter"><i></i></div></article>
+<article class="measure-tile"><small>Qualitative</small><strong>Confusion notes</strong><span>What do users say aloud during moments of uncertainty?</span><div class="meter"><i></i></div></article>
+</div>
+</div>
+</div>
+<div class="doc-band">
+<h3>The session tests the interface, not the participant.</h3>
+<p>The procedure asks each participant to think aloud while completing three output tasks. The moderator observes comments, hesitations, wrong clicks, confidence, and difficulty after each task, then ends with final clarity and usability questions.</p>
+</div>
+<div aria-label="Summative usability test session map" class="session-map">
+<h3>Session Map: From Consent to Output Confidence</h3>
+<p>The procedure is grouped into the flow a moderator would actually run, so the study reads as a process rather than a checklist.</p>
+<div class="session-lanes">
+<article class="session-lane"><small>01 Setup</small><strong>Welcome, consent, and background</strong><span>Explain the study purpose, confirm consent, and remind participants that the interface is being tested, not them.</span></article>
+<article class="session-lane"><small>02 Think Aloud</small><strong>Participant narrates decisions</strong><span>Ask the participant to say what they expect, what feels clear, and what feels confusing as each task begins.</span></article>
+<article class="session-lane"><small>03 Task Loop</small><strong>Watch, download movie, download SRT</strong><span>Present each task, observe wrong clicks and pauses, then ask confidence and difficulty questions after each one.</span></article>
+<article class="session-lane"><small>04 Closeout</small><strong>Final clarity and usability read</strong><span>Collect a final questionnaire, ask for closing comments, thank the participant, and translate findings into label and status-message updates.</span></article>
+</div>
+</div>
+<div class="prompt-grid">
+<article class="prompt-card">
+<h3>Task 1 Prompt</h3>
+<p>The video has finished processing. Please find a way to watch the generated movie in the browser.</p>
+</article>
+<article class="prompt-card">
+<h3>Task 2 Prompt</h3>
+<p>Imagine you want to save the completed movie file to your computer. Please download the movie.</p>
+</article>
+<article class="prompt-card">
+<h3>Task 3 Prompt</h3>
+<p>Imagine you only need one subtitle file, not the whole movie. Please download either the Language 1 or Language 2 SRT file.</p>
+</article>
+</div>
+<div class="split-grid">
+<article class="panel">
+<div class="panel-k">Testing Environment</div>
+<h3 class="panel-h">Desktop or laptop, modern browser, stable prototype access.</h3>
+<p class="panel-p">The test can run in a classroom, study room, or remote screen-sharing session using Chrome, Edge, or Firefox. Materials include the prototype, internet connection if using the deployed version, observation log, note-taking sheet, and timer.</p>
+</article>
+<article class="panel accent">
+<div class="panel-k">Post-task Questions</div>
+<h3 class="panel-h">Confidence and confusion become the key signals.</h3>
+<p class="panel-p">After each task, participants answer whether they completed it, how confident they are from 1 to 5, how difficult it was from 1 to 5, and whether anything was confusing.</p>
+</article>
+</div>
+<div class="doc-band">
+<h3>Moderator script keeps the test neutral.</h3>
+<p>The moderator explains that the goal is to evaluate whether the interface is clear and usable, that the interface is being tested rather than the participant, and that participants should say what they are thinking as they work. If something is confusing, they are asked to say that out loud; the moderator may not help right away because the study needs to see how the interface works on its own.</p>
+</div>
+<div aria-label="Summative user journey observation log" class="summative-journey">
+<h3>Summative User Journey</h3>
+<p>This observation log is stated as a user journey: the participant moves through the completed-output state in sequence, first watching the generated movie, then downloading the full movie, then selecting an individual subtitle file.</p>
+<div class="summative-journey-strip">
+<article class="summative-step">
+<div class="summative-step-head">
+<i>01</i>
+<div>
+<small>Task</small>
+<h4>Watch the movie</h4>
+</div>
+</div>
+<div class="journey-observation">
+<div><b>Completed?</b><span>Record success</span></div>
+<div><b>Errors / Wrong Clicks</b><span>Wrong playback target</span></div>
+<div><b>Hesitations</b><span>Unclear Watch Now behavior</span></div>
+<div><b>Participant Comments</b><span>Capture spoken confusion or confidence</span></div>
+<div class="recommendation"><b>Recommendation</b><span>Clarify browser preview/player</span></div>
+</div>
+</article>
+<article class="summative-step">
+<div class="summative-step-head">
+<i>02</i>
+<div>
+<small>Task</small>
+<h4>Download the movie</h4>
+</div>
+</div>
+<div class="journey-observation">
+<div><b>Completed?</b><span>Record success</span></div>
+<div><b>Errors / Wrong Clicks</b><span>Wrong download choice</span></div>
+<div><b>Hesitations</b><span>Unclear included subtitles</span></div>
+<div><b>Participant Comments</b><span>Capture assumptions about the file</span></div>
+<div class="recommendation"><b>Recommendation</b><span>Confirm both subtitle tracks</span></div>
+</div>
+</article>
+<article class="summative-step">
+<div class="summative-step-head">
+<i>03</i>
+<div>
+<small>Task</small>
+<h4>Download SRT file</h4>
+</div>
+</div>
+<div class="journey-observation">
+<div><b>Completed?</b><span>Record success</span></div>
+<div><b>Errors / Wrong Clicks</b><span>Wrong language file</span></div>
+<div><b>Hesitations</b><span>Language 1 / 2 uncertainty</span></div>
+<div><b>Participant Comments</b><span>Capture language-label confusion</span></div>
+<div class="recommendation"><b>Recommendation</b><span>Keep language summary visible</span></div>
+</div>
+</article>
+</div>
+</div>
+<div class="doc-band">
+<h3>The planning reflection returns to one central concern.</h3>
+<p>The final evaluation would show whether users understand what each output gives them. The results would improve button labels, readiness status messages, and the language summary near the SRT download options.</p>
+</div>
+</section>
+<section class="ux-section" id="reiteration">
+<div class="sec-top">
+<div><div class="sec-tag">User Journey Reiteration</div><div class="sec-num">08</div></div>
+<div>
+<h2 class="sec-h">The reiterated journey keeps the user oriented from <em>input to output.</em></h2>
+<p class="sec-intro">The reiteration turns the evaluation findings back into a clearer journey. The user should always know what has been selected, what the system is doing, when the generated video is ready, and which output action they are choosing.</p>
+</div>
+</div>
+<div class="sec-rule"></div>
+<div aria-label="Dual Subtitle Studio user journey map" class="flow-map">
+<div class="flow-map-head">
+<div>
+<h3>Dual Subtitle Studio User Journeys</h3>
+<p>Four key journeys show how users accomplish the main tasks in the interface: adding a source, configuring subtitle languages, generating subtitles, and reviewing or exporting outputs.</p>
+</div>
+<div aria-label="Five-step subtitle workflow" class="flow-steps">
+<div class="flow-step"><div class="flow-dot">1</div><strong>Source Intake</strong><span>Upload or link a video source.</span></div>
+<div class="flow-step"><div class="flow-dot">2</div><strong>Configure Languages</strong><span>Choose original and subtitle languages.</span></div>
+<div class="flow-step"><div class="flow-dot">3</div><strong>Generate Subtitles</strong><span>AI processes and creates outputs.</span></div>
+<div class="flow-step"><div class="flow-dot">4</div><strong>Review &amp; Preview</strong><span>Watch and verify dual subtitles.</span></div>
+<div class="flow-step"><div class="flow-dot">5</div><strong>Export Outputs</strong><span>Download videos, subtitles, or transcripts.</span></div>
+</div>
+</div>
+</div>
+<div class="journey-board">
+<article class="journey-card">
+<div>
+<div class="journey-title"><span class="journey-badge">1</span><div><small>User Journey 1</small><h3>Upload or Link Media Source</h3></div></div>
+<div class="mock-screen">
+<div class="mock-top"></div>
+<div class="mock-layout">
+<div class="mock-side"><div class="mock-pill"></div><div class="mock-pill"></div><div class="mock-pill"></div></div>
+<div class="mock-main">
+<div class="mock-drop">Drag and drop video</div>
+<div class="mock-pill"></div>
+<div class="mock-pill"></div>
+</div>
+</div>
+<div class="progress-row"><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+</div>
+</div>
+<div class="journey-notes">
+<div class="note-line"><b>Action</b>User uploads a local video file or pastes a streaming link.</div>
+<div class="note-line"><b>Why</b>Provide a flexible and fast way to add any video source.</div>
+<div class="note-line"><b>How</b>Clear upload area and link input support multiple source types with minimal effort.</div>
+<div class="note-line"><b>System Response</b>File name appears, link is validated, and the next step becomes active.</div>
+<div class="note-line"><b>User Understanding</b>The source is accepted and the workflow can continue.</div>
+</div>
+</article>
+<article class="journey-card green">
+<div>
+<div class="journey-title"><span class="journey-badge">2</span><div><small>User Journey 2</small><h3>Configure Subtitle Languages</h3></div></div>
+<div class="mock-screen">
+<div class="mock-top"></div>
+<div class="mock-layout">
+<div class="mock-side"><div class="mock-pill"></div><div class="mock-pill"></div><div class="mock-pill"></div></div>
+<div class="mock-main">
+<div class="mock-pill"></div>
+<div class="mock-pill"></div>
+<div class="mock-preview"><div class="mock-sub one"></div><div class="mock-sub two"></div></div>
+</div>
+</div>
+<div class="progress-row"><span>1</span><span class="active">2</span><span>3</span><span>4</span><span>5</span></div>
+</div>
+</div>
+<div class="journey-notes">
+<div class="note-line"><b>Action</b>User selects original language and two subtitle languages.</div>
+<div class="note-line"><b>Why</b>Create a personalized dual-subtitle experience for two viewers.</div>
+<div class="note-line"><b>How</b>Separate fields for original and two subtitle lanes with a live preview.</div>
+<div class="note-line"><b>System Response</b>Preview updates in real time and selections appear in summary chips.</div>
+<div class="note-line"><b>User Understanding</b>User can see how subtitles will appear before generation.</div>
+</div>
+</article>
+<article class="journey-card gold">
+<div>
+<div class="journey-title"><span class="journey-badge">3</span><div><small>User Journey 3</small><h3>Generate Multilingual Subtitles</h3></div></div>
+<div class="mock-screen">
+<div class="mock-top"></div>
+<div class="mock-layout">
+<div class="mock-side"><div class="mock-pill"></div><div class="mock-pill"></div><div class="mock-pill"></div></div>
+<div class="mock-main">
+<div class="mock-progress"></div>
+<div class="mock-progress"></div>
+<div class="mock-pill"></div>
+<div class="mock-pill"></div>
+</div>
+</div>
+<div class="progress-row"><span>1</span><span>2</span><span class="active">3</span><span>4</span><span>5</span></div>
+</div>
+</div>
+<div class="journey-notes">
+<div class="note-line"><b>Action</b>User clicks Generate Video to start subtitle processing.</div>
+<div class="note-line"><b>Why</b>AI transcribes, translates, synchronizes, and prepares all outputs automatically.</div>
+<div class="note-line"><b>How</b>Step-by-step stages with progress indicators show where the system is.</div>
+<div class="note-line"><b>System Response</b>Real-time progress updates and conflicting actions stay disabled.</div>
+<div class="note-line"><b>User Understanding</b>User knows the system is working and how much time remains.</div>
+</div>
+</article>
+<article class="journey-card blue">
+<div>
+<div class="journey-title"><span class="journey-badge">4</span><div><small>User Journey 4</small><h3>Review, Play &amp; Export Results</h3></div></div>
+<div class="mock-screen">
+<div class="mock-top"></div>
+<div class="mock-layout">
+<div class="mock-side"><div class="mock-pill"></div><div class="mock-pill"></div><div class="mock-pill"></div></div>
+<div class="mock-main">
+<div class="mock-preview"><div class="mock-sub one"></div><div class="mock-sub two"></div></div>
+<div class="mock-pill"></div>
+</div>
+</div>
+<div class="progress-row"><span>1</span><span>2</span><span>3</span><span class="active">4</span><span>5</span></div>
+</div>
+</div>
+<div class="journey-notes">
+<div class="note-line"><b>Action</b>User reviews the subtitles and downloads outputs.</div>
+<div class="note-line"><b>Why</b>Verify quality and export files for offline use or sharing.</div>
+<div class="note-line"><b>How</b>Built-in preview player and multiple download options.</div>
+<div class="note-line"><b>System Response</b>Video and subtitle files are made available and downloads are packaged.</div>
+<div class="note-line"><b>User Understanding</b>Subtitles look correct and are ready to use or share.</div>
+</div>
+</article>
+</div>
+<div class="insight-grid">
+<article class="insight-card">
+<small>Ta-da Moments</small>
+<h3>Clear setup builds trust.</h3>
+<ul><li>Live preview reduces uncertainty about dual subtitle layout.</li><li>Clear progress stages build trust during long processing times.</li></ul>
+</article>
+<article class="insight-card">
+<small>Uh-oh Moments</small>
+<h3>Ambiguity needs labels.</h3>
+<ul><li>Two subtitle lanes were confusing until labels and color cues were added.</li><li>Unclear frozen states led to better progress feedback.</li></ul>
+</article>
+<article class="insight-card">
+<small>Key Learnings</small>
+<h3>Feedback belongs everywhere.</h3>
+<ul><li>Prioritize clarity and feedback in every step.</li><li>Design must support spoken-language and subtitle-language flexibility.</li></ul>
+</article>
+<article class="insight-card">
+<small>Design Impact</small>
+<h3>Structure lowers cognitive load.</h3>
+<ul><li>Supports true shared viewing experiences.</li><li>Makes advanced subtitle tasks simple and accessible.</li></ul>
+</article>
+</div>
+<div aria-label="Reiterated user journey" class="journey-strip">
+<div class="journey-step"><small>01</small><strong>Upload</strong><span>The user adds a video file or supported link and sees the source ready state.</span></div>
+<div class="journey-step"><small>02</small><strong>Select</strong><span>The user chooses two subtitle languages and sees the Language 1 / Language 2 summary.</span></div>
+<div class="journey-step"><small>03</small><strong>Process</strong><span>The system transcribes and translates with step-by-step progress and time expectations.</span></div>
+<div class="journey-step"><small>04</small><strong>Review</strong><span>The user plays the completed movie in the browser preview/player.</span></div>
+<div class="journey-step"><small>05</small><strong>Save</strong><span>The user chooses between downloading the video or downloading the correct SRT file.</span></div>
+</div>
+<div class="split-grid">
+<article class="panel accent">
+<div class="panel-k">Reiterated Structure</div>
+<h3 class="panel-h">Keep language context attached to every output.</h3>
+<p class="panel-p">The updated journey keeps the language summary near the video preview and SRT buttons so Language 1 and Language 2 do not become abstract labels by the time the user reaches export.</p>
+</article>
+<article class="panel">
+<div class="panel-k">Reiterated Feedback</div>
+<h3 class="panel-h">Separate readiness from action.</h3>
+<p class="panel-p">The system should show that processing is complete before enabling Watch Now, Download Video, or Download SRT. That turns the output screen into a confident decision point rather than a guessing moment.</p>
+</article>
+</div>
+<div class="doc-band">
+<h3>The final journey is collaborative by design.</h3>
+<p>The reiterated path supports a shared cognitive experience: both viewers can understand the content at the same time, compare subtitle tracks, and leave with the outputs they need without switching platforms or breaking the viewing moment.</p>
+</div>
+</section>
+<footer>
+<div class="foot">
+<span>Head® - Kaitlyn Head</span>
+<span>Dual Subtitle Studio</span>
+</div>
+</footer>
+</main>
+<script>
+var cur = document.getElementById('cur');
+var curr = document.getElementById('curr');
+if (cur && curr) {
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; });
+  (function loop(){ rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; curr.style.left = rx + 'px'; curr.style.top = ry + 'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a, button, .panel, .mini-card, .journey-step, .metric, .question-card, .doc-band, .prompt-card, .prototype-frame, .flow-step, .journey-card, .insight-card, .sketch-window, .scenario-panel, .output-card, .lens-card, .state-step, .wire-col, .test-task, .success-cell').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ cur.style.width='14px'; cur.style.height='14px'; curr.style.width='48px'; curr.style.height='48px'; });
+    el.addEventListener('mouseleave', function(){ cur.style.width='6px'; cur.style.height='6px'; curr.style.width='28px'; curr.style.height='28px'; });
+  });
+}
+
+document.querySelectorAll('.sn-btn').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    document.querySelectorAll('.sn-btn').forEach(function(b){ if (b !== btn) b.classList.remove('open'); });
+    btn.classList.toggle('open');
+  });
+});
+document.addEventListener('click', function(){ document.querySelectorAll('.sn-btn').forEach(function(b){ b.classList.remove('open'); }); });
+
+var navLinks = document.querySelectorAll('.nav-link');
+var ids = Array.prototype.map.call(navLinks, function(a){ return a.getAttribute('href').replace('#',''); });
+function setActive(id){
+  navLinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+}
+navLinks.forEach(function(a){
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    var id = a.getAttribute('href').replace('#','');
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({behavior:'smooth'});
+    setActive(id);
+  });
+});
+window.addEventListener('scroll', function(){
+  var y = window.scrollY + 120;
+  var active = ids[0];
+  ids.forEach(function(id){
+    var el = document.getElementById(id);
+    if (el && el.offsetTop <= y) active = id;
+  });
+  setActive(active);
+});
+</script>
+</body>
+</html>
