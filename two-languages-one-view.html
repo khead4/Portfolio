@@ -699,6 +699,385 @@ footer{padding:80px 0 0}
 .language-cell.more{border-style:dashed;color:var(--gold2)}
 @media (max-width:1100px){.proposal-visual-grid{grid-template-columns:1fr}.problem-visual,.priority-visual,.language-visual{grid-template-columns:1fr 1fr}.solution-visual{grid-template-columns:1fr}.sync-icon{margin:auto}.problem-node::after{display:none}}
 
+/* --- Vibrant dual-language identity layer --- */
+:root{
+  --lang-one:#a892eb;
+  --lang-one-strong:#bda9ff;
+  --lang-two:#24d8c4;
+  --lang-two-strong:#7ff3e4;
+  --output-gold:#d4b078;
+  --signal-rose:#e85f9f;
+  --deep-ink:#03030a;
+  --glass-ink:rgba(8,8,18,.82);
+}
+body{
+  background:var(--bg);
+  color:var(--cream);
+}
+body::before{
+  display:none;
+}
+body::after{
+  opacity:.03;
+}
+.sidenav{
+  background:rgba(5,5,7,.72);
+  border-right:1px solid var(--border);
+  box-shadow:none;
+}
+.sn-btn{
+  color:var(--muted);
+  border-color:transparent;
+  background:transparent;
+  box-shadow:none;
+}
+.sn-btn:hover,.sn-btn.open,.sn-btn.act{
+  color:var(--gold);
+  border-color:rgba(184,150,90,.15);
+  background:rgba(184,150,90,.07);
+}
+.sn-flyout{
+  min-width:160px;
+  background:rgba(5,5,7,.96);
+  border-color:var(--border2);
+  box-shadow:none;
+}
+.sn-flyout-label{
+  color:var(--gold);
+  opacity:.5;
+}
+.sn-flyout a:hover{
+  color:var(--cream);
+  background:rgba(184,150,90,.07);
+}
+.nav-link.active,
+.sec-tag,
+.panel-k,
+.mini-card .label{
+  color:var(--lang-two);
+}
+.top-nav{
+  background:rgba(2,2,8,.86);
+  border-bottom-color:rgba(36,216,196,.18);
+  box-shadow:0 14px 46px rgba(0,0,0,.24);
+}
+.nav-link.active{
+  border-bottom-color:var(--lang-two);
+  background:linear-gradient(180deg,rgba(36,216,196,.08),transparent);
+}
+.main{
+  padding-top:0;
+}
+.page-hero{
+  position:relative;
+  isolation:isolate;
+  min-height:720px;
+  align-items:center;
+  padding:96px 0 86px;
+  border-bottom-color:rgba(36,216,196,.18);
+}
+.page-hero::before{
+  content:'';
+  position:absolute;
+  inset:48px -40px 40px -40px;
+  z-index:-1;
+  border:1px solid rgba(240,236,228,.08);
+  background:transparent;
+}
+.page-hero::after{
+  content:'';
+  position:absolute;
+  left:-40px;
+  right:-40px;
+  bottom:40px;
+  height:7px;
+  z-index:-1;
+  background:linear-gradient(90deg,var(--lang-one),var(--lang-two),var(--output-gold),var(--signal-rose));
+}
+.hero-kicker{
+  color:var(--lang-two-strong);
+  opacity:1;
+}
+.hero-kicker::before{
+  background:linear-gradient(90deg,var(--lang-one),var(--lang-two));
+}
+.hero-h{
+  max-width:720px;
+  font-size:76px;
+  line-height:.94;
+  color:#fffaf2;
+  text-shadow:0 18px 60px rgba(0,0,0,.55);
+}
+.hero-h em{
+  color:var(--output-gold);
+  text-shadow:0 0 34px rgba(212,176,120,.18);
+}
+.hero-sub{
+  max-width:720px;
+  color:rgba(248,244,236,.74);
+  font-size:15px;
+}
+.btn{
+  color:var(--lang-two-strong);
+  border-color:rgba(36,216,196,.34);
+  background:rgba(36,216,196,.035);
+}
+.btn.primary{
+  color:#03030a;
+  border-color:transparent;
+  background:linear-gradient(90deg,var(--lang-one),var(--lang-two));
+  box-shadow:0 16px 44px rgba(36,216,196,.18);
+}
+.btn:hover{
+  background:rgba(168,146,235,.12);
+  color:#fffaf2;
+}
+.prototype-frame{
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(36,216,196,.34);
+  background:
+    linear-gradient(135deg,rgba(168,146,235,.20),rgba(5,5,14,.92) 36%,rgba(36,216,196,.13) 100%);
+  box-shadow:0 34px 90px rgba(0,0,0,.48),0 0 0 1px rgba(168,146,235,.16),0 0 56px rgba(36,216,196,.10);
+}
+.prototype-frame::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(168,146,235,.20) 0 2px,transparent 2px 50%,rgba(36,216,196,.16) 50% calc(50% + 2px),transparent calc(50% + 2px) 100%);
+}
+.prototype-frame>*{position:relative;z-index:1}
+.proto-brand{
+  color:#fffaf2;
+}
+.proto-brand em{
+  color:var(--lang-two-strong);
+}
+.proto-status{
+  color:var(--lang-two-strong);
+  border-color:rgba(36,216,196,.40);
+  background:rgba(36,216,196,.08);
+}
+.proto-stage{
+  border-color:rgba(240,236,228,.14);
+  background:
+    linear-gradient(90deg,rgba(168,146,235,.16),transparent 50%,rgba(36,216,196,.13)),
+    #020203;
+}
+.video-lines{
+  border-color:rgba(240,236,228,.10);
+}
+.video-lines span:nth-child(1){
+  border-color:rgba(168,146,235,.28);
+  background:rgba(168,146,235,.055);
+}
+.video-lines span:nth-child(2){
+  border-color:rgba(36,216,196,.26);
+  background:rgba(36,216,196,.045);
+}
+.sub-lane{
+  border-color:rgba(168,146,235,.78);
+  background:rgba(8,5,22,.78);
+  color:#fffaf2;
+}
+.sub-lane.secondary{
+  border-color:rgba(36,216,196,.72);
+  background:rgba(2,20,19,.78);
+  color:var(--lang-two-strong);
+}
+.proto-control{
+  border-color:rgba(240,236,228,.13);
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(0,0,0,.18));
+}
+.proto-control:nth-child(1){border-color:rgba(168,146,235,.30)}
+.proto-control:nth-child(2){border-color:rgba(36,216,196,.28)}
+.proto-control:nth-child(3){border-color:rgba(212,176,120,.28)}
+.proto-control:nth-child(4){border-color:rgba(232,95,159,.25)}
+.ux-section{
+  position:relative;
+}
+.ux-section::before{
+  content:'';
+  display:block;
+  height:1px;
+  margin-bottom:34px;
+  background:linear-gradient(90deg,transparent,var(--lang-one),var(--lang-two),var(--output-gold),transparent);
+  opacity:.44;
+}
+.sec-num{
+  color:rgba(36,216,196,.18);
+}
+.sec-h{
+  color:#fffaf2;
+}
+.sec-h em,
+.panel-h em{
+  color:var(--output-gold);
+}
+.sec-rule{
+  background:linear-gradient(90deg,rgba(168,146,235,.40),rgba(36,216,196,.30),transparent);
+}
+.panel,
+.mini-card,
+.compare-col,
+.trans-lane,
+.research-protocol,
+.measure-board,
+.session-map,
+.summative-journey,
+.flow-map,
+.doc-band,
+.course-map,
+.proposal-card,
+.testing-card,
+.journey-card,
+.insight-card,
+.output-card,
+.lens-card,
+.wire-col,
+.test-task,
+.success-cell{
+  border-color:rgba(240,236,228,.13);
+  background:
+    linear-gradient(145deg,rgba(168,146,235,.08),rgba(8,8,18,.74) 44%,rgba(36,216,196,.055));
+  box-shadow:0 18px 50px rgba(0,0,0,.22);
+}
+.panel.accent,
+.doc-band,
+.flow-map,
+.measure-board,
+.summative-journey,
+.course-map,
+.prototype-task-flow{
+  border-color:rgba(36,216,196,.26);
+}
+.mini-card:nth-child(3n+1),
+.question-card:nth-child(3n+1),
+.metric:nth-child(3n+1){
+  border-color:rgba(168,146,235,.30);
+}
+.mini-card:nth-child(3n+2),
+.question-card:nth-child(3n+2),
+.metric:nth-child(3n+2){
+  border-color:rgba(36,216,196,.30);
+}
+.mini-card:nth-child(3n),
+.question-card:nth-child(3n),
+.metric:nth-child(3n){
+  border-color:rgba(212,176,120,.30);
+}
+.participant-card{
+  background:linear-gradient(180deg,var(--person-soft),rgba(8,8,18,.88));
+  box-shadow:0 20px 50px rgba(0,0,0,.30);
+}
+.participant-card.xiayu{--person-soft:rgba(168,146,235,.20);--person-border:rgba(168,146,235,.68)}
+.participant-card.zach{--person-soft:rgba(36,216,196,.16);--person-border:rgba(36,216,196,.62)}
+.participant-card.kim{--person-soft:rgba(232,95,159,.14);--person-border:rgba(232,95,159,.50);--person:#e85f9f}
+.participant-photo{
+  border-bottom-color:var(--person-border);
+}
+.participant-meta span,
+.person-chip{
+  background:var(--person-soft);
+}
+.lens-collage,
+.prototype-task-flow,
+.evidence-bridge,
+.transformation-map{
+  border-color:rgba(168,146,235,.24);
+  background:
+    linear-gradient(135deg,rgba(168,146,235,.12),rgba(36,216,196,.055) 48%,rgba(212,176,120,.08));
+}
+.flow-node,
+.journey-step,
+.flow-step,
+.session-lane,
+.assignment-node,
+.summative-step,
+.measure-tile,
+.test-lens,
+.state-step,
+.wireframe-card,
+.lofi-screen,
+.schedule-stop{
+  border-color:rgba(240,236,228,.13);
+  background:rgba(3,3,12,.58);
+}
+.flow-node.win,
+.trans-lane.future,
+.testing-action,
+.fork-branch:first-of-type,
+.solution-track{
+  border-color:rgba(36,216,196,.42);
+  background:rgba(36,216,196,.075);
+}
+.flow-node.break,
+.testing-action.gold,
+.journey-card.gold,
+.language-cell{
+  border-color:rgba(212,176,120,.46);
+  background:rgba(212,176,120,.075);
+}
+.output-card,
+.live-shell{
+  border-color:rgba(168,146,235,.34);
+  background:
+    linear-gradient(135deg,rgba(168,146,235,.12),rgba(3,3,10,.92) 42%,rgba(36,216,196,.075));
+  box-shadow:0 26px 70px rgba(0,0,0,.38),0 0 54px rgba(168,146,235,.10);
+}
+.live-bar{
+  border-bottom-color:rgba(36,216,196,.18);
+  background:linear-gradient(90deg,rgba(168,146,235,.10),rgba(36,216,196,.06));
+}
+.live-open{
+  color:var(--lang-two-strong);
+}
+.mock-screen,
+.test-screen,
+.sketch-window,
+.interface-screen{
+  border-color:rgba(36,216,196,.24);
+  background:
+    linear-gradient(135deg,rgba(168,146,235,.11),rgba(0,0,0,.35) 52%,rgba(36,216,196,.10));
+}
+.mock-sub.one,
+.interface-sub.one{
+  background:rgba(168,146,235,.24);
+  border-color:rgba(168,146,235,.64);
+}
+.mock-sub.two,
+.interface-sub.two{
+  background:rgba(36,216,196,.18);
+  border-color:rgba(36,216,196,.62);
+}
+footer .foot{
+  border-top-color:rgba(36,216,196,.20);
+}
+@media(max-width:1100px){
+  .page-hero{
+    min-height:auto;
+    padding-top:84px;
+  }
+  .hero-h{
+    font-size:62px;
+  }
+}
+@media(max-width:700px){
+  body::before{display:none}
+  .page-hero::before{
+    inset:54px 0 32px 0;
+  }
+  .page-hero::after{
+    left:0;
+    right:0;
+  }
+  .hero-h{
+    font-size:46px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -723,7 +1102,7 @@ footer{padding:80px 0 0}
 <div class="sn-flyout">
 <span class="sn-flyout-label">Projects</span>
 <a href="botanic-elixir.html">Botanic Elixir</a>
-<a href="two-languages-one-view.html">Two Languages- One View</a>
+<a href="two-languages-one-view.html">Two Languages, One View</a>
 <a href="hydrogen-field-guide.html">Hydrogen Field Guide</a>
 <a href="macomb-flood.html">Macomb Flood Platform</a>
 <a href="All_Projects.html">All Projects</a>
@@ -767,7 +1146,7 @@ footer{padding:80px 0 0}
 <header class="page-hero" id="overview">
 <div>
 <div class="hero-kicker">Dual Subtitle Platform</div>
-<h1 class="hero-h">Two Languages- <br/><em>One View</em></h1>
+<h1 class="hero-h">Two Languages, <br/><em>One View</em></h1>
 <p class="hero-sub">A multilingual dual-subtitle video platform designed for shared understanding across languages. The project reframes subtitles from a single-user accessibility setting into a shared cognitive system for multicultural households, bilingual relationships, language learners, and global audiences.</p>
 <div class="hero-actions">
 <a class="btn primary" href="https://two-languages-one-view.onrender.com/?v=5e9c1dd" target="_blank">Open Prototype ↗</a>
@@ -1584,7 +1963,7 @@ footer{padding:80px 0 0}
 <div class="live-url">https://two-languages-one-view.onrender.com/?v=5e9c1dd</div>
 <a class="live-open" href="https://two-languages-one-view.onrender.com/?v=5e9c1dd" target="_blank">Open live ↗</a>
 </div>
-<iframe class="live-frame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-popups allow-popups-to-escape-sandbox" src="https://two-languages-one-view.onrender.com/?v=5e9c1dd" title="Two Languages- One View live prototype"></iframe>
+<iframe class="live-frame" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads allow-popups allow-popups-to-escape-sandbox" src="https://two-languages-one-view.onrender.com/?v=5e9c1dd" title="Two Languages, One View live prototype"></iframe>
 </div>
 </section>
 <section class="ux-section" id="summative">
